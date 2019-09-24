@@ -1,6 +1,8 @@
 # LSS
 List simple solutions for the sum of three cubes: x³ + y³ + z³ = k (for k <= 1000)
 
+See main.c for the source code.
+
 Execute the following steps:
 
 (1) git clone https://github.com/fleschutz/LSS.git
