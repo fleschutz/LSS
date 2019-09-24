@@ -1,5 +1,5 @@
 # LSS
-List simple solutions for the sum of three cubes: x³ + y³ + z³ = k     for k <= 1000
+List simple solutions for the sum of three cubes: x³ + y³ + z³ = k (for k <= 1000)
 
 Execute the following steps:
 
