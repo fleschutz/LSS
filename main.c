@@ -46,9 +46,10 @@ static void solve(BigInt k)
 	printf("%ld = no simple solution\n", k);
 }
 
-void main()
+int main()
 {
-	printf("List of solutions of x³ + y³ + z³ = k    for k < 1000\n");
+	printf("List of simple solutions of x³ + y³ + z³ = k    for k < 1000\n");
 	for (BigInt k = 0; k <= 1000; ++k) 
 		solve(k);
+	return 0;
 }
