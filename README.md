@@ -7,7 +7,6 @@ Execute the following steps:
 
 (2) cd LSS
 
-(3) gcc -O3 main.c   (when using the GCC compiler)
-    clang -O3 main.c (when using the CLANG compiler)
+(3) gcc -O3 main.c   (when using the GCC compiler) or: clang -O3 main.c (when using the CLANG compiler)
 
 (4) ./a.out
