@@ -3,7 +3,7 @@
 
 #define BigInt int64_t
 
-#define MAXROUNDS 2000
+#define MAX_ROUNDS 2000
 
 static void solve(BigInt k)
 {
@@ -12,13 +12,16 @@ static void solve(BigInt k)
 		printf("%ld = no solution\n", k);
 		return;
 	}
-	for (BigInt x = 0; x < MAXROUNDS; ++x) {
+	for (BigInt x = 0; x < MAX_ROUNDS; ++x)
+	{
 		BigInt x3 = x * x * x;
 
-		for (BigInt y = 0; y <= x; ++y) {
+		for (BigInt y = 0; y <= x; ++y)
+		{
 			BigInt y3 = y * y * y;
 
-			for (BigInt z = 0; z <= y; ++z) {
+			for (BigInt z = 0; z <= y; ++z)
+			{
 				BigInt z3 = z * z * z;
 
 				if (x3 + y3 + z3 == k) 
