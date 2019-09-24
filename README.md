@@ -1,5 +1,5 @@
 # LSS
-List simple solutions for the sum of three cubes: x³ + y³ + z³ = k     for k <= 1000
+List simple solutions for the sum of three cubes: x³ + y³ + z³ = k (for k <= 1000)
 
 Execute the following steps:
 
@@ -7,6 +7,6 @@ Execute the following steps:
 
 (2) cd LSS
 
-(3) gcc main.c   (when using the GCC compiler)
+(3) gcc -O3 main.c   (when using the GCC compiler) or: clang -O3 main.c (when using the CLANG compiler)
 
 (4) ./a.out
