@@ -3,9 +3,12 @@
 
 #define BigInt int64_t
 
-#define MAX_ROUNDS 2000
+#define MAX_ROUNDS 1500
+const BigInt MAX_RESULTS = 100000;
+BigInt cubeNumbers[MAX_ROUNDS];
 
-static void solve(BigInt k)
+
+void solve(BigInt k)
 {
 	if ((k % 9) == 4)
 	{
@@ -14,15 +17,15 @@ static void solve(BigInt k)
 	}
 	for (BigInt x = 0; x < MAX_ROUNDS; ++x)
 	{
-		BigInt x3 = x * x * x;
+		BigInt x3 = cubeNumbers[x];
 
 		for (BigInt y = 0; y <= x; ++y)
 		{
-			BigInt y3 = y * y * y;
+			BigInt y3 = cubeNumbers[y];
 
 			for (BigInt z = 0; z <= y; ++z)
 			{
-				BigInt z3 = z * z * z;
+				BigInt z3 = cubeNumbers[z];
 
 				if (x3 + y3 + z3 == k) 
 					printf("%ld = %ld³ + %ld³ + %ld³\n", k, x, y, z);
@@ -51,8 +54,13 @@ static void solve(BigInt k)
 
 int main()
 {
-	printf("List of simple solutions of x³ + y³ + z³ = k    for k < 1000\n");
-	for (BigInt k = 0; k <= 1000; ++k) 
+	printf("List of simple solutions of x³ + y³ + z³ = k    for k < %ld\n", MAX_RESULTS);
+
+	// pre-calculate cube numbers for performance:
+	for (BigInt i = 0; i < MAX_ROUNDS; ++i)
+		cubeNumbers[i] = i * i * i;
+
+	for (BigInt k = 0; k <= MAX_RESULTS; ++k) 
 		solve(k);
 	return 0;
 }

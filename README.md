@@ -1,16 +1,17 @@
-# LSS
-List simple solutions for the sum of three cubes: x³ + y³ + z³ = k (for k <= 1000)
+LSS
+===
 
-See main.c for the source code.
+Program to list simple solutions for the sum of three cubes: x³ + y³ + z³ = k (for k <= 100000)
 
 Execute the following steps:
 
-(1) git clone https://github.com/fleschutz/LSS.git
+1. git clone https://github.com/fleschutz/LSS.git
 
-(2) cd LSS
+2. cd LSS
 
-(3) gcc -O3 main.c   (when using the GCC compiler) or: clang -O3 main.c (when using the CLANG compiler)
+3. gcc -O3 main.c   (when using the GCC compiler)
+   clang -O3 main.c (when using the CLANG compiler)
 
-(4) ./a.out
+4. ./a.out
 
 See output.txt for the output 
