@@ -11,16 +11,16 @@ unsigned char gotResult[MAX_RESULTS];
 
 static void printAndRemember(BigInt x, BigInt y, BigInt z, BigInt n)
 {
-	// print sorted by size:
-	if (x >= y && y >= z)
+	// print sorted by size: (low to high)
+	if (x <= y && y <= z)
 		printf("%ld = %ld³ + %ld³ + %ld³\n", n, x, y, z);
-	else if (x >= z && z >= y)
+	else if (x <= z && z <= y)
 		printf("%ld = %ld³ + %ld³ + %ld³\n", n, x, z, y);
-	else if (y >= x && x >= z)
+	else if (y <= x && x <= z)
 		printf("%ld = %ld³ + %ld³ + %ld³\n", n, y, x, z);
-	else if (y >= z && z >= x)
+	else if (y <= z && z <= x)
 		printf("%ld = %ld³ + %ld³ + %ld³\n", n, y, z, x);
-	else if (z >= x && x >= y)
+	else if (z <= x && x <= y)
 		printf("%ld = %ld³ + %ld³ + %ld³\n", n, z, x, y);
 	else
 		printf("%ld = %ld³ + %ld³ + %ld³\n", n, z, y, x);
