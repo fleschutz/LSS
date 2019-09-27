@@ -1,9 +1,9 @@
 LSS
 ===
 
-Program to list simple solutions for the sum of three cubes: x³ + y³ + z³ = n (for n < 100000 and x,y,z < 100000)
+A program to list simple solutions (LSS) for the sum of three cubes: x³ + y³ + z³ = n (for n < 100000 and x,y,z < 100000)
 
-Execute the following steps:
+Perform the following steps, please:
 
 1. git clone https://github.com/fleschutz/LSS.git
 
