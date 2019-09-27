@@ -1,7 +1,7 @@
 LSS
 ===
 
-Program to list simple solutions for the sum of three cubes: x³ + y³ + z³ = k (for k < 100000 and search band < 1000)
+Program to list simple solutions for the sum of three cubes: x³ + y³ + z³ = n (for n < 100000 and x,y,z < 100000)
 
 Execute the following steps:
 
