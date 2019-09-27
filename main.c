@@ -2,33 +2,36 @@
 #include <stdio.h>
 
 #define BigInt int64_t
-#define MAX_ROUNDS 1000
+#define MAX_ROUNDS 100000
 #define MAX_RESULTS 100000
 BigInt cubeNumbers[MAX_ROUNDS];
 unsigned char gotResult[MAX_RESULTS];
 
-#define wanted(k) (k < MAX_RESULTS && !gotResult[k])
+#define wanted(n) (n < MAX_RESULTS && !gotResult[n])
 
-static void print(BigInt x, BigInt y, BigInt z, BigInt k)
+static void printAndRemember(BigInt x, BigInt y, BigInt z, BigInt n)
 {
+	// print sorted by size:
 	if (x >= y && y >= z)
-		printf("%ld = %ld³ + %ld³ + %ld³\n", k, x, y, z);
+		printf("%ld = %ld³ + %ld³ + %ld³\n", n, x, y, z);
 	else if (x >= z && z >= y)
-		printf("%ld = %ld³ + %ld³ + %ld³\n", k, x, z, y);
+		printf("%ld = %ld³ + %ld³ + %ld³\n", n, x, z, y);
 	else if (y >= x && x >= z)
-		printf("%ld = %ld³ + %ld³ + %ld³\n", k, y, x, z);
+		printf("%ld = %ld³ + %ld³ + %ld³\n", n, y, x, z);
 	else if (y >= z && z >= x)
-		printf("%ld = %ld³ + %ld³ + %ld³\n", k, y, z, x);
+		printf("%ld = %ld³ + %ld³ + %ld³\n", n, y, z, x);
 	else if (z >= x && x >= y)
-		printf("%ld = %ld³ + %ld³ + %ld³\n", k, z, x, y);
+		printf("%ld = %ld³ + %ld³ + %ld³\n", n, z, x, y);
 	else
-		printf("%ld = %ld³ + %ld³ + %ld³\n", k, z, y, x);
-	gotResult[k] = 1;
+		printf("%ld = %ld³ + %ld³ + %ld³\n", n, z, y, x);
+
+	// remember this:
+	gotResult[n] = 1;
 }
 
 int main()
 {
-	printf("# List of simple solutions of x³ + y³ + z³ = k  (for k < %d, search band < %d)\n", MAX_RESULTS, MAX_ROUNDS);
+	printf("# List of simple solutions of x³ + y³ + z³ = n  (for n < %d and x,y,z < %d)\n", MAX_RESULTS, MAX_ROUNDS);
 
 	// pre-calculate cube numbers for performance:
 	for (BigInt i = 0; i < MAX_ROUNDS; ++i)
@@ -47,42 +50,36 @@ int main()
 			{
 				const BigInt z3 = cubeNumbers[z];
 
-			       	BigInt k = x3 + y3 + z3;
-				if (k >= 0)
-				{	
-					if (wanted(k))
-						print(x, y, z, k);
-				}
-				else if (wanted(-k))
-					print(-x, -y, -z, -k);
+			       	register BigInt n = x3 + y3 + z3;
+				if (wanted(n))
+					printAndRemember(x, y, z, n);
 
-				k = -x3 + y3 + z3;
-				if (k >= 0)
+				n = -x3 + y3 + z3;
+				if (n >= 0)
 				{
-					if (wanted(k))
-						print(-x, y, z, k);
+					if (wanted(n))
+						printAndRemember(-x, y, z, n);
 				}
-				else if (wanted(-k))
-					print(x, -y, -z, -k);
+				else if (wanted(-n))
+					printAndRemember(x, -y, -z, -n);
 
-				k = x3 - y3 + z3;
-				if (k >= 0)
+				n = x3 - y3 + z3;
+				if (n >= 0)
 				{
-					if (wanted(k))
-						print(x, -y, z, k);
+					if (wanted(n))
+						printAndRemember(x, -y, z, n);
 				}
-				else if (wanted(-k))
-					print(-x, y, -z, -k);
+				else if (wanted(-n))
+					printAndRemember(-x, y, -z, -n);
 
-				k = x3 + y3 - z3;
-				if (k >= 0)
+				n = x3 + y3 - z3;
+				if (n >= 0)
 				{
-					if (wanted(k))
-						print(x, y, -z, k);
+					if (wanted(n))
+						printAndRemember(x, y, -z, n);
 				}
-				else if (wanted(-k))
-					print(-x, -y, z, -k);
-
+				else if (wanted(-n))
+					printAndRemember(-x, -y, z, -n);
 			}
 		}
 	}
