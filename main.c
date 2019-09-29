@@ -37,6 +37,10 @@ int main()
 	for (BigInt i = 0; i < MAX_ROUNDS; ++i)
 		cubeNumbers[i] = i * i * i;
 
+	for (BigInt n = 0; n < MAX_ROUNDS; ++n)
+		if (n == 4 || (n % 9) == 5)
+			printf("%ld = no solution\n", n);
+
 	// iterate:
 	for (BigInt x = 0; x < MAX_ROUNDS; ++x)
 	{
