@@ -1,15 +1,16 @@
 #include <inttypes.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #define BigInt int64_t
 #define MAX_ROUNDS 100000
 #define MAX_RESULTS 100000
 BigInt cubeNumbers[MAX_ROUNDS];
-unsigned char gotResult[MAX_RESULTS];
+uint32_t numSolutions[MAX_RESULTS];
 
-#define wanted(n) (n < MAX_RESULTS && !gotResult[n])
+#define wanted(n) (-MAX_RESULTS < n && n < MAX_RESULTS && numSolutions[labs(n)]++ == 0)
 
-void printAndRemember(BigInt x, BigInt y, BigInt z, BigInt n)
+static void print(const BigInt x, const BigInt y, const BigInt z, const BigInt n)
 {
 	// print sorted by size: (from low to high)
 	if (x <= y && y <= z)
@@ -24,12 +25,9 @@ void printAndRemember(BigInt x, BigInt y, BigInt z, BigInt n)
 		printf("%ld = %ld³ + %ld³ + %ld³\n", n, z, x, y);
 	else
 		printf("%ld = %ld³ + %ld³ + %ld³\n", n, z, y, x);
-
-	// remember this:
-	gotResult[n] = 1;
 }
 
-int hasNoSolution(const BigInt n)
+static int hasNoSolution(const BigInt n)
 {
 	switch (n % 9)
 	{
@@ -60,42 +58,42 @@ int main()
 
 		for (BigInt y = 0; y <= x; ++y)
 		{
-			const BigInt y3 = cubeNumbers[y];
+			const BigInt y3 = cubeNumbers[y], x3y3 = x3 + y3;
 
 			for (BigInt z = 0; z <= y; ++z)
 			{
 				const BigInt z3 = cubeNumbers[z];
 
-			       	register BigInt n = x3 + y3 + z3;
+			       	register BigInt n = x3y3 + z3;
 				if (wanted(n))
-					printAndRemember(x, y, z, n);
+					print(x, y, z, n);
 
 				n = -x3 + y3 + z3;
-				if (n >= 0)
+				if (wanted(n))
 				{
-					if (wanted(n))
-						printAndRemember(-x, y, z, n);
+					if (n >= 0)
+						print(-x, y, z, n);
+					else
+						print(x, -y, -z, -n);
 				}
-				else if (wanted(-n))
-					printAndRemember(x, -y, -z, -n);
 
 				n = x3 - y3 + z3;
-				if (n >= 0)
+				if (wanted(n))
 				{
-					if (wanted(n))
-						printAndRemember(x, -y, z, n);
+					if (n >= 0)
+						print(x, -y, z, n);
+					else
+						print(-x, y, -z, -n);
 				}
-				else if (wanted(-n))
-					printAndRemember(-x, y, -z, -n);
 
-				n = x3 + y3 - z3;
-				if (n >= 0)
+				n = x3y3 - z3;
+				if (wanted(n))
 				{
-					if (wanted(n))
-						printAndRemember(x, y, -z, n);
+					if (n >= 0)
+						print(x, y, -z, n);
+					else
+						print(-x, -y, z, -n);
 				}
-				else if (wanted(-n))
-					printAndRemember(-x, -y, z, -n);
 			}
 		}
 	}
