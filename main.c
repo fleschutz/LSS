@@ -9,9 +9,9 @@ unsigned char gotResult[MAX_RESULTS];
 
 #define wanted(n) (n < MAX_RESULTS && !gotResult[n])
 
-static void printAndRemember(BigInt x, BigInt y, BigInt z, BigInt n)
+void printAndRemember(BigInt x, BigInt y, BigInt z, BigInt n)
 {
-	// print sorted by size: (low to high)
+	// print sorted by size: (from low to high)
 	if (x <= y && y <= z)
 		printf("%ld = %ld³ + %ld³ + %ld³\n", n, x, y, z);
 	else if (x <= z && z <= y)
@@ -29,6 +29,18 @@ static void printAndRemember(BigInt x, BigInt y, BigInt z, BigInt n)
 	gotResult[n] = 1;
 }
 
+int hasNoSolution(const BigInt n)
+{
+	switch (n % 9)
+	{
+	case 4: 
+	case 5: 
+		return 1;
+	default:
+		return 0;
+	}
+}
+
 int main()
 {
 	printf("# List of simple solutions of x³ + y³ + z³ = n  (for n < %d and x,y,z < %d)\n", MAX_RESULTS, MAX_ROUNDS);
@@ -38,7 +50,7 @@ int main()
 		cubeNumbers[i] = i * i * i;
 
 	for (BigInt n = 0; n < MAX_ROUNDS; ++n)
-		if (n == 4 || (n % 9) == 5)
+		if (hasNoSolution(n))
 			printf("%ld = no solution\n", n);
 
 	// iterate:

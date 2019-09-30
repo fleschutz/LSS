@@ -15,4 +15,35 @@ Perform the following steps, please:
 
 5. sort -g out.txt > list.txt
 
-Now, see list.txt for the resulting solutions.
+Now, see list.txt for the resulting simple solutions.
+
+
+Currently known complicated solutions
+-------------------------------------
+* 33 = 88661289752875283³ − 87784054428622393³ − 27361114688070403³
+
+* 42 = -80538738812075974³ + 80435758145817515³ + 1260212329733563³ 
+
+* 906 = (−74924259395610397)³ + 72054089679353378³ + 35961979615356503³
+
+
+Currently unsolved solutions
+----------------------------
+* 114 = ?
+
+* 165 = ?
+
+* 390 = ?
+
+* 579 = ?
+
+* 627 = ?
+
+* 633 = ?
+
+* 732 = ?
+
+* 921 = ?
+
+* 975 = ?
+
