@@ -1,7 +1,7 @@
 LSS
 ===
 
-A small C program to list simple solutions (LSS) for the sum of three cubes: x³ + y³ + z³ = n (for n < 1000 and x,y,z < 100000)
+A small C program to list simple solutions (LSS) for the sum of three cubes: x³ + y³ + z³ = n (for n < 1000 and x,y,z < 100000, solutions formatted for: x <= y <= z)
 
 Perform the following steps, please:
 

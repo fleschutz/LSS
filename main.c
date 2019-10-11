@@ -52,7 +52,7 @@ static int hasNoSolution(const BigInt n)
 
 int main()
 {
-	printf("# List of simple solutions of x³ + y³ + z³ = n  (for n < %d and x,y,z < %d)\n", MAX_RESULTS, MAX_ROUNDS);
+	printf("# List of simple solutions of n = x³ + y³ + z³  (for n < %d and x,y,z < %d, solution formatted for: x <= y <= z)\n", MAX_RESULTS, MAX_ROUNDS);
 
 	// pre-calculate cube numbers:
 	for (BigInt i = 0; i < MAX_ROUNDS; ++i)
