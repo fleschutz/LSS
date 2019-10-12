@@ -10,6 +10,22 @@ uint32_t numSolutions[MAX_RESULTS];
 
 #define isInSearchRange(n) (n < MAX_RESULTS && n > -MAX_RESULTS)
 
+static void printNoSolutions()
+{
+	for (BigInt n = 0; n < MAX_RESULTS; ++n)
+	{
+		switch (n % 9)
+		{
+		case 4: 
+		case 5: 
+			printf("%ld = no solution\n", n);
+			break;
+		default:
+			break;
+		}
+	}
+}
+
 static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	if (n < 0)
@@ -38,32 +54,9 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 		printf("%ld = %ld³ + %ld³ + %ld³\n", n, z, y, x);
 }
 
-static int hasNoSolution(const BigInt n)
+
+static void printEasySolutions()
 {
-	switch (n % 9)
-	{
-	case 4: 
-	case 5: 
-		return 1;
-	default:
-		return 0;
-	}
-}
-
-int main()
-{
-	printf("# List of simple solutions of n = x³ + y³ + z³  (for n < %d and x,y,z < %d, solution formatted for: x <= y <= z)\n", MAX_RESULTS, MAX_ROUNDS);
-
-	// pre-calculate cube numbers:
-	for (BigInt i = 0; i < MAX_ROUNDS; ++i)
-		cubeNumbers[i] = i * i * i;
-
-	// print the no solutions:
-	for (BigInt n = 0; n < MAX_RESULTS; ++n)
-		if (hasNoSolution(n))
-			printf("%ld = no solution\n", n);
-
-	// iterate slow:
 	for (BigInt x = 0; x < MAX_RESULTS; ++x)
 	{
 		const BigInt x3 = cubeNumbers[x];
@@ -98,17 +91,19 @@ int main()
 			}
 		}
 	}
+}
 
-	// iterate fast:
+static void printNotSoEasySolutions()
+{
 	for (BigInt x = MAX_RESULTS; x < MAX_ROUNDS; ++x)
 	{
 		const BigInt x3 = cubeNumbers[x];
 
-		for (BigInt y = 0; y <= x; ++y)
+		for (BigInt y = MAX_RESULTS; y <= x; ++y)
 		{
 			const BigInt y3 = cubeNumbers[y], x3_minus_y3 = x3 - y3;
 
-			for (BigInt z = 0; z <= y; ++z)
+			for (BigInt z = MAX_RESULTS; z <= y; ++z)
 			{
 				const BigInt z3 = cubeNumbers[z];
 
@@ -121,5 +116,21 @@ int main()
 			}
 		}
 	}
+}
+
+int main()
+{
+	printf("# List of simple solutions of n = x³ + y³ + z³  (for n < %d and x,y,z < %d, solution formatted for: x <= y <= z)\n", MAX_RESULTS, MAX_ROUNDS);
+
+	// pre-calculate cube numbers:
+	for (BigInt i = 0; i < MAX_ROUNDS; ++i)
+		cubeNumbers[i] = i * i * i;
+
+	printNoSolutions();
+
+	printEasySolutions();
+
+	printNotSoEasySolutions();
+
 	return 0;
 }
