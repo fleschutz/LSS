@@ -35,11 +35,10 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 		z = -z;
 	}
 
-	// check if solution is unknown yet
 	if (numSolutions[n]++)
-		return;
+		return; // a solution for <n> already exits
 
-	// print sorted by size: (from low to high)
+	// print x/y/z sorted by size: (x <= y <= z)
 	if (x <= y && y <= z)
 		printf("%ld = %ld³ + %ld³ + %ld³\n", n, x, y, z);
 	else if (x <= z && z <= y)
@@ -55,9 +54,9 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 }
 
 
-static void printEasySolutions()
+static void printEachAndEverySolution() // slow
 {
-	for (BigInt x = 0; x < MAX_RESULTS; ++x)
+	for (BigInt x = 0; x < MAX_ROUNDS; ++x)
 	{
 		const BigInt x3 = cubeNumbers[x];
 
@@ -93,34 +92,37 @@ static void printEasySolutions()
 	}
 }
 
-static void printNotSoEasySolutions()
+static void printSolutionsByBinSearch()
 {
-	for (BigInt x = MAX_RESULTS; x < MAX_ROUNDS; ++x)
+	for (BigInt x = 0; x < MAX_ROUNDS; ++x)
 	{
-		const BigInt x3 = cubeNumbers[x];
-
-		for (BigInt y = MAX_RESULTS; y <= x; ++y)
+		for (BigInt y = 0; y <= x; ++y)
 		{
-			const BigInt y3 = cubeNumbers[y], x3_minus_y3 = x3 - y3;
+			const BigInt x3_minus_y3 = cubeNumbers[x] - cubeNumbers[y];
 
-			for (BigInt z = MAX_RESULTS; z <= y; ++z)
+			BigInt min = 0, max = y; // binary search
+			do
 			{
-				const BigInt z3 = cubeNumbers[z];
+				const BigInt z = (min + max) / 2;
+				const BigInt n = x3_minus_y3 - cubeNumbers[z];
 
-			       	const BigInt n = x3_minus_y3 - z3;
 				if (n >= MAX_RESULTS)
-					continue; // z is still too small
-				if (n <= -MAX_RESULTS)
-					break; // z is already too big
-				printSolution(n, x, -y, -z);
-			}
+					max = z - 1;
+				else if (n <= -MAX_RESULTS)
+					min = z + 1;
+				else
+				{
+					printSolution(n, x, -y, -z);
+					break;
+				}
+			} while (min <= max);
 		}
 	}
 }
 
 int main()
 {
-	printf("# List of simple solutions of n = x³ + y³ + z³  (for n < %d and x,y,z < %d, solution formatted for: x <= y <= z)\n", MAX_RESULTS, MAX_ROUNDS);
+	printf("# List of simple solutions of n = x³ + y³ + z³  (for n < %d and x,y,z < %d, solutions formatted to be: x <= y <= z)\n", MAX_RESULTS, MAX_ROUNDS);
 
 	// pre-calculate cube numbers:
 	for (BigInt i = 0; i < MAX_ROUNDS; ++i)
@@ -128,9 +130,9 @@ int main()
 
 	printNoSolutions();
 
-	printEasySolutions();
+	printEachAndEverySolution();
 
-	printNotSoEasySolutions();
+	// printSolutionsByBinSearch();
 
 	return 0;
 }
