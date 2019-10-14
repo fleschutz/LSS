@@ -10,7 +10,7 @@ uint32_t numSolutions[MAX_RESULTS];
 
 #define isInSearchRange(n) (n < MAX_RESULTS && n > -MAX_RESULTS)
 
-static void printNoSolutions()
+void printNoSolutions()
 {
 	for (BigInt n = 0; n < MAX_RESULTS; ++n)
 	{
@@ -26,7 +26,7 @@ static void printNoSolutions()
 	}
 }
 
-static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
+void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	if (n < 0)
 	{	n = -n;
@@ -53,8 +53,7 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 		printf("%ld = %ld³ + %ld³ + %ld³\n", n, z, y, x);
 }
 
-
-static void printEachAndEverySolution() // slow
+void printSolutionsByBruteForce() // slow
 {
 	for (BigInt x = 0; x < MAX_ROUNDS; ++x)
 	{
@@ -92,7 +91,7 @@ static void printEachAndEverySolution() // slow
 	}
 }
 
-static void printSolutionsByBinSearch()
+void printSolutionsByBinSearch()
 {
 	for (BigInt x = 0; x < MAX_ROUNDS; ++x)
 	{
@@ -130,7 +129,7 @@ int main()
 
 	printNoSolutions();
 
-	printEachAndEverySolution();
+	printSolutionsByBruteForce();
 
 	// printSolutionsByBinSearch();
 
