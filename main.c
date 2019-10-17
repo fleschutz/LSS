@@ -2,13 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define BigInt int64_t
+#define BigInt int64_t // or __int128_t 
 #define MAX_RESULTS 1000
-#define MAX_ROUNDS 100000 // must be bigger than MAX_RESULTS
+#define MAX_ROUNDS 1000000 
 BigInt cubeNumbers[MAX_ROUNDS]; // pre-calculated
 uint32_t numSolutions[MAX_RESULTS];
-
-#define isInSearchRange(n) (n < MAX_RESULTS && n > -MAX_RESULTS)
 
 void printNoSolutions()
 {
@@ -18,7 +16,7 @@ void printNoSolutions()
 		{
 		case 4: 
 		case 5: 
-			printf("%ld = no solution\n", n);
+			printf("%ld = no solution\n", (int64_t)n);
 			break;
 		default:
 			break;
@@ -38,32 +36,34 @@ void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 	if (numSolutions[n]++)
 		return; // a solution for <n> already exits
 
-	// print x/y/z sorted by size: (x <= y <= z)
+	// print formatted to be: x <= y <= z
 	if (x <= y && y <= z)
-		printf("%ld = %ld³ + %ld³ + %ld³\n", n, x, y, z);
+		printf("%ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
 	else if (x <= z && z <= y)
-		printf("%ld = %ld³ + %ld³ + %ld³\n", n, x, z, y);
+		printf("%ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)z, (int64_t)y);
 	else if (y <= x && x <= z)
-		printf("%ld = %ld³ + %ld³ + %ld³\n", n, y, x, z);
+		printf("%ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)x, (int64_t)z);
 	else if (y <= z && z <= x)
-		printf("%ld = %ld³ + %ld³ + %ld³\n", n, y, z, x);
+		printf("%ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)z, (int64_t)x);
 	else if (z <= x && x <= y)
-		printf("%ld = %ld³ + %ld³ + %ld³\n", n, z, x, y);
+		printf("%ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
 	else
-		printf("%ld = %ld³ + %ld³ + %ld³\n", n, z, y, x);
+		printf("%ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
 }
 
-void printSolutionsByBruteForce() // slow
+void printSolutionsByBruteForce(BigInt searchBegin, BigInt searchEnd)
 {
-	for (BigInt x = 0; x < MAX_ROUNDS; ++x)
+#define isInSearchRange(n) (n < MAX_RESULTS && n > -MAX_RESULTS)
+
+	for (BigInt x = searchBegin; x < searchEnd; ++x)
 	{
 		const BigInt x3 = cubeNumbers[x];
 
-		for (BigInt y = 0; y <= x; ++y)
+		for (BigInt y = searchBegin; y <= x; ++y)
 		{
 			const BigInt y3 = cubeNumbers[y];
 
-			for (BigInt z = 0; z <= y; ++z)
+			for (BigInt z = searchBegin; z <= y; ++z)
 			{
 				const BigInt z3 = cubeNumbers[z];
 
@@ -91,19 +91,18 @@ void printSolutionsByBruteForce() // slow
 	}
 }
 
-void printSolutionsByBinSearch()
+void printSolutionsByBinSearch(BigInt searchBegin, BigInt searchEnd)
 {
-	for (BigInt x = 0; x < MAX_ROUNDS; ++x)
+	for (BigInt x = searchBegin, *x3Ptr = &cubeNumbers[x]; x < searchEnd; ++x, ++x3Ptr)
 	{
-		for (BigInt y = 0; y <= x; ++y)
+		for (BigInt y = searchBegin, *y3Ptr = &cubeNumbers[y]; y <= x; ++y, ++y3Ptr)
 		{
-			const BigInt x3_minus_y3 = cubeNumbers[x] - cubeNumbers[y];
-
-			BigInt min = 0, max = y; // binary search
+			// Binary search for: x³ - y³ - z³
+			BigInt min = searchBegin, max = x; 
 			do
 			{
-				const BigInt z = (min + max) / 2;
-				const BigInt n = x3_minus_y3 - cubeNumbers[z];
+				const BigInt z = (min + max) / (BigInt)2;
+				const BigInt n = *x3Ptr - *y3Ptr - cubeNumbers[z];
 
 				if (n >= MAX_RESULTS)
 					max = z - 1;
@@ -112,6 +111,42 @@ void printSolutionsByBinSearch()
 				else
 				{
 					printSolution(n, x, -y, -z);
+					break;
+				}
+			} while (min <= max);
+			
+			// Binary search for: x³ - y³ + z³
+			min = searchBegin, max = x + y; 
+			do
+			{
+				const BigInt z = (min + max) / (BigInt)2;
+				const BigInt n = *x3Ptr - *y3Ptr + cubeNumbers[z];
+
+				if (n >= MAX_RESULTS)
+					max = z - 1;
+				else if (n <= -MAX_RESULTS)
+					min = z + 1;
+				else
+				{
+					printSolution(n, x, -y, z);
+					break;
+				}
+			} while (min <= max);
+			
+			// Binary search for: -x³ + y³ + z³
+			min = searchBegin, max = x + y; 
+			do
+			{
+				const BigInt z = (min + max) / (BigInt)2;
+				const BigInt n = -*x3Ptr + *y3Ptr + cubeNumbers[z];
+
+				if (n >= MAX_RESULTS)
+					max = z - 1;
+				else if (n <= -MAX_RESULTS)
+					min = z + 1;
+				else
+				{
+					printSolution(n, x, -y, z);
 					break;
 				}
 			} while (min <= max);
@@ -129,9 +164,9 @@ int main()
 
 	printNoSolutions();
 
-	printSolutionsByBruteForce();
+	printSolutionsByBruteForce(0, 5000);
 
-	// printSolutionsByBinSearch();
+	printSolutionsByBinSearch(5000, MAX_ROUNDS);
 
 	return 0;
 }
