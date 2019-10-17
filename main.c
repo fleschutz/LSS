@@ -49,6 +49,8 @@ void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 		printf("%ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
 	else
 		printf("%ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
+
+	fflush(stdout); // to disable buffering
 }
 
 void printSolutionsByBruteForce(BigInt searchBegin, BigInt searchEnd)
