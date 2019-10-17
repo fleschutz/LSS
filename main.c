@@ -148,7 +148,7 @@ void printSolutionsByBinSearch(BigInt searchBegin, BigInt searchEnd)
 					min = z + 1;
 				else
 				{
-					printSolution(n, x, -y, z);
+					printSolution(n, -x, y, z);
 					break;
 				}
 			} while (min <= max);
