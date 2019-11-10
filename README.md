@@ -40,3 +40,6 @@ Currently unsolved solutions
 * 921 = ?
 * 975 = ?
 
+Feedback
+--------
+Your feedback is appreciated at markus <at> fleschutz <dot> de
