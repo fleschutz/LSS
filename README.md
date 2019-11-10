@@ -5,15 +5,13 @@ A small C program to list simple solutions (LSS) for the sum of three cubes: x³
 
 Perform the following steps, please:
 
-1. git clone https://github.com/fleschutz/LSS.git
+1. git clone https://github.com/fleschutz/LSS ; cd LSS
 
-2. cd LSS
+2. gcc -O3 main.c (for GCC compiler) or: clang -O3 main.c (for CLANG compiler)
 
-3. gcc -O3 main.c (for GCC compiler) or: clang -O3 main.c (for CLANG compiler)
+3. ./a.out > out.txt
 
-4. ./a.out > out.txt
-
-5. sort -g out.txt > list.txt
+4. sort -g out.txt > list.txt
 
 Now, see list.txt for the resulting simple solutions.
 
