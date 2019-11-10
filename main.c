@@ -3,25 +3,29 @@
 #include <stdlib.h>
 
 #define BigInt int64_t // or __int128_t 
-#define MAX_RESULTS 1000 // interested in results between 0..1000
+#define MAX_RESULTS 1000 // print only results between 0...1000
 #define MAX_ROUNDS 1000000 
-BigInt cubeNumbers[MAX_ROUNDS]; // pre-calculated cube numbers for performance
 uint32_t numSolutions[MAX_RESULTS];
 
 void printNoSolutions()
 {
 	for (BigInt n = 0; n < MAX_RESULTS; ++n)
-	{
 		switch (n % 9)
 		{
 		case 4: 
 		case 5: 
-			printf("%ld = no solution\n", (int64_t)n);
+			printf("%ld = no solution exit\n", (int64_t)n);
 			break;
 		default:
 			break;
 		}
-	}
+}
+
+BigInt cubeNumbers[MAX_ROUNDS]; 
+void preCalculateCubeNumbers() // for performance
+{
+	for (BigInt i = 0; i < MAX_ROUNDS; ++i)
+		cubeNumbers[i] = i * i * i;
 }
 
 void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
@@ -53,54 +57,46 @@ void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 	fflush(stdout); // to disable buffering
 }
 
-void printSolutionsByBruteForce(BigInt searchBegin, BigInt searchEnd)
+void printSolutionsByBruteForce(BigInt beginOfSearch, BigInt endOfSearch)
 {
-#define isInSearchRange(n) (n < MAX_RESULTS && n > -MAX_RESULTS)
-
-	for (BigInt x = searchBegin; x < searchEnd; ++x)
+	for (BigInt x = beginOfSearch, *x3Ptr = &cubeNumbers[x]; x < endOfSearch; ++x, ++x3Ptr)
 	{
-		const BigInt x3 = cubeNumbers[x];
-
-		for (BigInt y = searchBegin; y <= x; ++y)
+		for (BigInt y = 0, *y3Ptr = &cubeNumbers[y]; y <= x; ++y, ++y3Ptr)
 		{
-			const BigInt y3 = cubeNumbers[y];
-
-			for (BigInt z = searchBegin; z <= y; ++z)
+			for (BigInt z = 0, *z3Ptr = &cubeNumbers[z]; z <= y; ++z, ++z3Ptr)
 			{
-				const BigInt z3 = cubeNumbers[z];
-
-			       	register BigInt n = x3 + y3 + z3;
-				if (isInSearchRange(n))
+			       	register BigInt n = *x3Ptr + *y3Ptr + *z3Ptr;
+				if (n < MAX_RESULTS)
 					printSolution(n, x, y, z);
 
-				n = -x3 + y3 + z3;
-				if (isInSearchRange(n))
+				n = -*x3Ptr + *y3Ptr + *z3Ptr;
+				if (-MAX_RESULTS < n && n < MAX_RESULTS)
 					printSolution(n, -x, y, z);
 
-				n = x3 - y3 + z3;
-				if (isInSearchRange(n))
+				n = *x3Ptr - *y3Ptr + *z3Ptr;
+				if (-MAX_RESULTS < n && n < MAX_RESULTS)
 					printSolution(n, x, -y, z);
 
-				n = x3 + y3 - z3;
-				if (isInSearchRange(n))
+				n = *x3Ptr + *y3Ptr - *z3Ptr;
+				if (-MAX_RESULTS < n && n < MAX_RESULTS)
 					printSolution(n, x, y, -z);
 
-				n = x3 - y3 - z3;
-				if (isInSearchRange(n))
+				n = *x3Ptr - *y3Ptr - *z3Ptr;
+				if (-MAX_RESULTS < n && n < MAX_RESULTS)
 					printSolution(n, x, -y, -z);
 			}
 		}
 	}
 }
 
-void printSolutionsByBinarySearch(BigInt searchBegin, BigInt searchEnd)
+void printSolutionsByBinarySearch(BigInt beginOfSearch, BigInt endOfSearch)
 {
-	for (BigInt x = searchBegin, *x3Ptr = &cubeNumbers[x]; x < searchEnd; ++x, ++x3Ptr)
+	for (BigInt x = beginOfSearch, *x3Ptr = &cubeNumbers[x]; x < endOfSearch; ++x, ++x3Ptr)
 	{
-		for (BigInt y = searchBegin, *y3Ptr = &cubeNumbers[y]; y <= x; ++y, ++y3Ptr)
+		for (BigInt y = beginOfSearch, *y3Ptr = &cubeNumbers[y]; y <= x; ++y, ++y3Ptr)
 		{
 			// Binary search for: x³ - y³ - z³
-			BigInt min = searchBegin, max = x; 
+			BigInt min = beginOfSearch, max = x; 
 			do
 			{
 				const BigInt z = (min + max) / (BigInt)2;
@@ -118,7 +114,7 @@ void printSolutionsByBinarySearch(BigInt searchBegin, BigInt searchEnd)
 			} while (min <= max);
 			
 			// Binary search for: x³ - y³ + z³
-			min = searchBegin, max = x + y; 
+			min = beginOfSearch, max = x + y; 
 			do
 			{
 				const BigInt z = (min + max) / (BigInt)2;
@@ -136,7 +132,7 @@ void printSolutionsByBinarySearch(BigInt searchBegin, BigInt searchEnd)
 			} while (min <= max);
 			
 			// Binary search for: -x³ + y³ + z³
-			min = searchBegin, max = x + y; 
+			min = beginOfSearch, max = x + y; 
 			do
 			{
 				const BigInt z = (min + max) / (BigInt)2;
@@ -160,11 +156,9 @@ int main()
 {
 	printf("# List of simple solutions of n = x³ + y³ + z³  (for n < %d and x,y,z < %d, solutions formatted to be: x <= y <= z)\n", MAX_RESULTS, MAX_ROUNDS);
 
-	// pre-calculate cube numbers:
-	for (BigInt i = 0; i < MAX_ROUNDS; ++i)
-		cubeNumbers[i] = i * i * i;
-
 	printNoSolutions();
+
+	preCalculateCubeNumbers();
 
 	printSolutionsByBruteForce(0, 5000);
 
