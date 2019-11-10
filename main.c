@@ -3,9 +3,9 @@
 #include <stdlib.h>
 
 #define BigInt int64_t // or __int128_t 
-#define MAX_RESULTS 1000
+#define MAX_RESULTS 1000 // interested in results between 0..1000
 #define MAX_ROUNDS 1000000 
-BigInt cubeNumbers[MAX_ROUNDS]; // pre-calculated
+BigInt cubeNumbers[MAX_ROUNDS]; // pre-calculated cube numbers for performance
 uint32_t numSolutions[MAX_RESULTS];
 
 void printNoSolutions()
@@ -93,7 +93,7 @@ void printSolutionsByBruteForce(BigInt searchBegin, BigInt searchEnd)
 	}
 }
 
-void printSolutionsByBinSearch(BigInt searchBegin, BigInt searchEnd)
+void printSolutionsByBinarySearch(BigInt searchBegin, BigInt searchEnd)
 {
 	for (BigInt x = searchBegin, *x3Ptr = &cubeNumbers[x]; x < searchEnd; ++x, ++x3Ptr)
 	{
@@ -168,7 +168,7 @@ int main()
 
 	printSolutionsByBruteForce(0, 5000);
 
-	printSolutionsByBinSearch(5000, MAX_ROUNDS);
+	printSolutionsByBinarySearch(5000, MAX_ROUNDS);
 
 	return 0;
 }
