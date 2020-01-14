@@ -1,3 +1,4 @@
+#include <omp.h>
 #include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -5,10 +6,11 @@
 #define BigInt int64_t // or __int128_t 
 #define MAX_RESULTS 1000 // print only results between 0...1000
 #define MAX_ROUNDS 1000000 
-uint32_t numSolutions[MAX_RESULTS];
+static uint32_t numSolutions[MAX_RESULTS];
 
-void printNoSolutions()
+static void printNoSolutions()
 {
+#pragma omp parallel for
 	for (BigInt n = 0; n < MAX_RESULTS; ++n)
 		switch (n % 9)
 		{
@@ -21,14 +23,15 @@ void printNoSolutions()
 		}
 }
 
-BigInt cubeNumbers[MAX_ROUNDS]; 
-void preCalculateCubeNumbers() // for performance
+static BigInt cubeNumbers[MAX_ROUNDS]; 
+static void preCalculateCubeNumbers() // for performance
 {
+#pragma omp parallel for
 	for (BigInt i = 0; i < MAX_ROUNDS; ++i)
 		cubeNumbers[i] = i * i * i;
 }
 
-void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
+static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	if (n < 0)
 	{	n = -n;
@@ -57,13 +60,15 @@ void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 	fflush(stdout); // to disable buffering
 }
 
-void printSolutionsByBruteForce(BigInt beginOfSearch, BigInt endOfSearch)
+static void printSolutionsByBruteForce(BigInt beginOfSearch, BigInt endOfSearch)
 {
-	for (BigInt x = beginOfSearch, *x3Ptr = &cubeNumbers[x]; x < endOfSearch; ++x, ++x3Ptr)
+#pragma omp parallel for
+	for (BigInt x = beginOfSearch; x < endOfSearch; ++x)
 	{
-		for (BigInt y = 0, *y3Ptr = &cubeNumbers[y]; y <= x; ++y, ++y3Ptr)
+		BigInt *x3Ptr = &cubeNumbers[x];
+		for (BigInt y = 0, *y3Ptr = &cubeNumbers[0]; y <= x; ++y, ++y3Ptr)
 		{
-			for (BigInt z = 0, *z3Ptr = &cubeNumbers[z]; z <= y; ++z, ++z3Ptr)
+			for (BigInt z = 0, *z3Ptr = &cubeNumbers[0]; z <= y; ++z, ++z3Ptr)
 			{
 			       	register BigInt n = *x3Ptr + *y3Ptr + *z3Ptr;
 				if (n < MAX_RESULTS)
@@ -89,14 +94,16 @@ void printSolutionsByBruteForce(BigInt beginOfSearch, BigInt endOfSearch)
 	}
 }
 
-void printSolutionsByBinarySearch(BigInt beginOfSearch, BigInt endOfSearch)
+static void printSolutionsByBinarySearch(BigInt beginOfSearch, BigInt endOfSearch)
 {
-	for (BigInt x = beginOfSearch, *x3Ptr = &cubeNumbers[x]; x < endOfSearch; ++x, ++x3Ptr)
+#pragma omp parallel for
+	for (BigInt x = beginOfSearch; x < endOfSearch; ++x)
 	{
-		for (BigInt y = beginOfSearch, *y3Ptr = &cubeNumbers[y]; y <= x; ++y, ++y3Ptr)
+		BigInt *x3Ptr = &cubeNumbers[x];
+		for (BigInt y = 0, *y3Ptr = &cubeNumbers[0]; y <= x; ++y, ++y3Ptr)
 		{
 			// Binary search for: x³ - y³ - z³
-			BigInt min = beginOfSearch, max = x; 
+			BigInt min = 0, max = x; 
 			do
 			{
 				const BigInt z = (min + max) / (BigInt)2;
@@ -114,7 +121,8 @@ void printSolutionsByBinarySearch(BigInt beginOfSearch, BigInt endOfSearch)
 			} while (min <= max);
 			
 			// Binary search for: x³ - y³ + z³
-			min = beginOfSearch, max = x + y; 
+			min = 0;
+		       	max = x;
 			do
 			{
 				const BigInt z = (min + max) / (BigInt)2;
@@ -132,7 +140,8 @@ void printSolutionsByBinarySearch(BigInt beginOfSearch, BigInt endOfSearch)
 			} while (min <= max);
 			
 			// Binary search for: -x³ + y³ + z³
-			min = beginOfSearch, max = x + y; 
+			min = 0;
+		       	max = x;
 			do
 			{
 				const BigInt z = (min + max) / (BigInt)2;
@@ -160,9 +169,9 @@ int main()
 
 	preCalculateCubeNumbers();
 
-	printSolutionsByBruteForce(0, 5000);
+	// printSolutionsByBruteForce(0, 5000);
 
-	printSolutionsByBinarySearch(5000, MAX_ROUNDS);
+	printSolutionsByBinarySearch(0/*5000*/, MAX_ROUNDS);
 
 	return 0;
 }

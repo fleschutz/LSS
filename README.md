@@ -7,7 +7,7 @@ Perform the following steps, please:
 
 1. git clone https://github.com/fleschutz/LSS ; cd LSS
 
-2. gcc -O3 main.c (for GCC compiler) or: clang -O3 main.c (for CLANG compiler)
+2. gcc -O3 -fopenmp main.c (for GCC compiler) or: clang -O3 -fopenmp main.c (for CLANG compiler)
 
 3. ./a.out > out.txt
 
