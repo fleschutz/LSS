@@ -40,8 +40,8 @@ Currently unsolved solutions
 
 Links
 -----
-* [More interesting projects](http://www.fleschutz.de/Service)
+* [More interesting projects](http://www.fleschutz.de/Service/)
 
 Feedback
 --------
-Send me your feedback to markus at fleschutz dot de.
+Send your feedback to markus at fleschutz dot de.
