@@ -38,6 +38,10 @@ Currently unsolved solutions
 * 921 = ?
 * 975 = ?
 
+Links
+-----
+* [More interesting projects](http://www.fleschutz.de/Service)
+
 Feedback
 --------
-Your feedback is appreciated at markus <at> fleschutz <dot> de
+Send me your feedback to markus at fleschutz dot de.
