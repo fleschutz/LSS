@@ -40,7 +40,7 @@ Currently unsolved solutions
 
 Links
 -----
-* [More interesting projects](http://www.fleschutz.de/Service/)
+* [More interesting projects](http://www.fleschutz.de/Service.html)
 
 Feedback
 --------
