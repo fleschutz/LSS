@@ -1,8 +1,12 @@
 LSS
 ===
 
-A small C program to list simple solutions (LSS) for the sum of three cubes: x³ + y³ + z³ = n (for n < 1000 and x,y,z < 100000, solutions formatted to be: x <= y <= z)
+A small C program to list simple solutions (LSS) for the sum of three cubes: x³ + y³ + z³ = n
 
+NOTE: n < 1000 and x,y,z < 100000, solutions formatted to be: x <= y <= z
+
+Installation
+------------
 Perform the following steps, please:
 
 1. git clone https://github.com/fleschutz/LSS ; cd LSS
@@ -45,3 +49,7 @@ Links
 Feedback
 --------
 Send your feedback to markus at fleschutz dot de.
+
+License & Copyright
+-------------------
+This open source release is licensed under the CC0 license. All trademarks are the property of their respective owners.
