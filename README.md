@@ -48,7 +48,7 @@ Links
 
 Feedback
 --------
-Send your feedback to markus at fleschutz dot de.
+Send your email feedback to markus [at] fleschutz [dot] de.
 
 License & Copyright
 -------------------
