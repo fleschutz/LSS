@@ -9,13 +9,12 @@ Installation
 ------------
 Perform the following steps, please:
 
-1. git clone https://github.com/fleschutz/LSS ; cd LSS
-
-2. gcc -O3 -fopenmp main.c (for GCC compiler) or: clang -O3 -fopenmp main.c (for CLANG compiler)
-
-3. ./a.out > out.txt
-
-4. sort -g out.txt > list.txt
+```
+$ git clone https://github.com/fleschutz/LSS ; cd LSS
+$ gcc -O3 -fopenmp main.c (for GCC compiler) or: clang -O3 -fopenmp main.c (for CLANG compiler)
+$ ./a.out > out.txt
+$ sort -g out.txt > list.txt
+```
 
 Now, see list.txt for the resulting simple solutions.
 
