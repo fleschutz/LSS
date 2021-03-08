@@ -16,7 +16,7 @@ static void printNoSolutions()
 		{
 		case 4: 
 		case 5: 
-			printf("%ld = no solution exit\n", (int64_t)n);
+			printf("%ld = no solution exist\n", (int64_t)n);
 			break;
 		default:
 			break;
