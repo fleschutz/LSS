@@ -10,7 +10,8 @@ Installation
 ------------
 Perform the following steps, please:
 ```
-$ git clone https://github.com/fleschutz/LSS; cd LSS
+$ git clone https://github.com/fleschutz/LSS
+$ cd LSS
 $ gcc -O3 -fopenmp main.c (for GCC compiler) or: clang -O3 -fopenmp main.c (for CLANG compiler)
 $ ./a.out > out.txt
 $ sort -g out.txt > list.txt

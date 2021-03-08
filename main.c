@@ -3,9 +3,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define BigInt int64_t // or __int128_t 
-#define MAX_RESULTS 1000 // print only results between 0...1000
-#define MAX_ROUNDS 1000000 
+#define BigInt int64_t     // or __int128_t 
+#define MAX_RESULTS 1000   // print results between 0...<n>
+#define MAX_ROUNDS 1000000 // use values between 0...<n>
 static uint32_t numSolutions[MAX_RESULTS];
 
 static void printNoSolutions()
@@ -16,7 +16,7 @@ static void printNoSolutions()
 		{
 		case 4: 
 		case 5: 
-			printf("%ld = no solution exist\n", (int64_t)n);
+			printf("%3ld = no solution\n", (int64_t)n);
 			break;
 		default:
 			break;
@@ -45,48 +45,50 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 
 	// print formatted to be: x <= y <= z
 	if (x <= y && y <= z)
-		printf("%ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
+		printf("%3ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
 	else if (x <= z && z <= y)
-		printf("%ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)z, (int64_t)y);
+		printf("%3ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)z, (int64_t)y);
 	else if (y <= x && x <= z)
-		printf("%ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)x, (int64_t)z);
+		printf("%3ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)x, (int64_t)z);
 	else if (y <= z && z <= x)
-		printf("%ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)z, (int64_t)x);
+		printf("%3ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)z, (int64_t)x);
 	else if (z <= x && x <= y)
-		printf("%ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
+		printf("%3ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
 	else
-		printf("%ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
+		printf("%3ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
 
 	fflush(stdout); // to disable buffering
 }
 
 static void printSolutionsByBruteForce(BigInt beginOfSearch, BigInt endOfSearch)
 {
-#pragma omp parallel for
 	for (BigInt x = beginOfSearch; x < endOfSearch; ++x)
 	{
-		BigInt *x3Ptr = &cubeNumbers[x];
-		for (BigInt y = 0, *y3Ptr = &cubeNumbers[0]; y <= x; ++y, ++y3Ptr)
+		const BigInt x3 = cubeNumbers[x];
+#pragma omp parallel for
+		for (BigInt y = 0; y <= x; ++y)
 		{
-			for (BigInt z = 0, *z3Ptr = &cubeNumbers[0]; z <= y; ++z, ++z3Ptr)
+			const BigInt y3 = cubeNumbers[y];
+			for (BigInt z = 0; z <= y; ++z)
 			{
-			       	register BigInt n = *x3Ptr + *y3Ptr + *z3Ptr;
+				const BigInt z3 = cubeNumbers[z];
+				BigInt n = x3 + y3 + z3;
 				if (n < MAX_RESULTS)
 					printSolution(n, x, y, z);
 
-				n = -*x3Ptr + *y3Ptr + *z3Ptr;
+				n = -x3 + y3 + z3;
 				if (-MAX_RESULTS < n && n < MAX_RESULTS)
 					printSolution(n, -x, y, z);
 
-				n = *x3Ptr - *y3Ptr + *z3Ptr;
+				n = x3 - y3 + z3;
 				if (-MAX_RESULTS < n && n < MAX_RESULTS)
 					printSolution(n, x, -y, z);
 
-				n = *x3Ptr + *y3Ptr - *z3Ptr;
+				n = x3 + y3 - z3;
 				if (-MAX_RESULTS < n && n < MAX_RESULTS)
 					printSolution(n, x, y, -z);
 
-				n = *x3Ptr - *y3Ptr - *z3Ptr;
+				n = x3 - y3 - z3;
 				if (-MAX_RESULTS < n && n < MAX_RESULTS)
 					printSolution(n, x, -y, -z);
 			}
@@ -99,15 +101,17 @@ static void printSolutionsByBinarySearch(BigInt beginOfSearch, BigInt endOfSearc
 #pragma omp parallel for
 	for (BigInt x = beginOfSearch; x < endOfSearch; ++x)
 	{
-		BigInt *x3Ptr = &cubeNumbers[x];
-		for (BigInt y = 0, *y3Ptr = &cubeNumbers[0]; y <= x; ++y, ++y3Ptr)
+		BigInt x3 = cubeNumbers[x];
+		for (BigInt y = 0; y <= x; ++y)
 		{
+			BigInt y3 = cubeNumbers[y];
+
 			// Binary search for: x³ - y³ - z³
 			BigInt min = 0, max = x; 
 			do
 			{
 				const BigInt z = (min + max) / (BigInt)2;
-				const BigInt n = *x3Ptr - *y3Ptr - cubeNumbers[z];
+				const BigInt n = x3 - y3 - cubeNumbers[z];
 
 				if (n >= MAX_RESULTS)
 					max = z - 1;
@@ -126,7 +130,7 @@ static void printSolutionsByBinarySearch(BigInt beginOfSearch, BigInt endOfSearc
 			do
 			{
 				const BigInt z = (min + max) / (BigInt)2;
-				const BigInt n = *x3Ptr - *y3Ptr + cubeNumbers[z];
+				const BigInt n = x3 - y3 + cubeNumbers[z];
 
 				if (n >= MAX_RESULTS)
 					max = z - 1;
@@ -145,7 +149,7 @@ static void printSolutionsByBinarySearch(BigInt beginOfSearch, BigInt endOfSearc
 			do
 			{
 				const BigInt z = (min + max) / (BigInt)2;
-				const BigInt n = -*x3Ptr + *y3Ptr + cubeNumbers[z];
+				const BigInt n = -x3 + y3 + cubeNumbers[z];
 
 				if (n >= MAX_RESULTS)
 					max = z - 1;
@@ -169,9 +173,9 @@ int main()
 
 	preCalculateCubeNumbers();
 
-	// printSolutionsByBruteForce(0, 5000);
+	printSolutionsByBruteForce(0, MAX_ROUNDS);
 
-	printSolutionsByBinarySearch(0/*5000*/, MAX_ROUNDS);
+	//printSolutionsByBinarySearch(0/*5000*/, MAX_ROUNDS);
 
 	return 0;
 }
