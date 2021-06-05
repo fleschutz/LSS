@@ -45,7 +45,7 @@ Currently unsolved solutions
 
 Links
 -----
-* [More interesting projects](http://www.fleschutz.de/Service.html)
+* [More interesting projects](https://fleschutz.droppages.com/service)
 
 
 Feedback
