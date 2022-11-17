@@ -7,12 +7,20 @@
 #define MAX_RESULTS 1000   // print results between 0...<n>
 #define MAX_ROUNDS 1000000 // use values between 0...<n>
 static uint32_t numSolutions[MAX_RESULTS];
+static BigInt cubeNumbers[MAX_ROUNDS]; 
+
+static void preCalculateCubeNumbers() // for performance
+{
+#pragma omp parallel for
+	for (BigInt i = 0; i < MAX_ROUNDS; ++i)
+		cubeNumbers[i] = i * i * i;
+}
 
 static void printNoSolutions()
 {
 #pragma omp parallel for
 	for (BigInt n = 0; n < MAX_RESULTS; ++n)
-		switch (n % 9)
+	{	switch (n % 9)
 		{
 		case 4: 
 		case 5: 
@@ -21,14 +29,7 @@ static void printNoSolutions()
 		default:
 			break;
 		}
-}
-
-static BigInt cubeNumbers[MAX_ROUNDS]; 
-static void preCalculateCubeNumbers() // for performance
-{
-#pragma omp parallel for
-	for (BigInt i = 0; i < MAX_ROUNDS; ++i)
-		cubeNumbers[i] = i * i * i;
+	}
 }
 
 static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
@@ -60,7 +61,7 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 	fflush(stdout); // to disable buffering
 }
 
-static void printSolutionsByBruteForce(BigInt beginOfSearch, BigInt endOfSearch)
+static void printSolutionsUsingBruteForce(BigInt beginOfSearch, BigInt endOfSearch)
 {
 	for (BigInt x = beginOfSearch; x < endOfSearch; ++x)
 	{
@@ -96,7 +97,7 @@ static void printSolutionsByBruteForce(BigInt beginOfSearch, BigInt endOfSearch)
 	}
 }
 
-static void printSolutionsByBinarySearch(BigInt beginOfSearch, BigInt endOfSearch)
+static void printSolutionsUsingBinarySearch(BigInt beginOfSearch, BigInt endOfSearch)
 {
 #pragma omp parallel for
 	for (BigInt x = beginOfSearch; x < endOfSearch; ++x)
@@ -173,9 +174,9 @@ int main()
 
 	preCalculateCubeNumbers();
 
-	printSolutionsByBruteForce(0, MAX_ROUNDS);
+	printSolutionsUsingBruteForce(0, MAX_ROUNDS);
 
-	//printSolutionsByBinarySearch(0/*5000*/, MAX_ROUNDS);
+	//printSolutionsUsingBinarySearch(0/*5000*/, MAX_ROUNDS);
 
 	return 0;
 }
