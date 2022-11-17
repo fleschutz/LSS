@@ -43,11 +43,6 @@ Currently unsolved solutions
 * 975 = ?
 
 
-Links
------
-* [More interesting projects](https://fleschutz.droppages.com/service)
-
-
 Feedback
 --------
 Send your email feedback to: markus [at] fleschutz [dot] de
