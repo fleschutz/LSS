@@ -7,9 +7,9 @@
 #define N_MIN           0  // minimum value for n
 #define N_MAX        1000  // maximum value for n
 #define XYZ_MIN         0  // minimum value for x,y,z
-#define XYZ_MAX   1000000  // maximum value for x,y,z
-			   //
-static uint32_t numSolutions[N_MAX];
+#define XYZ_MAX    100000  // maximum value for x,y,z
+
+static int solutionKnown[N_MAX + 1] = { 0 };
 static BigInt cubeNumbers[XYZ_MAX + 1]; 
 
 static void preCalculateCubeNumbers(void) // for performance
@@ -35,6 +35,7 @@ static void printNoSolutions(void)
 	}
 }
 
+
 static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	if (n < 0)
@@ -43,9 +44,6 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 		y = -y;
 		z = -z;
 	}
-
-	if (numSolutions[n]++)
-		return; // a solution for <n> exists already
 
 	// print solution: (formatted to be: x <= y <= z)
 	if (x <= y && y <= z)
@@ -62,6 +60,8 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 		printf("%3ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
 
 	fflush(stdout); // to disable buffering
+
+	solutionKnown[n] = 1;
 }
 
 static void printSolutionsUsingBruteForce(void)
@@ -77,23 +77,23 @@ static void printSolutionsUsingBruteForce(void)
 			{
 				const BigInt z3 = cubeNumbers[z];
 				BigInt n = x3 + y3 + z3;
-				if (n < N_MAX)
+				if (n < N_MAX && !solutionKnown[n])
 					printSolution(n, x, y, z);
 
 				n = -x3 + y3 + z3;
-				if (-N_MAX < n && n < N_MAX)
+				if (-N_MAX < n && n < N_MAX && !solutionKnown[abs(n)])
 					printSolution(n, -x, y, z);
 
 				n = x3 - y3 + z3;
-				if (-N_MAX < n && n < N_MAX)
+				if (-N_MAX < n && n < N_MAX && !solutionKnown[abs(n)])
 					printSolution(n, x, -y, z);
 
 				n = x3 + y3 - z3;
-				if (-N_MAX < n && n < N_MAX)
+				if (-N_MAX < n && n < N_MAX && !solutionKnown[abs(n)])
 					printSolution(n, x, y, -z);
 
 				n = x3 - y3 - z3;
-				if (-N_MAX < n && n < N_MAX)
+				if (-N_MAX < n && n < N_MAX && !solutionKnown[abs(n)])
 					printSolution(n, x, -y, -z);
 			}
 		}
