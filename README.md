@@ -20,9 +20,12 @@ $ sort -g out.txt > list.txt
 
 Now, see the generated list.txt file with the list of simple solutions.
 
+List of simple solutions
+------------------------
+See the generated [list.txt](list.txt).
 
-Currently known complicated solutions
--------------------------------------
+List of currently known complicated solutions
+---------------------------------------------
 * 30 = 3982933876681³ − 636600549515³ − 3977505554546³
 * 33 = 88661289752875283³ − 87784054428622393³ − 27361114688070403³
 * 42 = -80538738812075974³ + 80435758145817515³ + 1260212329733563³ 
@@ -31,8 +34,8 @@ Currently known complicated solutions
 * 906 = (−74924259395610397)³ + 72054089679353378³ + 35961979615356503³
 
 
-Currently unsolved solutions
-----------------------------
+List of currently unsolved complicated solutions
+------------------------------------------------
 * 114 = ?
 * 390 = ?
 * 579 = ?
