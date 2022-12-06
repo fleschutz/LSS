@@ -1,10 +1,10 @@
 LSS
 ===
-A small C program to list simple solutions (LSS) for the sum of three cubes: **x³ + y³ + z³ = n**
+A small C program to list simple solutions (LSS) for the sum of three cubes:
 
-NOTE: n < 1000 and x,y,z < 100000 and the solutions are formatted to be: x <= y <= z
+**x³ + y³ + z³ = n**
 
-See https://en.wikipedia.org/wiki/Sums_of_three_cubes and https://en.wikipedia.org/wiki/Diophantine_equation for more information.
+where n < 1000 and x,y,z < 100000 and the solutions are formatted to be: x <= y <= z. See https://en.wikipedia.org/wiki/Sums_of_three_cubes and https://en.wikipedia.org/wiki/Diophantine_equation for details.
 
 
 🔧 Installation
