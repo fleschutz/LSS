@@ -9,11 +9,11 @@ See https://en.wikipedia.org/wiki/Sums_of_three_cubes and https://en.wikipedia.o
 
 🔧 Installation
 ----------------
-Just a **C++ compiler** and **git** is needed. Then execute in a terminal window:
+Just a **C/C++ compiler** and **git** is needed. Then execute in a terminal window:
 ```
 $ git clone https://github.com/fleschutz/LSS; cd LSS
-$ gcc -O3 -fopenmp main.c     (when using a GCC compiler)
-$ clang -O3 -fopenmp main.c   (when using a CLANG compiler)
+$ gcc -O3 -fopenmp main.c     (when using the GCC compiler)
+$ clang -O3 -fopenmp main.c   (when using the CLANG compiler)
 $ ./a.out > out.txt
 $ sort -g out.txt > list.txt
 ```
