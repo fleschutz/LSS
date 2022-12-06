@@ -3,9 +3,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define BigInt int64_t     // or __int128_t 
-#define MAX_RESULTS 1000   // print results between 0...<n>
-#define MAX_ROUNDS 1000000 // use values between 0...<n>
+#define BigInt int64_t       // or __int128_t 
+#define MAX_RESULTS 1000     // print results between 0...<n>
+#define MAX_ROUNDS 1000000   // use values between 0...<n>
 static uint32_t numSolutions[MAX_RESULTS];
 static BigInt cubeNumbers[MAX_ROUNDS]; 
 
@@ -42,7 +42,7 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 	}
 
 	if (numSolutions[n]++)
-		return; // a solution for <n> already exits
+		return; // a solution for <n> exists already
 
 	// print formatted to be: x <= y <= z
 	if (x <= y && y <= z)
