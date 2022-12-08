@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #define N_MIN           0  // minimum value for n
-#define N_MAX        1000  // maximum value for n
+#define N_MAX      100000  // maximum value for n
 #define XYZ_MIN         0  // minimum value for x,y,z
 #define XYZ_MAX    100000  // maximum value for x,y,z
 
@@ -12,16 +12,14 @@ typedef int64_t BigInt;    // or use __int128_t
 static int solutionKnown[N_MAX + 1] = { 0 };
 static BigInt cubeNumbers[XYZ_MAX + 2]; 
 
-static void preCalculateCubeNumbers(void) // for performance
+static void calculateCubeNumbers(void) // for performance
 {
-#pragma omp parallel for
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 		cubeNumbers[x] = x * x * x;
 }
 
 static void printNoSolutions(void)
 {
-#pragma omp parallel for
 	for (BigInt n = N_MIN; n <= N_MAX; ++n)
 	{	switch (n % 9)
 		{
@@ -69,16 +67,17 @@ static void printAdditionSolutionsUsingBruteForce(void)
 	for (BigInt x = XYZ_MIN, x3 = cubeNumbers[XYZ_MIN]; x <= XYZ_MAX; x3 = cubeNumbers[++x])
 	{
 		if (x3 > N_MAX)
-			break; // range of interest left
+			break; // outside range of interest 
 		for (BigInt y = XYZ_MIN, y3 = cubeNumbers[XYZ_MIN]; y <= XYZ_MAX; y3 = cubeNumbers[++y])
 		{
-			if (x3 + y3 > N_MAX)
-				break; // range of interest left
+			BigInt x3y3 = x3 + y3;
+			if (x3y3 > N_MAX)
+				break; // outside range of interest 
 			for (BigInt z = XYZ_MIN, z3 = cubeNumbers[XYZ_MIN]; z <= XYZ_MAX; z3 = cubeNumbers[++z])
 			{
-				BigInt n = x3 + y3 + z3;
+				BigInt n = x3y3 + z3;
 				if (n > N_MAX)
-				       break; // range of interest left
+				       break; // outside range of interest 
 				if (!solutionKnown[n])
 					printSolution(n, x, y, z);
 			}
@@ -191,7 +190,7 @@ int main()
 
 	printNoSolutions();
 
-	preCalculateCubeNumbers();
+	calculateCubeNumbers();
 
 	printAdditionSolutionsUsingBruteForce();
 
