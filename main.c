@@ -3,14 +3,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define BigInt    int64_t  // or __int128_t 
 #define N_MIN           0  // minimum value for n
 #define N_MAX        1000  // maximum value for n
 #define XYZ_MIN         0  // minimum value for x,y,z
 #define XYZ_MAX    100000  // maximum value for x,y,z
 
+typedef int64_t BigInt;    // or use __int128_t 
 static int solutionKnown[N_MAX + 1] = { 0 };
-static BigInt cubeNumbers[XYZ_MAX + 1]; 
+static BigInt cubeNumbers[XYZ_MAX + 2]; 
 
 static void preCalculateCubeNumbers(void) // for performance
 {
@@ -47,40 +47,56 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 
 	// print solution: (formatted to be: x <= y <= z)
 	if (x <= y && y <= z)
-		printf("%3ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
+		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
 	else if (x <= z && z <= y)
-		printf("%3ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)z, (int64_t)y);
+		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)z, (int64_t)y);
 	else if (y <= x && x <= z)
-		printf("%3ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)x, (int64_t)z);
+		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)x, (int64_t)z);
 	else if (y <= z && z <= x)
-		printf("%3ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)z, (int64_t)x);
+		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)z, (int64_t)x);
 	else if (z <= x && x <= y)
-		printf("%3ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
+		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
 	else
-		printf("%3ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
+		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
 
 	fflush(stdout); // to disable buffering
 
 	solutionKnown[n] = 1;
 }
 
-static void printSolutionsUsingBruteForce(void)
+static void printAdditionSolutionsUsingBruteForce(void)
 {
-	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
+	for (BigInt x = XYZ_MIN, x3 = cubeNumbers[XYZ_MIN]; x <= XYZ_MAX; x3 = cubeNumbers[++x])
 	{
-		const BigInt x3 = cubeNumbers[x];
-#pragma omp parallel for
-		for (BigInt y = XYZ_MIN; y <= x; ++y)
+		if (x3 > N_MAX)
+			break; // range of interest left
+		for (BigInt y = XYZ_MIN, y3 = cubeNumbers[XYZ_MIN]; y <= XYZ_MAX; y3 = cubeNumbers[++y])
 		{
-			const BigInt y3 = cubeNumbers[y];
-			for (BigInt z = XYZ_MIN; z <= y; ++z)
+			if (x3 + y3 > N_MAX)
+				break; // range of interest left
+			for (BigInt z = XYZ_MIN, z3 = cubeNumbers[XYZ_MIN]; z <= XYZ_MAX; z3 = cubeNumbers[++z])
 			{
-				const BigInt z3 = cubeNumbers[z];
 				BigInt n = x3 + y3 + z3;
-				if (n < N_MAX && !solutionKnown[n])
+				if (n > N_MAX)
+				       break; // range of interest left
+				if (!solutionKnown[n])
 					printSolution(n, x, y, z);
+			}
+		}
+	}
+}
 
-				n = -x3 + y3 + z3;
+static void printRestSolutionsUsingBruteForce(void)
+{
+	for (BigInt x = XYZ_MIN, x3 = cubeNumbers[XYZ_MIN]; x <= XYZ_MAX; x3 = cubeNumbers[++x])
+	{
+#pragma omp parallel for
+		for (BigInt y = XYZ_MIN; y <= XYZ_MAX; ++y)
+		{
+			BigInt y3 = cubeNumbers[y];
+			for (BigInt z = XYZ_MIN, z3 = cubeNumbers[XYZ_MIN]; z <= XYZ_MAX; z3 = cubeNumbers[++z])
+			{
+				BigInt n = -x3 + y3 + z3;
 				if (-N_MAX < n && n < N_MAX && !solutionKnown[abs(n)])
 					printSolution(n, -x, y, z);
 
@@ -94,7 +110,7 @@ static void printSolutionsUsingBruteForce(void)
 
 				n = x3 - y3 - z3;
 				if (-N_MAX < n && n < N_MAX && !solutionKnown[abs(n)])
-					printSolution(n, x, -y, -z);
+					printSolution(n, x, y, -z);
 			}
 		}
 	}
@@ -177,7 +193,9 @@ int main()
 
 	preCalculateCubeNumbers();
 
-	printSolutionsUsingBruteForce();
+	printAdditionSolutionsUsingBruteForce();
+
+	printRestSolutionsUsingBruteForce();
 
 	//printSolutionsUsingBinarySearch(0/*5000*/, XYZ_MAX);
 
