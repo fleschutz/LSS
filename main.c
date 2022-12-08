@@ -3,14 +3,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define N_MIN           0  // minimum value for n
-#define N_MAX      100000  // maximum value for n
-#define XYZ_MIN         0  // minimum value for x,y,z
-#define XYZ_MAX    100000  // maximum value for x,y,z
-typedef int64_t    BigInt; // or use __int128_t instead
+typedef int64_t  BigInt; // or use __int128_t instead
+#define N_MIN          0 // minimum value for n
+#define N_MAX     100000 // maximum value for n
+#define XYZ_MIN        0 // minimum value for x,y,z
+#define XYZ_MAX   100000 // maximum value for x,y,z
 
+// pre-calculate the cube numbers for performance
 static BigInt cubeNumbers[XYZ_MAX + 2]; 
-static void calculateCubeNumbers(void) // for performance
+static void calculateCubeNumbers(void) 
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 		cubeNumbers[x] = x * x * x;
@@ -183,7 +184,7 @@ static void printSolutionsUsingBinarySearch(BigInt beginOfSearch, BigInt endOfSe
 
 int main()
 {
-	printf("# List of simple solutions of n = x³ + y³ + z³  (for n < %d and x,y,z < %d, solutions formatted to be: x <= y <= z)\n", N_MAX, XYZ_MAX);
+	printf("# List of simple solutions of n = x³ + y³ + z³  (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
 
 	printNoSolutions();
 
