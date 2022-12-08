@@ -60,7 +60,8 @@ static void printNoSolutions(void)
 	}
 }
 
-static void printAdditionSolutionsUsingBruteForce(void)
+// print solutions for additions only (no subtraction, no negative numbers).
+static void printAddOnlySolutions(void)
 {
 	for (BigInt x = XYZ_MIN, x3 = cubeNumbers[XYZ_MIN]; x <= XYZ_MAX; x3 = cubeNumbers[++x])
 	{
@@ -185,12 +186,11 @@ static void printSolutionsUsingBinarySearch(BigInt beginOfSearch, BigInt endOfSe
 int main()
 {
 	printf("# List of simple solutions of n = x³ + y³ + z³  (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
+	calculateCubeNumbers();
 
 	printNoSolutions();
 
-	calculateCubeNumbers();
-
-	printAdditionSolutionsUsingBruteForce();
+	printAddOnlySolutions();
 
 	printRestSolutionsUsingBruteForce();
 
