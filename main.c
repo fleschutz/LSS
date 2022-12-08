@@ -7,15 +7,41 @@
 #define N_MAX      100000  // maximum value for n
 #define XYZ_MIN         0  // minimum value for x,y,z
 #define XYZ_MAX    100000  // maximum value for x,y,z
+typedef int64_t    BigInt; // or use __int128_t instead
 
-typedef int64_t BigInt;    // or use __int128_t 
-static int solutionKnown[N_MAX + 1] = { 0 };
 static BigInt cubeNumbers[XYZ_MAX + 2]; 
-
 static void calculateCubeNumbers(void) // for performance
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 		cubeNumbers[x] = x * x * x;
+}
+
+// print and remember the given solution (formatted to be: x <= y <= z)
+static int solutionKnown[N_MAX + 1] = { 0 };
+static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
+{
+	if (n < 0)
+	{	n = -n;
+		x = -x;
+		y = -y;
+		z = -z;
+	}
+	
+	if (x <= y && y <= z)
+		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
+	else if (x <= z && z <= y)
+		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)z, (int64_t)y);
+	else if (y <= x && x <= z)
+		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)x, (int64_t)z);
+	else if (y <= z && z <= x)
+		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)z, (int64_t)x);
+	else if (z <= x && x <= y)
+		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
+	else
+		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
+	fflush(stdout); // to disable buffering
+
+	solutionKnown[n] = 1;
 }
 
 static void printNoSolutions(void)
@@ -31,35 +57,6 @@ static void printNoSolutions(void)
 			break;
 		}
 	}
-}
-
-
-static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
-{
-	if (n < 0)
-	{	n = -n;
-		x = -x;
-		y = -y;
-		z = -z;
-	}
-
-	// print solution: (formatted to be: x <= y <= z)
-	if (x <= y && y <= z)
-		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
-	else if (x <= z && z <= y)
-		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)z, (int64_t)y);
-	else if (y <= x && x <= z)
-		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)x, (int64_t)z);
-	else if (y <= z && z <= x)
-		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)z, (int64_t)x);
-	else if (z <= x && x <= y)
-		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
-	else
-		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
-
-	fflush(stdout); // to disable buffering
-
-	solutionKnown[n] = 1;
 }
 
 static void printAdditionSolutionsUsingBruteForce(void)
