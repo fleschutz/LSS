@@ -44,8 +44,10 @@ See the generated [List_of_simple_solutions.txt](Results/List_of_simple_solution
 * 906 = (−74 924 259 395 610 397)³ + 72 054 089 679 353 378³ + 35 961 979 615 356 503³
 
 
-5️⃣ List of complicated solutions currently unsolved
-----------------------------------------------------
+5️⃣ List of complicated solutions still unsolved
+------------------------------------------------
+The only remaining unsolved cases up to 1,000 are the following seven numbers:
+
 * 114 = ?
 * 390 = ?
 * 627 = ?
