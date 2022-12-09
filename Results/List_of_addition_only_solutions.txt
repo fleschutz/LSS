@@ -1,4 +1,4 @@
-# List of add only solutions of n = x³ + y³ + z³  (for n < 100000, solutions formatted to be: x <= y <= z)
+# List of addition only solutions of n = x³ + y³ + z³  (for n < 100000, solutions formatted to be: x <= y <= z)
    0 = 0³ + 0³ + 0³
    1 = 0³ + 0³ + 1³
    2 = 0³ + 1³ + 1³

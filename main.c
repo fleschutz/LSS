@@ -61,7 +61,7 @@ static void printNoSolutions(void)
 }
 
 // print solutions for additions only (no subtraction, no negative numbers).
-static void printAddOnlySolutions(void)
+static void printAdditionOnlySolutions(void)
 {
 	for (BigInt x = XYZ_MIN, x3 = cubeNumbers[XYZ_MIN]; x <= XYZ_MAX; x3 = cubeNumbers[++x])
 	{
@@ -190,7 +190,7 @@ int main()
 
 	printNoSolutions();
 
-	printAddOnlySolutions();
+	printAdditionOnlySolutions();
 
 	printRestSolutionsUsingBruteForce();
 
