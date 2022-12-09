@@ -1,6 +1,6 @@
 LSS
 ===
-A small C program to list simple solutions (LSS) for the sum of three cubes:
+A small C program to list simple solutions (LSS) for the sums of three cubes:
 
 **x³ + y³ + z³ = n**
 
