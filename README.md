@@ -52,7 +52,6 @@ See the generated [List_of_simple_solutions.txt](Results/List_of_simple_solution
 * 627 = ?
 * 633 = ?
 * 732 = ?
-* 795 = ?
 * 921 = ?
 * 975 = ?
 
