@@ -48,7 +48,6 @@ See the generated [List_of_simple_solutions.txt](Results/List_of_simple_solution
 ----------------------------------------------------
 * 114 = ?
 * 390 = ?
-* 579 = ?
 * 627 = ?
 * 633 = ?
 * 732 = ?
