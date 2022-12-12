@@ -124,7 +124,7 @@ static void printSolutionsForNegativeNumbers(void)
 				if (n < -N_MAX)
 				       continue; // still too small 
 				if (n > N_MAX)
-					continue; // already too big
+					break; // already too big
 				if (!solutionKnown[abs(n)])
 					printSolution(n, x, -y, z);
 			}
