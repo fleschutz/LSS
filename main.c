@@ -80,17 +80,17 @@ static void printSolutionsForPositiveNumbers(void)
 	for (BigInt x = XYZ_MIN, x3 = cubeNumbers[XYZ_MIN]; x <= XYZ_MAX; x3 = cubeNumbers[++x])
 	{
 		if (x3 > N_MAX)
-			break; // outside range of interest 
+			break; // x³ too big already
 		for (BigInt y = XYZ_MIN, y3 = cubeNumbers[XYZ_MIN]; y <= x; y3 = cubeNumbers[++y])
 		{
 			BigInt x3y3 = x3 + y3;
 			if (x3y3 > N_MAX)
-				break; // outside range of interest 
+				break; // x³ + y³ too big already
 			for (BigInt z = XYZ_MIN, z3 = cubeNumbers[XYZ_MIN]; z <= y; z3 = cubeNumbers[++z])
 			{
 				BigInt n = x3y3 + z3;
 				if (n > N_MAX)
-				       break; // outside range of interest 
+				       break; // x³ + y³ + z³ too big already
 				if (!solutionKnown[n])
 					printSolution(n, x, y, z);
 			}
