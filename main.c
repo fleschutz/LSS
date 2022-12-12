@@ -3,12 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define N_MIN          0 // minimum value for n
-#define N_MAX       1000 // maximum value for n
-#define XYZ_MIN        0 // minimum value for x,y,z
-#define XYZ_MAX   100000 // maximum value for x,y,z
-#define CSV_OUTPUT     1 // CSV table output, otherwise text
-typedef int64_t  BigInt; // or use __int128_t instead
+#define N_MIN            0 // minimum value for n
+#define N_MAX         1000 // maximum value for n
+#define XYZ_MIN          0 // minimum value for x,y,z
+#define XYZ_MAX     100000 // maximum value for x,y,z
+#define CSV_OUTPUT       1 // CSV output, else text output
+typedef int64_t  BigInt;   // or use __int128_t instead
 
 static void printNoSolutions(void)
 {
@@ -106,8 +106,7 @@ static void printSolutionsForNegativeNumbers(void)
 #pragma omp parallel for
 		for (BigInt y = XYZ_MIN; y <= x; ++y)
 		{
-			BigInt y3 = cubeNumbers[y];
-			BigInt x3_plus_y3 = x3 + y3;
+			BigInt y3 = cubeNumbers[y], x3_plus_y3 = x3 + y3;
 			for (BigInt z = XYZ_MIN; z <= y; ++z)
 			{
 				BigInt z3 = cubeNumbers[z], n = x3_plus_y3 - z3;
