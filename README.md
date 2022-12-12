@@ -56,7 +56,7 @@ The only remaining unsolved cases up to 1,000 are the following seven numbers:
 * 921 = ?
 * 975 = ?
 
-Want to get famous? Go ahead and solve one of the seven numbers.
+Want to get famous? Go ahead and solve one of these numbers.
 
 Feedback
 --------
