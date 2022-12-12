@@ -1,4 +1,4 @@
-# List of primitive solutions of x³ + y³ + z³ = n  (for n < 1000 and x,y,z < 100000)
+# Primitive solutions of x³ + y³ + z³ = n  (for n < 1000 and x,y,z < 100000)
 0 = 0³ + 0³ + 0³
 1 = 0³ + 0³ + 1³
 2 = 0³ + 1³ + 1³
