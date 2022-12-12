@@ -25,16 +25,15 @@ static void printNoSolutions(void)
 	}
 }
 
-// pre-calculate the cube numbers for performance
-static BigInt cubeNumbers[XYZ_MAX + 2]; 
+static BigInt cubeNumbers[XYZ_MAX + 2]; // pre-calculate for performance
 static void calculateCubeNumbers(void) 
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 		cubeNumbers[x] = x * x * x;
 }
 
-// print and remember the given solution (formatted to be: x <= y <= z)
-static int solutionKnown[N_MAX + 1] = { 0 };
+// print a solution (formatted to be: x <= y <= z) and remember it:
+static int solutionKnown[N_MAX + 1] = { 0 }; 
 static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	if (n < 0)
