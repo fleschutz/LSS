@@ -85,18 +85,39 @@ static void printSolutionsForPositiveNumbers(void)
 	{
 		if (x3 > N_MAX)
 			break; // outside range of interest 
-		for (BigInt y = XYZ_MIN, y3 = cubeNumbers[XYZ_MIN]; y <= XYZ_MAX; y3 = cubeNumbers[++y])
+		for (BigInt y = XYZ_MIN, y3 = cubeNumbers[XYZ_MIN]; y <= x; y3 = cubeNumbers[++y])
 		{
 			BigInt x3y3 = x3 + y3;
 			if (x3y3 > N_MAX)
 				break; // outside range of interest 
-			for (BigInt z = XYZ_MIN, z3 = cubeNumbers[XYZ_MIN]; z <= XYZ_MAX; z3 = cubeNumbers[++z])
+			for (BigInt z = XYZ_MIN, z3 = cubeNumbers[XYZ_MIN]; z <= y; z3 = cubeNumbers[++z])
 			{
 				BigInt n = x3y3 + z3;
 				if (n > N_MAX)
 				       break; // outside range of interest 
 				if (!solutionKnown[n])
 					printSolution(n, x, y, z);
+			}
+		}
+	}
+}
+
+static void printSolutionsForNegativeNumbers(void)
+{
+#pragma omp parallel for
+	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
+	{
+		BigInt x3 = cubeNumbers[x];
+		for (BigInt y = XYZ_MIN; y <= x; ++y)
+		{
+			BigInt y3 = cubeNumbers[y], x3y3 = x3 - y3;
+			for (BigInt z = XYZ_MIN; z <= y; ++z)
+			{
+				BigInt z3 = cubeNumbers[z], n = x3y3 - z3;
+				if (n < -N_MAX)
+				       break; // outside range of interest 
+				if (n <= N_MAX && !solutionKnown[abs(n)])
+					printSolution(n, x, -y, -z);
 			}
 		}
 	}
@@ -215,9 +236,11 @@ int main()
 
 	printSolutionsForPositiveNumbers();
 
-	printSolutionsUsingBruteForce();
+	printSolutionsForNegativeNumbers();
 
-	//printSolutionsUsingBinarySearch(0/*5000*/, XYZ_MAX);
+	// printSolutionsUsingBruteForce();
+
+	// printSolutionsUsingBinarySearch(0/*5000*/, XYZ_MAX);
 
 	return 0;
 }
