@@ -30,30 +30,30 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 	}
 #if CSV_OUTPUT	
 	if (x <= y && y <= z)
-		printf("%4ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
+		printf("%5ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
 	else if (x <= z && z <= y)
-		printf("%4ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)x, (int64_t)z, (int64_t)y);
+		printf("%5ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)x, (int64_t)z, (int64_t)y);
 	else if (y <= x && x <= z)
-		printf("%4ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)y, (int64_t)x, (int64_t)z);
+		printf("%5ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)y, (int64_t)x, (int64_t)z);
 	else if (y <= z && z <= x)
-		printf("%4ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)y, (int64_t)z, (int64_t)x);
+		printf("%5ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)y, (int64_t)z, (int64_t)x);
 	else if (z <= x && x <= y)
-		printf("%4ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
+		printf("%5ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
 	else
-		printf("%4ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
+		printf("%5ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
 #else
 	if (x <= y && y <= z)
-		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
+		printf("%5ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
 	else if (x <= z && z <= y)
-		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)z, (int64_t)y);
+		printf("%5ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)z, (int64_t)y);
 	else if (y <= x && x <= z)
-		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)x, (int64_t)z);
+		printf("%5ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)x, (int64_t)z);
 	else if (y <= z && z <= x)
-		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)z, (int64_t)x);
+		printf("%5ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)z, (int64_t)x);
 	else if (z <= x && x <= y)
-		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
+		printf("%5ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
 	else
-		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
+		printf("%5ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
 #endif
 	fflush(stdout); // to disable buffering
 
@@ -67,7 +67,11 @@ static void printNoSolutions(void)
 		{
 		case 4: 
 		case 5: 
-			printf("%4ld = no solution\n", (int64_t)n);
+#if CSV_OUTPUT
+			printf("%5ld, , , \n", (int64_t)n);
+#else
+			printf("%5ld = no solution\n", (int64_t)n);
+#endif
 			break;
 		default:
 			break;
@@ -75,8 +79,7 @@ static void printNoSolutions(void)
 	}
 }
 
-// print solutions for additions only (no subtraction, no negative numbers).
-static void printAdditionOnlySolutions(void)
+static void printSolutionsWithPositiveNumbers(void)
 {
 	for (BigInt x = XYZ_MIN, x3 = cubeNumbers[XYZ_MIN]; x <= XYZ_MAX; x3 = cubeNumbers[++x])
 	{
@@ -99,7 +102,7 @@ static void printAdditionOnlySolutions(void)
 	}
 }
 
-static void printRestSolutionsUsingBruteForce(void)
+static void printSolutionsUsingBruteForce(void)
 {
 	for (BigInt x = XYZ_MIN, x3 = cubeNumbers[XYZ_MIN]; x <= XYZ_MAX; x3 = cubeNumbers[++x])
 	{
@@ -208,11 +211,11 @@ int main()
 
 	calculateCubeNumbers();
 
-	// printNoSolutions();
+	printNoSolutions();
 
-	printAdditionOnlySolutions();
+	printSolutionsWithPositiveNumbers();
 
-	// printRestSolutionsUsingBruteForce();
+	printSolutionsUsingBruteForce();
 
 	//printSolutionsUsingBinarySearch(0/*5000*/, XYZ_MAX);
 
