@@ -105,13 +105,27 @@ static void printSolutionsForNegativeNumbers(void)
 		BigInt x3 = cubeNumbers[x];
 		for (BigInt y = XYZ_MIN; y <= x; ++y)
 		{
-			BigInt y3 = cubeNumbers[y], x3y3 = x3 - y3;
+			BigInt y3 = cubeNumbers[XYZ_MIN], minus_x3_plus_y3 = -x3 + y3;
 			for (BigInt z = XYZ_MIN; z <= y; ++z)
 			{
-				BigInt z3 = cubeNumbers[z], n = x3y3 - z3;
+				BigInt z3 = cubeNumbers[z], n = minus_x3_plus_y3 + z3;
 				if (n < -N_MAX)
-				       break; // outside range of interest 
-				if (n <= N_MAX && !solutionKnown[abs(n)])
+					continue; // still too small
+				if (n > N_MAX)
+				       break; // too big already
+				if (!solutionKnown[abs(n)])
+					printSolution(n, -x, y, z);
+			}
+
+			BigInt x3_minus_y3 = x3 - y3;
+			for (BigInt z = XYZ_MIN; z <= y; ++z)
+			{
+				BigInt z3 = cubeNumbers[z], n = x3_minus_y3 - z3;
+				if (n > N_MAX)
+					continue; // still too big
+				if (n < -N_MAX)
+				       break; // too small already
+				if (!solutionKnown[abs(n)])
 					printSolution(n, x, -y, -z);
 			}
 		}
