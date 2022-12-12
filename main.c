@@ -30,17 +30,17 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 	}
 #if CSV_OUTPUT	
 	if (x <= y && y <= z)
-		printf("%4ld; %ld; %ld; %ld\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
+		printf("%4ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
 	else if (x <= z && z <= y)
-		printf("%4ld; %ld; %ld; %ld\n", (int64_t)n, (int64_t)x, (int64_t)z, (int64_t)y);
+		printf("%4ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)x, (int64_t)z, (int64_t)y);
 	else if (y <= x && x <= z)
-		printf("%4ld; %ld; %ld; %ld\n", (int64_t)n, (int64_t)y, (int64_t)x, (int64_t)z);
+		printf("%4ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)y, (int64_t)x, (int64_t)z);
 	else if (y <= z && z <= x)
-		printf("%4ld; %ld; %ld; %ld\n", (int64_t)n, (int64_t)y, (int64_t)z, (int64_t)x);
+		printf("%4ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)y, (int64_t)z, (int64_t)x);
 	else if (z <= x && x <= y)
-		printf("%4ld; %ld; %ld; %ld\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
+		printf("%4ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
 	else
-		printf("%4ld; %ld; %ld; %ld³\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
+		printf("%4ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
 #else
 	if (x <= y && y <= z)
 		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
@@ -201,7 +201,7 @@ static void printSolutionsUsingBinarySearch(BigInt beginOfSearch, BigInt endOfSe
 int main()
 {
 #if CSV_OUTPUT
-	printf("n; x; y; z;\n");
+	printf("   n, x, y, z\n");
 #else
 	printf("# List of primitive solutions of n = x³ + y³ + z³  (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
 #endif
