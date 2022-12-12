@@ -13,7 +13,8 @@ typedef int64_t  BigInt; // or use __int128_t instead
 static void printNoSolutions(void)
 {
 	for (BigInt n = N_MIN; n <= N_MAX; ++n)
-	{	if ((n % 9) == 4 || (n % 9) == 5)
+	{
+		if ((n % 9) == 4 || (n % 9) == 5)
 		{
 #if CSV_OUTPUT
 			printf("%5ld, , , \n", (int64_t)n);
