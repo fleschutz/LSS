@@ -99,13 +99,25 @@ static void printSolutionsForPositiveNumbers(void)
 
 static void printSolutionsForNegativeNumbers(void)
 {
-#pragma omp parallel for
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
 		BigInt x3 = cubeNumbers[x];
+#pragma omp parallel for
 		for (BigInt y = XYZ_MIN; y <= x; ++y)
 		{
-			BigInt y3 = cubeNumbers[XYZ_MIN], minus_x3_plus_y3 = -x3 + y3;
+			BigInt y3 = cubeNumbers[y];
+			BigInt x3_plus_y3 = x3 + y3;
+			for (BigInt z = XYZ_MIN; z <= y; ++z)
+			{
+				BigInt z3 = cubeNumbers[z], n = x3_plus_y3 - z3;
+				if (n > N_MAX)
+					continue; // still too big
+				if (n < -N_MAX)
+				       break; // too small already
+				if (!solutionKnown[abs(n)])
+					printSolution(n, x, y, -z);
+			}
+			BigInt minus_x3_plus_y3 = -x3 + y3;
 			for (BigInt z = XYZ_MIN; z <= y; ++z)
 			{
 				BigInt z3 = cubeNumbers[z], n = minus_x3_plus_y3 + z3;
