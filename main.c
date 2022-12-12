@@ -117,6 +117,27 @@ static void printSolutionsForNegativeNumbers(void)
 				if (!solutionKnown[abs(n)])
 					printSolution(n, x, y, -z);
 			}
+			BigInt x3_minus_y3 = x3 - y3;
+			for (BigInt z = XYZ_MIN; z <= y; ++z)
+			{
+				BigInt z3 = cubeNumbers[z], n = x3_minus_y3 + z3;
+				if (n < -N_MAX)
+				       continue; // still too small 
+				if (n > N_MAX)
+					continue; // already too big
+				if (!solutionKnown[abs(n)])
+					printSolution(n, x, -y, z);
+			}
+			for (BigInt z = XYZ_MIN; z <= y; ++z)
+			{
+				BigInt z3 = cubeNumbers[z], n = x3_minus_y3 - z3;
+				if (n > N_MAX)
+					continue; // still too big
+				if (n < -N_MAX)
+				       break; // too small already
+				if (!solutionKnown[abs(n)])
+					printSolution(n, x, -y, -z);
+			}
 			BigInt minus_x3_plus_y3 = -x3 + y3;
 			for (BigInt z = XYZ_MIN; z <= y; ++z)
 			{
@@ -127,18 +148,6 @@ static void printSolutionsForNegativeNumbers(void)
 				       break; // too big already
 				if (!solutionKnown[abs(n)])
 					printSolution(n, -x, y, z);
-			}
-
-			BigInt x3_minus_y3 = x3 - y3;
-			for (BigInt z = XYZ_MIN; z <= y; ++z)
-			{
-				BigInt z3 = cubeNumbers[z], n = x3_minus_y3 - z3;
-				if (n > N_MAX)
-					continue; // still too big
-				if (n < -N_MAX)
-				       break; // too small already
-				if (!solutionKnown[abs(n)])
-					printSolution(n, x, -y, -z);
 			}
 		}
 	}
