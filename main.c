@@ -10,6 +10,20 @@
 #define CSV_OUTPUT     1 // CSV table output, otherwise text
 typedef int64_t  BigInt; // or use __int128_t instead
 
+static void printNoSolutions(void)
+{
+	for (BigInt n = N_MIN; n <= N_MAX; ++n)
+	{	if ((n % 9) == 4 || (n % 9) == 5)
+		{
+#if CSV_OUTPUT
+			printf("%5ld, , , \n", (int64_t)n);
+#else
+			printf("%5ld = no solution\n", (int64_t)n);
+#endif
+		}
+	}
+}
+
 // pre-calculate the cube numbers for performance
 static BigInt cubeNumbers[XYZ_MAX + 2]; 
 static void calculateCubeNumbers(void) 
@@ -58,25 +72,6 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 	fflush(stdout); // to disable buffering
 
 	solutionKnown[n] = 1;
-}
-
-static void printNoSolutions(void)
-{
-	for (BigInt n = N_MIN; n <= N_MAX; ++n)
-	{	switch (n % 9)
-		{
-		case 4: 
-		case 5: 
-#if CSV_OUTPUT
-			printf("%5ld, , , \n", (int64_t)n);
-#else
-			printf("%5ld = no solution\n", (int64_t)n);
-#endif
-			break;
-		default:
-			break;
-		}
-	}
 }
 
 static void printSolutionsForPositiveNumbers(void)
