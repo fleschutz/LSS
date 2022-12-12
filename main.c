@@ -8,6 +8,7 @@ typedef int64_t  BigInt; // or use __int128_t instead
 #define N_MAX     100000 // maximum value for n
 #define XYZ_MIN        0 // minimum value for x,y,z
 #define XYZ_MAX   100000 // maximum value for x,y,z
+#define CSV_OUTPUT     1 // CSV table output, otherwise text
 
 // pre-calculate the cube numbers for performance
 static BigInt cubeNumbers[XYZ_MAX + 2]; 
@@ -27,7 +28,20 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 		y = -y;
 		z = -z;
 	}
-	
+#if CSV_OUTPUT	
+	if (x <= y && y <= z)
+		printf("%4ld; %ld; %ld; %ld\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
+	else if (x <= z && z <= y)
+		printf("%4ld; %ld; %ld; %ld\n", (int64_t)n, (int64_t)x, (int64_t)z, (int64_t)y);
+	else if (y <= x && x <= z)
+		printf("%4ld; %ld; %ld; %ld\n", (int64_t)n, (int64_t)y, (int64_t)x, (int64_t)z);
+	else if (y <= z && z <= x)
+		printf("%4ld; %ld; %ld; %ld\n", (int64_t)n, (int64_t)y, (int64_t)z, (int64_t)x);
+	else if (z <= x && x <= y)
+		printf("%4ld; %ld; %ld; %ld\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
+	else
+		printf("%4ld; %ld; %ld; %ld³\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
+#else
 	if (x <= y && y <= z)
 		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
 	else if (x <= z && z <= y)
@@ -40,6 +54,7 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
 	else
 		printf("%4ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
+#endif
 	fflush(stdout); // to disable buffering
 
 	solutionKnown[n] = 1;
@@ -52,7 +67,7 @@ static void printNoSolutions(void)
 		{
 		case 4: 
 		case 5: 
-			printf("%3ld = no solution\n", (int64_t)n);
+			printf("%4ld = no solution\n", (int64_t)n);
 			break;
 		default:
 			break;
@@ -185,15 +200,19 @@ static void printSolutionsUsingBinarySearch(BigInt beginOfSearch, BigInt endOfSe
 
 int main()
 {
+#if CSV_OUTPUT
+	printf("n; x; y; z;\n");
+#else
 	printf("# List of primitive solutions of n = x³ + y³ + z³  (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
+#endif
 
 	calculateCubeNumbers();
 
-	printNoSolutions();
+	// printNoSolutions();
 
 	printAdditionOnlySolutions();
 
-	printRestSolutionsUsingBruteForce();
+	// printRestSolutionsUsingBruteForce();
 
 	//printSolutionsUsingBinarySearch(0/*5000*/, XYZ_MAX);
 
