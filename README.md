@@ -1,17 +1,14 @@
 LSS
 ===
-A small C program to list simple solutions (LSS) for the sums of three cubes:
-
-**x³ + y³ + z³ = n**
-
+A small C program to list simple solutions (LSS) for the sums of three cubes: **x³ + y³ + z³ = n**
 See https://en.wikipedia.org/wiki/Sums_of_three_cubes and https://en.wikipedia.org/wiki/Diophantine_equation for details.
 
 
 🔧 Installation
 ----------------
-Just a **C/C++ compiler** and **git** is needed. Then execute in a terminal window:
+Just a **C/C++ compiler** is needed. Download the code (see green button) or execute: *git clone https://github.com/fleschutz/LSS*. Then execute in a terminal window:
 ```
-$ git clone https://github.com/fleschutz/LSS; cd LSS
+$ cd LSS
 $ gcc -O3 -fopenmp main.c     (when using the GCC compiler)
 $ clang -O3 -fopenmp main.c   (when using the CLANG compiler)
 $ ./a.out 
