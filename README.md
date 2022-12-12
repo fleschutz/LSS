@@ -1,6 +1,7 @@
 LSS
 ===
 A small C program to list simple solutions (LSS) for the sums of three cubes: **x³ + y³ + z³ = n**
+
 See https://en.wikipedia.org/wiki/Sums_of_three_cubes and https://en.wikipedia.org/wiki/Diophantine_equation for details.
 
 
