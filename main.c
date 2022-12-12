@@ -227,7 +227,7 @@ int main()
 #if CSV_OUTPUT
 	printf("   n, x, y, z\n");
 #else
-	printf("# List of primitive solutions of n = x³ + y³ + z³  (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
+	printf("# Primitive solutions of n = x³ + y³ + z³  (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
 #endif
 
 	calculateCubeNumbers();
