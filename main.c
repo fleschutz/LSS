@@ -79,7 +79,7 @@ static void printNoSolutions(void)
 	}
 }
 
-static void printSolutionsWithPositiveNumbers(void)
+static void printSolutionsForPositiveNumbers(void)
 {
 	for (BigInt x = XYZ_MIN, x3 = cubeNumbers[XYZ_MIN]; x <= XYZ_MAX; x3 = cubeNumbers[++x])
 	{
@@ -213,7 +213,7 @@ int main()
 
 	printNoSolutions();
 
-	printSolutionsWithPositiveNumbers();
+	printSolutionsForPositiveNumbers();
 
 	printSolutionsUsingBruteForce();
 
