@@ -98,7 +98,38 @@ static void printSolutionsForPositiveNumbers(void)
 	}
 }
 
-static void printSolutionsForNegativeNumbers(void)
+static void printSolutionsForNegativeNumbersUsingBruteForce(void)
+{
+	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
+	{
+		BigInt x3 = cubeNumbers[x];
+#pragma omp parallel for
+		for (BigInt y = XYZ_MIN; y <= x; ++y)
+		{
+			BigInt y3 = cubeNumbers[y];
+			for (BigInt z = XYZ_MIN; z <= y; ++z)
+			{
+				BigInt z3 = cubeNumbers[z], n = -x3 + y3 + z3;
+				if (-N_MAX < n && n < N_MAX && !solutionKnown[abs(n)])
+					printSolution(n, -x, y, z);
+
+				n = x3 - y3 + z3;
+				if (-N_MAX < n && n < N_MAX && !solutionKnown[abs(n)])
+					printSolution(n, x, -y, z);
+
+				n = x3 + y3 - z3;
+				if (-N_MAX < n && n < N_MAX && !solutionKnown[abs(n)])
+					printSolution(n, x, y, -z);
+
+				n = x3 - y3 - z3;
+				if (-N_MAX < n && n < N_MAX && !solutionKnown[abs(n)])
+					printSolution(n, x, -y, -z);
+			}
+		}
+	}
+}
+
+static void printSolutionsForNegativeNumbersVersion1(void)
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
@@ -148,36 +179,6 @@ static void printSolutionsForNegativeNumbers(void)
 				       break; // too big already
 				if (!solutionKnown[abs(n)])
 					printSolution(n, -x, y, z);
-			}
-		}
-	}
-}
-
-static void printSolutionsUsingBruteForce(void)
-{
-	for (BigInt x = XYZ_MIN, x3 = cubeNumbers[XYZ_MIN]; x <= XYZ_MAX; x3 = cubeNumbers[++x])
-	{
-#pragma omp parallel for
-		for (BigInt y = XYZ_MIN; y <= XYZ_MAX; ++y)
-		{
-			BigInt y3 = cubeNumbers[y];
-			for (BigInt z = XYZ_MIN, z3 = cubeNumbers[XYZ_MIN]; z <= XYZ_MAX; z3 = cubeNumbers[++z])
-			{
-				BigInt n = -x3 + y3 + z3;
-				if (-N_MAX < n && n < N_MAX && !solutionKnown[abs(n)])
-					printSolution(n, -x, y, z);
-
-				n = x3 - y3 + z3;
-				if (-N_MAX < n && n < N_MAX && !solutionKnown[abs(n)])
-					printSolution(n, x, -y, z);
-
-				n = x3 + y3 - z3;
-				if (-N_MAX < n && n < N_MAX && !solutionKnown[abs(n)])
-					printSolution(n, x, y, -z);
-
-				n = x3 - y3 - z3;
-				if (-N_MAX < n && n < N_MAX && !solutionKnown[abs(n)])
-					printSolution(n, x, y, -z);
 			}
 		}
 	}
@@ -266,9 +267,9 @@ int main()
 
 	printSolutionsForPositiveNumbers();
 
-	printSolutionsForNegativeNumbers();
-
-	// printSolutionsUsingBruteForce();
+	printSolutionsForNegativeNumbersUsingBruteForce();
+	
+	// printSolutionsForNegativeNumbersVersion1();
 
 	// printSolutionsUsingBinarySearch(0/*5000*/, XYZ_MAX);
 
