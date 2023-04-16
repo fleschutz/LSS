@@ -56,7 +56,7 @@ Want to get famous? Just solve one of these numbers. May the force be with you ð
 
 Feedback
 --------
-Send your email feedback to: markus [at] fleschutz [dot] de
+Send your email feedback to: markus.fleschutz [at] gmail.com
 
 
 License & Copyright
