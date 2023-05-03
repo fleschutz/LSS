@@ -11,8 +11,8 @@ First download und unzip the code (see green button), or execute: `git clone htt
 
 Then execute in a terminal window: (requires a C/C++ compiler)
 ```
-$ cc -O3 -fopenmp main.c 
-$ ./a.out 
+> cc -O3 -fopenmp main.c 
+> ./a.out 
 ```
 
 1️⃣ No solutions
