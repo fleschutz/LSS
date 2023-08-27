@@ -297,26 +297,36 @@ static void printSolutionsUsingBinarySearch(BigInt beginOfSearch, BigInt endOfSe
 	}
 }
 
-int main()
+int main(int argc, char **argv)
 {
+	int mode = 0; // print no solutions by default
+	if (argc == 2)
+		mode = atoi(argv[1]);
+	
 #if CSV_OUTPUT
 	printf("    n, x, y, z\n");
 #else
 	printf("# Solutions of n = x³ + y³ + z³  (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
 #endif
-	setNontrivialSolutionsAsUnknown();
+	// setNontrivialSolutionsAsUnknown();
 
-	// calculateCubeNumbers();
+	// 
 
-	// printNoSolutions();
-
-	// printSolutionsForPositiveNumbers();
+	if (mode == 0)
+	{
+		printNoSolutions();
+	}
+	else if (mode == 1)
+	{
+		calculateCubeNumbers();
+		printSolutionsForPositiveNumbers();
+	}
 
 	// printSolutionsForNegativeNumbersUsingBruteForce();
 	
 	// printSolutionsForNegativeNumbersVersion1();
 
-	TrySomething();
+	// TrySomething();
 
 	// printSolutionsUsingBinarySearch(0/*5000*/, XYZ_MAX);
 
