@@ -33,7 +33,7 @@ static void preCalculateCubeNumbers(void)
 }
 
 static int solutionKnown[N_MAX + 1] = { 0 }; 
-static void setNontrivialSolutionsAsUnknown(void)
+static void setAllNontrivialSolutionsAsUnknown(void)
 {
 	for (BigInt n = N_MIN; n <= N_MAX; ++n)
 		switch (n)
@@ -251,7 +251,8 @@ static void printSolutionsUsingBinarySearch(BigInt beginOfSearch, BigInt endOfSe
 					min = z + 1;
 				else
 				{
-					printSolution(n, x, -y, -z);
+					if (!solutionKnown[abs(n)])
+						printSolution(n, x, -y, -z);
 					break;
 				}
 			} while (min <= max);
@@ -270,7 +271,8 @@ static void printSolutionsUsingBinarySearch(BigInt beginOfSearch, BigInt endOfSe
 					min = z + 1;
 				else
 				{
-					printSolution(n, x, -y, z);
+					if (!solutionKnown[abs(n)])
+						printSolution(n, x, -y, z);
 					break;
 				}
 			} while (min <= max);
@@ -289,7 +291,8 @@ static void printSolutionsUsingBinarySearch(BigInt beginOfSearch, BigInt endOfSe
 					min = z + 1;
 				else
 				{
-					printSolution(n, -x, y, z);
+					if (!solutionKnown[abs(n)])
+						printSolution(n, -x, y, z);
 					break;
 				}
 			} while (min <= max);
@@ -336,11 +339,12 @@ int main(int argc, char **argv)
 	}
 	else if (mode == 4) // experimental
 	{
-		// setNontrivialSolutionsAsUnknown();
+		preCalculateCubeNumbers();
+		setAllNontrivialSolutionsAsUnknown();
+		printSolutionsUsingBinarySearch(0/*5000*/, XYZ_MAX);
 		// printSolutionsForNegativeNumbersUsingBruteForce();
 		// printSolutionsForNegativeNumbersVersion1();
 		// TrySomething();
-		// printSolutionsUsingBinarySearch(0/*5000*/, XYZ_MAX);
 	}
 	return 0;
 }
