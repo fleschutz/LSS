@@ -12,11 +12,6 @@ typedef int64_t        BigInt; // or use __int128_t instead
 
 static void printNoSolutions(void)
 {
-#if CSV_OUTPUT
-	printf("    n, x, y, z\n");
-#else
-	printf("# No solutions of n = x³ + y³ + z³  (for %ld <= n <= %ld)\n", (int64_t)N_MIN, (int64_t)N_MAX);
-#endif
 	for (BigInt n = N_MIN; n <= N_MAX; ++n)
 	{
 		if ((n % 9) == 4 || (n % 9) == 5)
@@ -31,7 +26,7 @@ static void printNoSolutions(void)
 }
 
 static BigInt cubeNumbers[XYZ_MAX + 1]; // pre-calculate for performance
-static void calculateCubeNumbers(void) 
+static void preCalculateCubeNumbers(void) 
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 		cubeNumbers[x] = x * x * x;
@@ -108,11 +103,6 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 
 static void printSolutionsForPositiveNumbers(void)
 {
-#if CSV_OUTPUT
-	printf("    n, x, y, z\n");
-#else
-	printf("# Solutions of n = x³ + y³ + z³  (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
-#endif
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
 		BigInt x3 = cubeNumbers[x];
@@ -313,16 +303,38 @@ int main(int argc, char **argv)
 	if (argc == 2)
 		mode = atoi(argv[1]);
 	
-	if (mode == 1)
+	if (mode == 1) 
 	{
+#if CSV_OUTPUT
+		printf("    n, x, y, z\n");
+#else
+		printf("# No solutions of n = x³ + y³ + z³  (for %ld <= n <= %ld)\n", (int64_t)N_MIN, (int64_t)N_MAX);
+#endif
 		printNoSolutions();
 	}
 	else if (mode == 2)
 	{
-		calculateCubeNumbers();
+#if CSV_OUTPUT
+		printf("    n, x, y, z\n");
+#else
+		printf("# Solutions of n = x³ + y³ + z³  (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
+#endif
+		preCalculateCubeNumbers();
 		printSolutionsForPositiveNumbers();
 	}
-	else if (mode == 3) // experimental
+	else if (mode == 3) 
+	{
+#if CSV_OUTPUT
+		printf("    n, x, y, z\n");
+#else
+		printf("# Solutions of n = x³ + y³ + z³  (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
+#endif
+		preCalculateCubeNumbers();
+		printNoSolutions();
+		printSolutionsForPositiveNumbers();
+		printSolutionsForNegativeNumbersUsingBruteForce();
+	}
+	else if (mode == 4) // experimental
 	{
 		// setNontrivialSolutionsAsUnknown();
 		// printSolutionsForNegativeNumbersUsingBruteForce();
