@@ -8,10 +8,13 @@ typedef int64_t        BigInt; // or use __int128_t instead
 #define N_MAX            1000  // maximum value for n
 #define XYZ_MIN             0  // minimum value for x,y,z
 #define XYZ_MAX       1000000  // maximum value for x,y,z
-#define CSV_OUTPUT          1  // CSV output, else text output
+#define CSV_OUTPUT          0  // CSV output, else text output
 
 static void printNoSolutions(void)
 {
+#if !CSV_OUTPUT
+	printf("# No solutions of n = x³ + y³ + z³  (for %ld <= n <= %ld)\n", (int64_t)N_MIN, (int64_t)N_MAX);
+#endif
 	for (BigInt n = N_MIN; n <= N_MAX; ++n)
 	{
 		if ((n % 9) == 4 || (n % 9) == 5)
@@ -103,6 +106,11 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 
 static void printSolutionsForPositiveNumbers(void)
 {
+#if CSV_OUTPUT
+	printf("    n, x, y, z\n");
+#else
+	printf("# Solutions of n = x³ + y³ + z³  (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
+#endif
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
 		BigInt x3 = cubeNumbers[x];
@@ -303,11 +311,6 @@ int main(int argc, char **argv)
 	if (argc == 2)
 		mode = atoi(argv[1]);
 	
-#if CSV_OUTPUT
-	printf("    n, x, y, z\n");
-#else
-	printf("# Solutions of n = x³ + y³ + z³  (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
-#endif
 	// setNontrivialSolutionsAsUnknown();
 
 	// 
