@@ -307,7 +307,7 @@ static void printSolutionsUsingBinarySearch(BigInt beginOfSearch, BigInt endOfSe
 
 int main(int argc, char **argv)
 {
-	int mode = 0; // print no solutions by default
+	int mode = 1; // print no solutions by default
 	if (argc == 2)
 		mode = atoi(argv[1]);
 	
@@ -315,11 +315,11 @@ int main(int argc, char **argv)
 
 	// 
 
-	if (mode == 0)
+	if (mode == 1)
 	{
 		printNoSolutions();
 	}
-	else if (mode == 1)
+	else if (mode == 2)
 	{
 		calculateCubeNumbers();
 		printSolutionsForPositiveNumbers();
