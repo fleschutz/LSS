@@ -5,14 +5,16 @@
 
 typedef int64_t        BigInt; // or use __int128_t instead
 #define N_MIN               0  // minimum value for n
-#define N_MAX            1000  // maximum value for n
+#define N_MAX          100000  // maximum value for n
 #define XYZ_MIN             0  // minimum value for x,y,z
 #define XYZ_MAX       1000000  // maximum value for x,y,z
 #define CSV_OUTPUT          0  // CSV output, else text output
 
 static void printNoSolutions(void)
 {
-#if !CSV_OUTPUT
+#if CSV_OUTPUT
+	printf("    n, x, y, z\n");
+#else
 	printf("# No solutions of n = x³ + y³ + z³  (for %ld <= n <= %ld)\n", (int64_t)N_MIN, (int64_t)N_MAX);
 #endif
 	for (BigInt n = N_MIN; n <= N_MAX; ++n)
@@ -311,10 +313,6 @@ int main(int argc, char **argv)
 	if (argc == 2)
 		mode = atoi(argv[1]);
 	
-	// setNontrivialSolutionsAsUnknown();
-
-	// 
-
 	if (mode == 1)
 	{
 		printNoSolutions();
@@ -324,14 +322,13 @@ int main(int argc, char **argv)
 		calculateCubeNumbers();
 		printSolutionsForPositiveNumbers();
 	}
-
-	// printSolutionsForNegativeNumbersUsingBruteForce();
-	
-	// printSolutionsForNegativeNumbersVersion1();
-
-	// TrySomething();
-
-	// printSolutionsUsingBinarySearch(0/*5000*/, XYZ_MAX);
-
+	else if (mode == 3) // experimental
+	{
+		// setNontrivialSolutionsAsUnknown();
+		// printSolutionsForNegativeNumbersUsingBruteForce();
+		// printSolutionsForNegativeNumbersVersion1();
+		// TrySomething();
+		// printSolutionsUsingBinarySearch(0/*5000*/, XYZ_MAX);
+	}
 	return 0;
 }
