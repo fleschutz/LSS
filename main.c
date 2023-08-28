@@ -11,7 +11,7 @@ typedef int64_t        BigInt; // or use __int128_t instead
 #define XYZ_MAX       1000000  // maximum value for x,y,z
 #define CSV_OUTPUT          0  // CSV output, else text output
 
-// Provide pre-calculated cube numbers for performance: (use cubeNumbers[3] instead of: 3*3*3)
+// Provide pre-calculated cube numbers for performance: (afterward, use cubeNumbers[3] instead of: 3*3*3)
 static BigInt cubeNumbers[XYZ_MAX + 1];
 static void preCalculateCubeNumbers(void) 
 {
