@@ -8,7 +8,7 @@ typedef int64_t        BigInt; // or use __int128_t instead
 #define N_MIN               0  // minimum value for n
 #define N_MAX          100000  // maximum value for n
 #define XYZ_MIN             0  // minimum value for x,y,z
-#define XYZ_MAX       1000000  // maximum value for x,y,z
+#define XYZ_MAX        100000  // maximum value for x,y,z
 #define CSV_OUTPUT          0  // CSV output, else text output
 
 // Provide pre-calculated cube numbers for performance: (afterward, use cubeNumbers[3] instead of: 3*3*3)
