@@ -7,10 +7,9 @@ See https://en.wikipedia.org/wiki/Sums_of_three_cubes and https://en.wikipedia.o
 
 🔧 Installation
 ----------------
-First download und unzip the code (see green button), or execute: `git clone https://github.com/fleschutz/LSS`
-
-Then execute in a terminal window: (requires a C/C++ compiler)
+Execute in a terminal window: (requires a C/C++ compiler)
 ```
+> git clone https://github.com/fleschutz/LSS    # Or download and unzip the main.tar archive (see green button)
 > cd LSS
 > cc -O3 -fopenmp main.c 
 > ./a.out <MODE>          # Replace <MODE> by the mode number (see below)
