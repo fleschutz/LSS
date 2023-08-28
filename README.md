@@ -57,8 +57,8 @@ The only remaining unsolved cases up to 1,000 are the following seven numbers:
 
 Want to get famous? Just solve one of these numbers. May the force be with you 🖖
 
-Feedback
---------
+📧 Feedback
+------------
 Send your email feedback to: markus.fleschutz [at] gmail.com
 
 
