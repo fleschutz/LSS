@@ -7,7 +7,7 @@ See https://en.wikipedia.org/wiki/Sums_of_three_cubes and https://en.wikipedia.o
 
 🔧 Installation
 ----------------
-Execute in a terminal window: (requires a C/C++ compiler)
+Execute in a terminal window: (requires a C/C++ compiler only)
 ```
 > git clone https://github.com/fleschutz/LSS    # Or download and unzip the ZIP file (click green button)
 > cd LSS
