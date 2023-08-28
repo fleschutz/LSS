@@ -298,7 +298,7 @@ int main(int argc, char **argv)
 #if CSV_OUTPUT
 		printf("    n, x, y, z\n");
 #else
-		printf("# No solutions of n = x³ + y³ + z³  (for %ld <= n <= %ld)\n", (int64_t)N_MIN, (int64_t)N_MAX);
+		printf("# No solutions of n = x³ + y³ + z³  (for n = [%ld..%ld]\n", (int64_t)N_MIN, (int64_t)N_MAX);
 #endif
 		listNoSolutions();
 	}
