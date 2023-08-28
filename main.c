@@ -21,6 +21,16 @@ static void preCalculateCubeNumbers(void)
 
 // Print and remember a single solution (formatted to be: x <= y <= z):
 static int solutionKnown[N_MAX + 1] = { 0 }; 
+static void printNoSolution(BigInt n)
+{
+#if CSV_OUTPUT
+	printf("%5ld, , , \n", (int64_t)n);
+#else
+	printf("%5ld = no solution\n", (int64_t)n);
+#endif
+	fflush(stdout); // to disable buffering
+	solutionKnown[n] = 1;
+}
 static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	if (n < 0)
@@ -63,16 +73,8 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 static void listNoSolutions(void)
 {
 	for (BigInt n = N_MIN; n <= N_MAX; ++n)
-	{
 		if ((n % 9) == 4 || (n % 9) == 5)
-		{
-#if CSV_OUTPUT
-			printf("%5ld, , , \n", (int64_t)n);
-#else
-			printf("%5ld = no solution\n", (int64_t)n);
-#endif
-		}
-	}
+			printNoSolution(n);
 }
 
 static void listSolutionsForPositiveNumbersOfXYZ(void)
