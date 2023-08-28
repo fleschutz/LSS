@@ -88,7 +88,7 @@ static void setAllNontrivialSolutionsAsUnknown(void)
 		}
 }
 
-static void printNoSolutions(void)
+static void listNoSolutions(void)
 {
 	for (BigInt n = N_MIN; n <= N_MAX; ++n)
 	{
@@ -103,7 +103,7 @@ static void printNoSolutions(void)
 	}
 }
 
-static void printSolutionsForPositiveNumbers(void)
+static void listSolutionsForPositiveNumbers(void)
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
@@ -127,7 +127,7 @@ static void printSolutionsForPositiveNumbers(void)
 	}
 }
 
-static void printSolutionsForNegativeNumbersUsingBruteForce(void)
+static void listSolutionsForNegativeNumbersUsingBruteForce(void)
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
@@ -158,7 +158,7 @@ static void printSolutionsForNegativeNumbersUsingBruteForce(void)
 	}
 }
 
-static void printSolutionsForNegativeNumbersVersion1(void)
+static void listSolutionsForNegativeNumbersVersion1(void)
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
@@ -230,7 +230,7 @@ static void TrySomething(void)
 	} 
 }
 
-static void printSolutionsUsingBinarySearch(BigInt beginOfSearch, BigInt endOfSearch)
+static void listSolutionsUsingBinarySearch(BigInt beginOfSearch, BigInt endOfSearch)
 {
 #pragma omp parallel for
 	for (BigInt x = beginOfSearch; x < endOfSearch; ++x)
@@ -315,7 +315,7 @@ int main(int argc, char **argv)
 #else
 		printf("# No solutions of n = x³ + y³ + z³  (for %ld <= n <= %ld)\n", (int64_t)N_MIN, (int64_t)N_MAX);
 #endif
-		printNoSolutions();
+		listNoSolutions();
 	}
 	else if (mode == 2)
 	{
@@ -325,7 +325,7 @@ int main(int argc, char **argv)
 		printf("# Solutions for positive x,y,z numbers only (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
 #endif
 		preCalculateCubeNumbers();
-		printSolutionsForPositiveNumbers();
+		listSolutionsForPositiveNumbers();
 	}
 	else if (mode == 3) 
 	{
@@ -335,17 +335,17 @@ int main(int argc, char **argv)
 		printf("# Solutions of n = x³ + y³ + z³  (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
 #endif
 		preCalculateCubeNumbers();
-		printNoSolutions();
-		printSolutionsForPositiveNumbers();
-		printSolutionsForNegativeNumbersUsingBruteForce();
+		listNoSolutions();
+		listSolutionsForPositiveNumbers();
+		listSolutionsForNegativeNumbersUsingBruteForce();
 	}
 	else if (mode == 4) // experimental
 	{
 		preCalculateCubeNumbers();
 		setAllNontrivialSolutionsAsUnknown();
-		printSolutionsUsingBinarySearch(0/*5000*/, XYZ_MAX);
-		// printSolutionsForNegativeNumbersUsingBruteForce();
-		// printSolutionsForNegativeNumbersVersion1();
+		listSolutionsUsingBinarySearch(0/*5000*/, XYZ_MAX);
+		// listSolutionsForNegativeNumbersUsingBruteForce();
+		// listSolutionsForNegativeNumbersVersion1();
 		// TrySomething();
 	}
 	return 0;
