@@ -19,7 +19,7 @@ static void preCalculateCubeNumbers(void)
 		cubeNumbers[x] = x * x * x;
 }
 
-// Remember and print a single solution (formatted to be: x <= y <= z):
+// Print and remember a single solution (formatted to be: x <= y <= z):
 static int solutionKnown[N_MAX + 1] = { 0 }; 
 static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 {
