@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Search parameters:
 typedef int64_t        BigInt; // or use __int128_t instead
 #define N_MIN               0  // minimum value for n
 #define N_MAX          100000  // maximum value for n
@@ -10,57 +11,16 @@ typedef int64_t        BigInt; // or use __int128_t instead
 #define XYZ_MAX       1000000  // maximum value for x,y,z
 #define CSV_OUTPUT          0  // CSV output, else text output
 
-static void printNoSolutions(void)
-{
-	for (BigInt n = N_MIN; n <= N_MAX; ++n)
-	{
-		if ((n % 9) == 4 || (n % 9) == 5)
-		{
-#if CSV_OUTPUT
-			printf("%5ld, , , \n", (int64_t)n);
-#else
-			printf("%5ld = no solution\n", (int64_t)n);
-#endif
-		}
-	}
-}
-
-static BigInt cubeNumbers[XYZ_MAX + 1]; // pre-calculate for performance
+// Provide pre-calculated cube numbers for performance: (use cubeNumbers[3] instead of: 3*3*3)
+static BigInt cubeNumbers[XYZ_MAX + 1];
 static void preCalculateCubeNumbers(void) 
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 		cubeNumbers[x] = x * x * x;
 }
 
+// Remember and print a single solution (formatted to be: x <= y <= z):
 static int solutionKnown[N_MAX + 1] = { 0 }; 
-static void setAllNontrivialSolutionsAsUnknown(void)
-{
-	for (BigInt n = N_MIN; n <= N_MAX; ++n)
-		switch (n)
-		{
-		case  30:
-		case  33:
-		case  42:
-		case  52:
-		case  74:
-		case 114:
-		case 165:
-		case 390:
-		case 627:
-		case 633:
-		case 732:
-		case 795:
-		case 906:
-		case 921:
-		case 975:
-			solutionKnown[n] = 0;
-			break;
-		default:
-			solutionKnown[n] = 1;
-			break;
-		}
-}
-// print a solution (formatted to be: x <= y <= z) and remember it:
 static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	if (n < 0)
@@ -97,8 +57,50 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 		printf("%5ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
 #endif
 	fflush(stdout); // to disable buffering
-
 	solutionKnown[n] = 1;
+}
+
+static void setAllNontrivialSolutionsAsUnknown(void)
+{
+	for (BigInt n = N_MIN; n <= N_MAX; ++n)
+		switch (n)
+		{
+		case  30:
+		case  33:
+		case  42:
+		case  52:
+		case  74:
+		case 114:
+		case 165:
+		case 390:
+		case 627:
+		case 633:
+		case 732:
+		case 795:
+		case 906:
+		case 921:
+		case 975:
+			solutionKnown[n] = 0;
+			break;
+		default:
+			solutionKnown[n] = 1;
+			break;
+		}
+}
+
+static void printNoSolutions(void)
+{
+	for (BigInt n = N_MIN; n <= N_MAX; ++n)
+	{
+		if ((n % 9) == 4 || (n % 9) == 5)
+		{
+#if CSV_OUTPUT
+			printf("%5ld, , , \n", (int64_t)n);
+#else
+			printf("%5ld = no solution\n", (int64_t)n);
+#endif
+		}
+	}
 }
 
 static void printSolutionsForPositiveNumbers(void)
