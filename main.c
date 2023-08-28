@@ -322,7 +322,7 @@ int main(int argc, char **argv)
 #if CSV_OUTPUT
 		printf("    n, x, y, z\n");
 #else
-		printf("# Solutions of n = x³ + y³ + z³  (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
+		printf("# Solutions for positive x,y,z numbers only (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
 #endif
 		preCalculateCubeNumbers();
 		printSolutionsForPositiveNumbers();
