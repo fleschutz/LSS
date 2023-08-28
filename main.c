@@ -60,34 +60,6 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 	solutionKnown[n] = 1;
 }
 
-static void setAllNontrivialSolutionsAsUnknown(void)
-{
-	for (BigInt n = N_MIN; n <= N_MAX; ++n)
-		switch (n)
-		{
-		case  30:
-		case  33:
-		case  42:
-		case  52:
-		case  74:
-		case 114:
-		case 165:
-		case 390:
-		case 627:
-		case 633:
-		case 732:
-		case 795:
-		case 906:
-		case 921:
-		case 975:
-			solutionKnown[n] = 0;
-			break;
-		default:
-			solutionKnown[n] = 1;
-			break;
-		}
-}
-
 static void listNoSolutions(void)
 {
 	for (BigInt n = N_MIN; n <= N_MAX; ++n)
@@ -103,7 +75,7 @@ static void listNoSolutions(void)
 	}
 }
 
-static void listSolutionsForPositiveNumbers(void)
+static void listSolutionsForPositiveNumbersOfXYZ(void)
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
@@ -158,6 +130,7 @@ static void listSolutionsForNegativeNumbersUsingBruteForce(void)
 	}
 }
 
+// Experimental section:
 static void listSolutionsForNegativeNumbersVersion1(void)
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
@@ -214,20 +187,32 @@ static void listSolutionsForNegativeNumbersVersion1(void)
 	}
 }
 
-static void TrySomething(void)
+static void setAllNontrivialSolutionsAsUnknown(void)
 {
-	BigInt x = -284650292555885;
-	BigInt y =  283450105697727;
-	BigInt z =   66229832190556;
-	for(;;)
-	{
-		BigInt n = (x*x*x) + (y*y*y) + (z*z*z);
-		if (n >= N_MIN && n <= N_MAX && !solutionKnown[n])
-			printSolution(n, x, y, z);
-		x -= 3;
-		y += 3;
-		z += 3;
-	} 
+	for (BigInt n = N_MIN; n <= N_MAX; ++n)
+		switch (n)
+		{
+		case  30:
+		case  33:
+		case  42:
+		case  52:
+		case  74:
+		case 114:
+		case 165:
+		case 390:
+		case 627:
+		case 633:
+		case 732:
+		case 795:
+		case 906:
+		case 921:
+		case 975:
+			solutionKnown[n] = 0;
+			break;
+		default:
+			solutionKnown[n] = 1;
+			break;
+		}
 }
 
 static void listSolutionsUsingBinarySearch(BigInt beginOfSearch, BigInt endOfSearch)
@@ -325,9 +310,19 @@ int main(int argc, char **argv)
 		printf("# Solutions for positive x,y,z numbers only (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
 #endif
 		preCalculateCubeNumbers();
-		listSolutionsForPositiveNumbers();
+		listSolutionsForPositiveNumbersOfXYZ();
 	}
-	else if (mode == 3) 
+	else if (mode == 3)
+	{
+#if CSV_OUTPUT
+		printf("    n, x, y, z\n");
+#else
+		printf("# Solutions of n = x³ + y³ + z³  (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
+#endif
+		preCalculateCubeNumbers();
+		listSolutionsForNegativeNumbersUsingBruteForce();
+	}
+	else if (mode == 4) 
 	{
 #if CSV_OUTPUT
 		printf("    n, x, y, z\n");
@@ -339,14 +334,13 @@ int main(int argc, char **argv)
 		listSolutionsForPositiveNumbers();
 		listSolutionsForNegativeNumbersUsingBruteForce();
 	}
-	else if (mode == 4) // experimental
+	else if (mode == 5) // experimental
 	{
 		preCalculateCubeNumbers();
 		setAllNontrivialSolutionsAsUnknown();
 		listSolutionsUsingBinarySearch(0/*5000*/, XYZ_MAX);
 		// listSolutionsForNegativeNumbersUsingBruteForce();
 		// listSolutionsForNegativeNumbersVersion1();
-		// TrySomething();
 	}
 	return 0;
 }
