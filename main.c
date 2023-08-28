@@ -126,32 +126,49 @@ static void listSolutionsForNegativeNumbersOfXYZ(void)
 }
 
 // Experimental section:
-static void setAllNontrivialSolutionsAsUnknown(void)
+static void setTrivialSolutionsAsKnown(void)
 {
 	for (BigInt n = N_MIN; n <= N_MAX; ++n)
-		switch (n)
+		solutionKnown[n] = 1;
+
+	solutionKnown[30] = 0;
+	solutionKnown[33] = 0;
+	solutionKnown[42] = 0;
+	solutionKnown[52] = 0;
+	solutionKnown[74] = 0;
+	solutionKnown[114] = 0;
+	solutionKnown[165] = 0;
+	solutionKnown[390] = 0;
+	solutionKnown[627] = 0;
+	solutionKnown[633] = 0;
+	solutionKnown[732] = 0;
+	solutionKnown[795] = 0;
+	solutionKnown[906] = 0;
+	solutionKnown[921] = 0;
+	solutionKnown[975] = 0;
+}
+
+static void findNontrivialSolutions(void)
+{
+	for (BigInt x = XYZ_MIN; ; ++x)
+	{
+		BigInt x3 = cubeNumbers[x];
+#pragma omp parallel for
+		for (BigInt y = x - 1; y > XYZ_MIN; --y)
 		{
-		case  30:
-		case  33:
-		case  42:
-		case  52:
-		case  74:
-		case 114:
-		case 165:
-		case 390:
-		case 627:
-		case 633:
-		case 732:
-		case 795:
-		case 906:
-		case 921:
-		case 975:
-			solutionKnown[n] = 0;
-			break;
-		default:
-			solutionKnown[n] = 1;
-			break;
+			BigInt y3 = cubeNumbers[y];
+			for (BigInt z = 0; ; ++z)
+			{
+				BigInt n = -x3 + y3 + cubeNumbers[z];
+				if (n < -N_MAX)
+					continue;
+				if (n > N_MAX)
+					break; // already too high
+				if (!solutionKnown[abs(n)])
+					printSolution(n, -x, y, z);
+			}
 		}
+	}
 }
 
 static void listSolutionsUsingBinarySearch(BigInt beginOfSearch, BigInt endOfSearch)
@@ -273,8 +290,8 @@ int main(int argc, char **argv)
 	}
 	else if (mode == 5) // experimental
 	{
-		setAllNontrivialSolutionsAsUnknown();
-		listSolutionsUsingBinarySearch(0/*5000*/, XYZ_MAX);
+		setTrivialSolutionsAsKnown();
+		findNontrivialSolutions();
 	}
 	return 0;
 }
