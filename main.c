@@ -24,7 +24,7 @@ static int solutionKnown[N_MAX + 1] = { 0 };
 static void printNoSolution(BigInt n)
 {
 #if CSV_OUTPUT
-	printf("%5ld, , , \n", (int64_t)n);
+	printf("%5ld, , , ,\n", (int64_t)n);
 #else
 	printf("%5ld = no solution\n", (int64_t)n);
 #endif
@@ -41,17 +41,17 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 	}
 #if CSV_OUTPUT	
 	if (x <= y && y <= z)
-		printf("%5ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
+		printf("%5ld, %ld, %ld, %ld,\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
 	else if (x <= z && z <= y)
-		printf("%5ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)x, (int64_t)z, (int64_t)y);
+		printf("%5ld, %ld, %ld, %ld,\n", (int64_t)n, (int64_t)x, (int64_t)z, (int64_t)y);
 	else if (y <= x && x <= z)
-		printf("%5ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)y, (int64_t)x, (int64_t)z);
+		printf("%5ld, %ld, %ld, %ld,\n", (int64_t)n, (int64_t)y, (int64_t)x, (int64_t)z);
 	else if (y <= z && z <= x)
-		printf("%5ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)y, (int64_t)z, (int64_t)x);
+		printf("%5ld, %ld, %ld, %ld,\n", (int64_t)n, (int64_t)y, (int64_t)z, (int64_t)x);
 	else if (z <= x && x <= y)
-		printf("%5ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
+		printf("%5ld, %ld, %ld, %ld,\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
 	else
-		printf("%5ld, %ld, %ld, %ld\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
+		printf("%5ld, %ld, %ld, %ld,\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
 #else
 	if (x <= y && y <= z)
 		printf("%5ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
@@ -101,94 +101,31 @@ static void listSolutionsForPositiveNumbersOfXYZ(void)
 	}
 }
 
-static void listSolutionsForNegativeNumbersUsingBruteForce(void)
+static void listSolutionsForNegativeNumbersOfXYZ(void)
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
 		BigInt x3 = cubeNumbers[x];
-#pragma omp parallel for
 		for (BigInt y = XYZ_MIN; y <= x; ++y)
 		{
-			BigInt y3 = cubeNumbers[y];
+			BigInt x3_minus_y3 = x3 - cubeNumbers[y];
+#pragma omp parallel for
 			for (BigInt z = XYZ_MIN; z <= y; ++z)
 			{
-				BigInt z3 = cubeNumbers[z], n = -x3 + y3 + z3;
-				if (-N_MAX < n && n < N_MAX && !solutionKnown[abs(n)])
-					printSolution(n, -x, y, z);
-
-				n = x3 - y3 + z3;
-				if (-N_MAX < n && n < N_MAX && !solutionKnown[abs(n)])
-					printSolution(n, x, -y, z);
-
-				n = x3 + y3 - z3;
-				if (-N_MAX < n && n < N_MAX && !solutionKnown[abs(n)])
-					printSolution(n, x, y, -z);
-
-				n = x3 - y3 - z3;
-				if (-N_MAX < n && n < N_MAX && !solutionKnown[abs(n)])
-					printSolution(n, x, -y, -z);
+				BigInt n = x3_minus_y3 + cubeNumbers[z];
+				if (-N_MAX <= n && n <= N_MAX)
+					if (!solutionKnown[abs(n)])
+						printSolution(n, x, -y, z);
+				n = x3_minus_y3 - cubeNumbers[z];
+				if (-N_MAX <= n && n <= N_MAX)
+					if (!solutionKnown[abs(n)])
+						printSolution(n, x, -y, -z);
 			}
 		}
 	}
 }
 
 // Experimental section:
-static void listSolutionsForNegativeNumbersVersion1(void)
-{
-	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
-	{
-		BigInt x3 = cubeNumbers[x];
-#pragma omp parallel for
-		for (BigInt y = XYZ_MIN; y <= x; ++y)
-		{
-			BigInt y3 = cubeNumbers[y];
-			BigInt x3_plus_y3 = x3 + y3;
-			for (BigInt z = XYZ_MIN; z <= y; ++z)
-			{
-				BigInt z3 = cubeNumbers[z], n = x3_plus_y3 - z3;
-				if (n > N_MAX)
-					continue; // still too big
-				if (n < -N_MAX)
-				       break; // too small already
-				if (!solutionKnown[abs(n)])
-					printSolution(n, x, y, -z);
-			}
-			BigInt x3_minus_y3 = x3 - y3;
-			for (BigInt z = XYZ_MIN; z <= y; ++z)
-			{
-				BigInt z3 = cubeNumbers[z], n = x3_minus_y3 + z3;
-				if (n < -N_MAX)
-				       continue; // still too small 
-				if (n > N_MAX)
-					break; // already too big
-				if (!solutionKnown[abs(n)])
-					printSolution(n, x, -y, z);
-			}
-			for (BigInt z = XYZ_MIN; z <= y; ++z)
-			{
-				BigInt z3 = cubeNumbers[z], n = x3_minus_y3 - z3;
-				if (n > N_MAX)
-					continue; // still too big
-				if (n < -N_MAX)
-				       break; // too small already
-				if (!solutionKnown[abs(n)])
-					printSolution(n, x, -y, -z);
-			}
-			BigInt minus_x3_plus_y3 = -x3 + y3;
-			for (BigInt z = XYZ_MIN; z <= y; ++z)
-			{
-				BigInt z3 = cubeNumbers[z], n = minus_x3_plus_y3 + z3;
-				if (n < -N_MAX)
-					continue; // still too small
-				if (n > N_MAX)
-				       break; // too big already
-				if (!solutionKnown[abs(n)])
-					printSolution(n, -x, y, z);
-			}
-		}
-	}
-}
-
 static void setAllNontrivialSolutionsAsUnknown(void)
 {
 	for (BigInt n = N_MIN; n <= N_MAX; ++n)
@@ -295,10 +232,11 @@ int main(int argc, char **argv)
 	if (argc == 2)
 		mode = atoi(argv[1]);
 	
+	preCalculateCubeNumbers();
 	if (mode == 1) 
 	{
 #if CSV_OUTPUT
-		printf("    n, x, y, z\n");
+		printf("    n, x, y, z,\n");
 #else
 		printf("# No solutions of n = x³ + y³ + z³  (for n = [%ld..%ld]\n", (int64_t)N_MIN, (int64_t)N_MAX);
 #endif
@@ -307,42 +245,36 @@ int main(int argc, char **argv)
 	else if (mode == 2)
 	{
 #if CSV_OUTPUT
-		printf("    n, x, y, z\n");
+		printf("    n, x, y, z,\n");
 #else
-		printf("# Solutions for positive x,y,z numbers only (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
+		printf("# Solutions for positive numbers of x,y,z (for n = [%ld..%ld] and x,y,z = [%ld..%ld], solutions formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
 #endif
-		preCalculateCubeNumbers();
 		listSolutionsForPositiveNumbersOfXYZ();
 	}
 	else if (mode == 3)
 	{
 #if CSV_OUTPUT
-		printf("    n, x, y, z\n");
+		printf("    n, x, y, z,\n");
 #else
-		printf("# Solutions of n = x³ + y³ + z³  (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
+		printf("# Solutions for negative numbers of x,y,z (for n = [%ld..%ld] and x,y,z = [%ld..%ld], solutions formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
 #endif
-		preCalculateCubeNumbers();
-		listSolutionsForNegativeNumbersUsingBruteForce();
+		listSolutionsForNegativeNumbersOfXYZ();
 	}
 	else if (mode == 4) 
 	{
 #if CSV_OUTPUT
-		printf("    n, x, y, z\n");
+		printf("    n, x, y, z,\n");
 #else
-		printf("# Solutions of n = x³ + y³ + z³  (for n < %ld and x,y,z < %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)N_MAX, (int64_t)XYZ_MAX);
+		printf("# Trivial solutions of n = x³ + y³ + z³  (for n = [%ld..%ld] and x,y,z = [%ld..%ld], solutions formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
 #endif
-		preCalculateCubeNumbers();
 		listNoSolutions();
 		listSolutionsForPositiveNumbersOfXYZ();
-		listSolutionsForNegativeNumbersUsingBruteForce();
+		listSolutionsForNegativeNumbersOfXYZ();
 	}
 	else if (mode == 5) // experimental
 	{
-		preCalculateCubeNumbers();
 		setAllNontrivialSolutionsAsUnknown();
 		listSolutionsUsingBinarySearch(0/*5000*/, XYZ_MAX);
-		// listSolutionsForNegativeNumbersUsingBruteForce();
-		// listSolutionsForNegativeNumbersVersion1();
 	}
 	return 0;
 }
