@@ -331,7 +331,7 @@ int main(int argc, char **argv)
 #endif
 		preCalculateCubeNumbers();
 		listNoSolutions();
-		listSolutionsForPositiveNumbers();
+		listSolutionsForPositiveNumbersOfXYZ();
 		listSolutionsForNegativeNumbersUsingBruteForce();
 	}
 	else if (mode == 5) // experimental
