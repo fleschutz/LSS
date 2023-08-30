@@ -57,6 +57,10 @@ The only remaining unsolved cases up to 1,000 are the following seven numbers:
 
 Want to get famous? Just solve one of these numbers. May the force be with you 🖖
 
+Furthermore, there are also nontrivial solutions additionally to trivial solutions:
+
+* **3** = 569 936 821 221 962 380 720³ + (−569 936 821 113 563 493 509)³ + (−472 715 493 453 327 032)³
+
 📧 Feedback
 ------------
 Send your email feedback to: markus.fleschutz [at] gmail.com
