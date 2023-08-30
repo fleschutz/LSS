@@ -1,4 +1,4 @@
-# No solutions of n = x³ + y³ + z³  (for n < 100000)
+# Mode 1: No solutions of n = x³ + y³ + z³  (for n < 100000)
   4 = no solution
   5 = no solution
  13 = no solution
