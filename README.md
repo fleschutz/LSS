@@ -33,7 +33,7 @@ This is mode 1 + 2 + 3 combined. See the [trivial_solutions.txt](Solutions/trivi
 
 Mode 5 - Calculate a solution
 -----------------------------
-This calculates the solution for the given x,y,z parameters, e.g.: `./a.out 5 -11 7 10`.
+This calculates the solution for the given x,y,z parameters, e.g.: `./a.out 5 -11 7 10` returns `12 = -11³ + 7³ + 10³`.
 
 🏆 Nontrivial Solutions
 ------------------------
