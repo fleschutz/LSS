@@ -2,7 +2,7 @@ Solutions for the Sums of Three Cubes
 =====================================
 This repo contains a small C program to list simple solutions (LSS) for: **x³ + y³ + z³ = n**
 
-This is a hard math problem, see https://en.wikipedia.org/wiki/Sums_of_three_cubes and https://en.wikipedia.org/wiki/Diophantine_equation for details. For a C# program please visit: https://github.com/mill1/SumOfThreeCubesSolver
+The sums of three cubes is a hard math problem, see https://en.wikipedia.org/wiki/Sums_of_three_cubes and https://en.wikipedia.org/wiki/Diophantine_equation for details. For a C# program please visit: https://github.com/mill1/SumOfThreeCubesSolver
 
 
 🔧 Installation
