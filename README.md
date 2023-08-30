@@ -37,7 +37,7 @@ This is mode 1 + 2 + 3 combined. See the [trivial_solutions.txt](Solutions/trivi
 
 Mode 5 - Calculate a solution
 -----------------------------
-This calculates the solution for the given x,y,z parameters, e.g.: `./a.out 5  1 2 3` returns `1³ + 2³ + 3³ = 36`.
+This mode calculates the solution for the given x,y,z parameters, e.g.: `./a.out 5  1 2 3` returns `1³ + 2³ + 3³ = 36`.
 
 
 🏆 Nontrivial Solutions
