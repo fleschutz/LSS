@@ -1,4 +1,4 @@
-# Trivial solutions of n = x³ + y³ + z³ (for 0 <= n <= 1000 and x,y,z < 100000)
+# Trivial solutions of n = x³ + y³ + z³ (for n = [0..1000] and x,y,z = [0..100000])
 0 = 0³ + 0³ + 0³
 1 = 0³ + 0³ + 1³
 2 = 0³ + 1³ + 1³
