@@ -39,6 +39,8 @@ Mode 5 - Calculate a solution
 -----------------------------
 This mode calculates the solution for the given x,y,z parameters, e.g.: `./a.out 5  1 2 3` returns `1³ + 2³ + 3³ = 36`.
 
+It supports big number, e.g.: `./a.out 5 -80538738812075974 80435758145817515 1260212329733563` returns `3982933876681³ + -636600549515³ + -3977505554546³ = 30`.
+
 
 🏆 Nontrivial Solutions
 ------------------------
