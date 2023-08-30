@@ -246,7 +246,7 @@ static void listSolutionsUsingBinarySearch(BigInt beginOfSearch, BigInt endOfSea
 int main(int argc, char **argv)
 {
 	int mode = 1; // print no solutions by default
-	if (argc == 2)
+	if (argc >= 2)
 		mode = atoi(argv[1]);
 	
 	preCalculateCubeNumbers();
@@ -288,7 +288,20 @@ int main(int argc, char **argv)
 		listSolutionsForPositiveNumbersOfXYZ();
 		listSolutionsForNegativeNumbersOfXYZ();
 	}
-	else if (mode == 5) // experimental
+	else if (mode == 5)
+	{
+		if (argc == 5)
+		{
+			BigInt x = atoi(argv[2]);
+			BigInt y = atoi(argv[3]);
+			BigInt z = atoi(argv[4]);
+			BigInt n = (x * x * x) + (y * y * y) + (z * z * z);
+			printSolution(n, x, y, z);
+		}
+		else
+			printf("Sorry, expected syntax is: ./a.out 5 <x> <y> <z>\n");
+	}
+	else if (mode == 6) // experimental
 	{
 		setTrivialSolutionsAsKnown();
 		findNontrivialSolutions();
