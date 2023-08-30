@@ -44,7 +44,7 @@ This calculates the solution for the given x,y,z parameters, e.g.: `./a.out 5  1
 ------------------------
 The following nontrivial solutions have been solved already:
 
-* **30** = 3 982 933 876 681³ + (−636 600 549 515)³ + (−3 977 505 554 546)³
+* **30** = 3 982 933 876 681³ + (−636 600 549 515)³ + (−3 977 505 554 546)³ (solved 1999 by Beck, Pine, Tarrant, and Yarbrough Jensen)
 * **33** = 88 661 289 752 875 283³ + (−87 784 054 428 622 393)³ + (−27 361 114 688 070 403)³   (solved 2019 by Andrew Booker)
 * **42** = (-80 538 738 812 075 974)³ + 80 435 758 145 817 515³ + 1 260 212 329 733 563³  (solved 2019 by Andrew Booker and Andrew Sutherland)
 * **52** = 60 702 901 317³ + 23 961 292 454³ + (−61 922 712 865)³
