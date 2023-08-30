@@ -1,4 +1,4 @@
-# Solutions for positive numbers of x,y,z (for 0 <= n <= 100000, solutions formatted to be: x <= y <= z)
+# Solutions for positive numbers of x,y,z (for n = [0..100000], solutions formatted to be: x <= y <= z)
    0 = 0³ + 0³ + 0³
    1 = 0³ + 0³ + 1³
    2 = 0³ + 1³ + 1³
