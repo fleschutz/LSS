@@ -2,6 +2,7 @@
 #include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // Search parameters:
 typedef int64_t        BigInt; // or use __int128_t instead
@@ -243,6 +244,20 @@ static void listSolutionsUsingBinarySearch(BigInt beginOfSearch, BigInt endOfSea
 	}
 }
 
+static BigInt string2BigInt(const char *str)
+{
+	BigInt sign = 1, value = 0;
+	if (*str == '-')
+	{
+		sign = -1;
+		str++;
+	}
+	size_t len = strlen(str);
+	for (size_t i = 0; i < len; i++)
+		value = (value * 10) + (str[i] - '0');
+	return sign * value;
+}
+
 int main(int argc, char **argv)
 {
 	int mode = 1; // print no solutions by default
@@ -292,11 +307,11 @@ int main(int argc, char **argv)
 	{
 		if (argc == 5)
 		{
-			BigInt x = atoi(argv[2]);
-			BigInt y = atoi(argv[3]);
-			BigInt z = atoi(argv[4]);
+			BigInt x = string2BigInt(argv[2]);
+			BigInt y = string2BigInt(argv[3]);
+			BigInt z = string2BigInt(argv[4]);
 			BigInt n = (x * x * x) + (y * y * y) + (z * z * z);
-			printSolution(n, x, y, z);
+			printf("%ld³ + %ld³ + %ld³ = %ld\n", (int64_t)x, (int64_t)y, (int64_t)z, (int64_t)n);
 		}
 		else
 			printf("Sorry, expected syntax is: ./a.out 5 <x> <y> <z>\n");
