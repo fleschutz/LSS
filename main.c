@@ -12,7 +12,7 @@ typedef int64_t        BigInt; // or use __int128_t instead
 #define CSV_OUTPUT          0  // CSV output desired, else text output
 
 // Converts the given string into a big number and returns it.
-static BigInt string2BigInt(const char *str)
+BigInt string2BigInt(const char *str)
 {
 	BigInt sign = 1, value = 0;
 	if (*str == '-')
@@ -27,16 +27,16 @@ static BigInt string2BigInt(const char *str)
 }
 
 // Provide pre-calculated cube numbers for performance: (afterward, use cubeNumbers[3] instead of: 3*3*3)
-static BigInt cubeNumbers[XYZ_MAX + 1];
-static void preCalculateCubeNumbers(void) 
+BigInt cubeNumbers[XYZ_MAX + 1];
+void preCalculateCubeNumbers(void) 
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 		cubeNumbers[x] = x * x * x;
 }
 
 // Print and remember a single solution (formatted to be: x <= y <= z):
-static int solutionKnown[N_MAX + 1] = { 0 }; 
-static void printNoSolution(BigInt n)
+int solutionKnown[N_MAX + 1] = { 0 }; 
+void printNoSolution(BigInt n)
 {
 #if CSV_OUTPUT
 	printf("%5ld, , , ,\n", (int64_t)n);
@@ -46,7 +46,7 @@ static void printNoSolution(BigInt n)
 	fflush(stdout); // to disable buffering
 	solutionKnown[n] = 1;
 }
-static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
+void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	if (n < 0)
 	{	n = -n;
@@ -85,14 +85,14 @@ static void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 	solutionKnown[n] = 1;
 }
 
-static void listNoSolutions(void)
+void listNoSolutions(void)
 {
 	for (BigInt n = N_MIN; n <= N_MAX; ++n)
 		if ((n % 9) == 4 || (n % 9) == 5)
 			printNoSolution(n);
 }
 
-static void listSolutionsForPositiveXYZ(void)
+void listSolutionsForPositiveXYZ(void)
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
@@ -116,7 +116,7 @@ static void listSolutionsForPositiveXYZ(void)
 	}
 }
 
-static void listSolutionsForNegativeXYZ(void)
+void listSolutionsForNegativeXYZ(void)
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
@@ -140,9 +140,9 @@ static void listSolutionsForNegativeXYZ(void)
 	}
 }
 
-static void listNontrivialSolutions(BigInt startX)
+void listNontrivialSolutions(BigInt x)
 {
-	for (BigInt x = startX; ; ++x)
+	for (;; ++x)
 	{
 		BigInt x3 = x * x * x, z = 1, z3 = 1 * 1 * 1;
 #pragma omp parallel for
