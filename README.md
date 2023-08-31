@@ -52,8 +52,9 @@ Executing: `./a.out 5` (for n = [0..1000] and x,y,z = [0..100000] and line-sorte
 
 Mode 6 - List nontrivial solutions
 ----------------------------------
-Using a start value of **x**, it lists nontrivial solutions for n=[0..1000].
+Using a start value of **x** (99999999 by default), it lists nontrivial solutions.
 
+Executing: `./a.out 6` (for n = [0..1000]) returns the following output: [nontrivial_solutions.txt](Solutions/nontrivial_solutions.txt) (uses function listNontrivialSolutions(), took hours and hours).
 
 🏆 Nontrivial Solutions
 ------------------------
