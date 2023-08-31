@@ -228,7 +228,7 @@ int main(int argc, char **argv)
 #if CSV_OUTPUT
 		printf("    n, x, y, z,\n");
 #else
-		printf("# Nontrivial solutions of n=x³+y³+z³ (x starting from %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)startX);
+		printf("# Nontrivial solutions of n=x³+y³+z³ (x=%ld as starting point, solutions formatted to be: x <= y <= z)\n", (int64_t)startX);
 #endif
 		listNontrivialSolutions(startX);
 	}
