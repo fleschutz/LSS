@@ -144,7 +144,8 @@ void listNontrivialSolutions(BigInt x)
 {
 	for (;; ++x)
 	{
-		BigInt x3 = x * x * x, z = 1, z3 = 1 * 1 * 1;
+		BigInt x3 = x * x * x;
+		BigInt z = 1, z3 = 1 * 1 * 1;
 #pragma omp parallel for
 		for (BigInt y = x - 1; y > 0; --y)
 		{
