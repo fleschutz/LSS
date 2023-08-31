@@ -52,7 +52,7 @@ Executing: `./a.out 5` (for n = [0..1000] and x,y,z = [0..100000] and line-sorte
 
 Mode 6 - List nontrivial solutions
 ----------------------------------
-Using a start value of <x> it lists nontrivial solutions for n=[0..1000].
+Using a start value of **x**, it lists nontrivial solutions for n=[0..1000].
 
 
 🏆 Nontrivial Solutions
