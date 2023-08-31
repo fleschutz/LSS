@@ -7,7 +7,7 @@
 // Search parameters:
 typedef int64_t        BigInt; // or use __int128_t instead
 #define N_MIN               0  // minimum value for n
-#define N_MAX          100000  // maximum value for n
+#define N_MAX            1000  // maximum value for n
 #define XYZ_MIN             0  // minimum value for x,y,z
 #define XYZ_MAX        100000  // maximum value for x,y,z
 #define CSV_OUTPUT          0  // CSV output, else text output
@@ -126,120 +126,25 @@ static void listSolutionsForNegativeNumbersOfXYZ(void)
 	}
 }
 
-// Experimental section:
-static void setTrivialSolutionsAsKnown(void)
+static void listNontrivialSolutions(BigInt startX)
 {
-	for (BigInt n = N_MIN; n <= N_MAX; ++n)
-		solutionKnown[n] = 1;
-
-	solutionKnown[30] = 0;
-	solutionKnown[33] = 0;
-	solutionKnown[42] = 0;
-	solutionKnown[52] = 0;
-	solutionKnown[74] = 0;
-	solutionKnown[114] = 0;
-	solutionKnown[165] = 0;
-	solutionKnown[390] = 0;
-	solutionKnown[627] = 0;
-	solutionKnown[633] = 0;
-	solutionKnown[732] = 0;
-	solutionKnown[795] = 0;
-	solutionKnown[906] = 0;
-	solutionKnown[921] = 0;
-	solutionKnown[975] = 0;
-}
-
-static void findNontrivialSolutions(void)
-{
-	for (BigInt x = XYZ_MIN; ; ++x)
+	for (BigInt x = startX; ; ++x)
 	{
-		BigInt x3 = cubeNumbers[x];
+		BigInt x3 = x * x * x, z = 1, z3 = 1 * 1 * 1;
 #pragma omp parallel for
-		for (BigInt y = x - 1; y > XYZ_MIN; --y)
+		for (BigInt y = x - 1; y > 0; --y)
 		{
-			BigInt y3 = cubeNumbers[y];
-			for (BigInt z = 0; ; ++z)
+			BigInt y3 = y * y * y;
+
+			BigInt n = x3 - y3 - z3;
+			while (n > N_MAX)
 			{
-				BigInt n = -x3 + y3 + cubeNumbers[z];
-				if (n < -N_MAX)
-					continue;
-				if (n > N_MAX)
-					break; // already too high
-				if (!solutionKnown[abs(n)])
-					printSolution(n, -x, y, z);
+				++z;
+				BigInt z3 = z * z * z;
+				n = x3 - y3 - z3;
 			}
-		}
-	}
-}
-
-static void listSolutionsUsingBinarySearch(BigInt beginOfSearch, BigInt endOfSearch)
-{
-#pragma omp parallel for
-	for (BigInt x = beginOfSearch; x < endOfSearch; ++x)
-	{
-		BigInt x3 = cubeNumbers[x];
-		for (BigInt y = XYZ_MIN; y <= x; ++y)
-		{
-			BigInt y3 = cubeNumbers[y];
-
-			// Binary search for: x³ - y³ - z³
-			BigInt min = 0, max = x; 
-			do
-			{
-				const BigInt z = (min + max) / (BigInt)2;
-				const BigInt n = x3 - y3 - cubeNumbers[z];
-
-				if (n >= N_MAX)
-					max = z - 1;
-				else if (n <= -N_MAX)
-					min = z + 1;
-				else
-				{
-					if (!solutionKnown[abs(n)])
-						printSolution(n, x, -y, -z);
-					break;
-				}
-			} while (min <= max);
-			
-			// Binary search for: x³ - y³ + z³
-			min = 0;
-		       	max = x;
-			do
-			{
-				const BigInt z = (min + max) / (BigInt)2;
-				const BigInt n = x3 - y3 + cubeNumbers[z];
-
-				if (n >= N_MAX)
-					max = z - 1;
-				else if (n <= -N_MAX)
-					min = z + 1;
-				else
-				{
-					if (!solutionKnown[abs(n)])
-						printSolution(n, x, -y, z);
-					break;
-				}
-			} while (min <= max);
-			
-			// Binary search for: -x³ + y³ + z³
-			min = 0;
-		       	max = x;
-			do
-			{
-				const BigInt z = (min + max) / (BigInt)2;
-				const BigInt n = -x3 + y3 + cubeNumbers[z];
-
-				if (n >= N_MAX)
-					max = z - 1;
-				else if (n <= -N_MAX)
-					min = z + 1;
-				else
-				{
-					if (!solutionKnown[abs(n)])
-						printSolution(n, -x, y, z);
-					break;
-				}
-			} while (min <= max);
+			if (n >= -N_MAX && n != -2)
+				printSolution(n, x, -y, -z);
 		}
 	}
 }
@@ -318,8 +223,7 @@ int main(int argc, char **argv)
 	}
 	else if (mode == 6) // experimental
 	{
-		setTrivialSolutionsAsKnown();
-		findNontrivialSolutions();
+		listNontrivialSolutions(99999999);
 	}
 	return 0;
 }
