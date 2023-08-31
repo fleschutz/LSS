@@ -12,6 +12,21 @@ typedef int64_t        BigInt; // or use __int128_t instead
 #define XYZ_MAX        100000  // maximum value for x,y,z
 #define CSV_OUTPUT          0  // CSV output, else text output
 
+// Converts the given string into a big number and returns it.
+static BigInt string2BigInt(const char *str)
+{
+	BigInt sign = 1, value = 0;
+	if (*str == '-')
+	{
+		sign = -1;
+		str++;
+	}
+	size_t len = strlen(str);
+	for (size_t i = 0; i < len; i++)
+		value = (value * 10) + (str[i] - '0');
+	return sign * value;
+}
+
 // Provide pre-calculated cube numbers for performance: (afterward, use cubeNumbers[3] instead of: 3*3*3)
 static BigInt cubeNumbers[XYZ_MAX + 1];
 static void preCalculateCubeNumbers(void) 
@@ -78,7 +93,7 @@ static void listNoSolutions(void)
 			printNoSolution(n);
 }
 
-static void listSolutionsForPositiveNumbersOfXYZ(void)
+static void listSolutionsForPositiveXYZ(void)
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
@@ -102,7 +117,7 @@ static void listSolutionsForPositiveNumbersOfXYZ(void)
 	}
 }
 
-static void listSolutionsForNegativeNumbersOfXYZ(void)
+static void listSolutionsForNegativeXYZ(void)
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
@@ -149,66 +164,14 @@ static void listNontrivialSolutions(BigInt startX)
 	}
 }
 
-static BigInt string2BigInt(const char *str)
-{
-	BigInt sign = 1, value = 0;
-	if (*str == '-')
-	{
-		sign = -1;
-		str++;
-	}
-	size_t len = strlen(str);
-	for (size_t i = 0; i < len; i++)
-		value = (value * 10) + (str[i] - '0');
-	return sign * value;
-}
-
 int main(int argc, char **argv)
 {
-	int mode = 1; // print no solutions by default
+	int mode = 2; // print no solutions by default
 	if (argc >= 2)
 		mode = atoi(argv[1]);
 	
 	preCalculateCubeNumbers();
-	if (mode == 1) 
-	{
-#if CSV_OUTPUT
-		printf("    n, x, y, z,\n");
-#else
-		printf("# No solutions of n = x³ + y³ + z³  (for n = [%ld..%ld]\n", (int64_t)N_MIN, (int64_t)N_MAX);
-#endif
-		listNoSolutions();
-	}
-	else if (mode == 2)
-	{
-#if CSV_OUTPUT
-		printf("    n, x, y, z,\n");
-#else
-		printf("# Solutions for positive numbers of x,y,z (for n = [%ld..%ld] and x,y,z = [%ld..%ld], solutions formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
-#endif
-		listSolutionsForPositiveNumbersOfXYZ();
-	}
-	else if (mode == 3)
-	{
-#if CSV_OUTPUT
-		printf("    n, x, y, z,\n");
-#else
-		printf("# Solutions for negative numbers of x,y,z (for n = [%ld..%ld] and x,y,z = [%ld..%ld], solutions formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
-#endif
-		listSolutionsForNegativeNumbersOfXYZ();
-	}
-	else if (mode == 4) 
-	{
-#if CSV_OUTPUT
-		printf("    n, x, y, z,\n");
-#else
-		printf("# Trivial solutions of n = x³ + y³ + z³  (for n = [%ld..%ld] and x,y,z = [%ld..%ld], solutions formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
-#endif
-		listNoSolutions();
-		listSolutionsForPositiveNumbersOfXYZ();
-		listSolutionsForNegativeNumbersOfXYZ();
-	}
-	else if (mode == 5)
+	if (mode == 1)
 	{
 		if (argc == 5)
 		{
@@ -221,9 +184,53 @@ int main(int argc, char **argv)
 		else
 			printf("Sorry, expected syntax is: ./a.out 5 <x> <y> <z>\n");
 	}
-	else if (mode == 6) // experimental
+	else if (mode == 2) 
 	{
-		listNontrivialSolutions(99999999);
+#if CSV_OUTPUT
+		printf("    n, x, y, z,\n");
+#else
+		printf("# No solutions of n=x³+y³+z³ (for n = [%ld..%ld]\n", (int64_t)N_MIN, (int64_t)N_MAX);
+#endif
+		listNoSolutions();
+	}
+	else if (mode == 3)
+	{
+#if CSV_OUTPUT
+		printf("    n, x, y, z,\n");
+#else
+		printf("# Trivial solutions of n=x³+y³+z³ for positive numbers of x,y,z (for n = [%ld..%ld] and x,y,z = [%ld..%ld], solutions formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
+#endif
+		listSolutionsForPositiveXYZ();
+	}
+	else if (mode == 4)
+	{
+#if CSV_OUTPUT
+		printf("    n, x, y, z,\n");
+#else
+		printf("# Trivial solutions of n=x³+y³+z³ for negative numbers of x,y,z (for n = [%ld..%ld] and x,y,z = [%ld..%ld], solutions formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
+#endif
+		listSolutionsForNegativeXYZ();
+	}
+	else if (mode == 5) 
+	{
+#if CSV_OUTPUT
+		printf("    n, x, y, z,\n");
+#else
+		printf("# Trivial solutions of n=x³+y³+z³  (for n = [%ld..%ld] and x,y,z = [%ld..%ld], solutions formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
+#endif
+		listNoSolutions();
+		listSolutionsForPositiveXYZ();
+		listSolutionsForNegativeXYZ();
+	}
+	else if (mode == 6) 
+	{
+		BigInt startX = (argc == 3) ? string2BigInt(argv[2]) : 99999999;
+#if CSV_OUTPUT
+		printf("    n, x, y, z,\n");
+#else
+		printf("# Nontrivial solutions of n=x³+y³+z³ (x starting from %ld, solutions formatted to be: x <= y <= z)\n", (int64_t)startX);
+#endif
+		listNontrivialSolutions(startX);
 	}
 	return 0;
 }
