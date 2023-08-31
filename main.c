@@ -145,21 +145,22 @@ void listNontrivialSolutions(BigInt x)
 	for (;; ++x)
 	{
 		BigInt x3 = x * x * x;
-		BigInt z = 1, z3 = 1 * 1 * 1;
+		BigInt z = 1, z3 = z * z * z;
 #pragma omp parallel for
 		for (BigInt y = x - 1; y > 0; --y)
 		{
 			BigInt y3 = y * y * y;
-
 			BigInt n = x3 - y3 - z3;
+
 			while (n > N_MAX)
 			{
 				++z;
 				z3 = z * z * z;
 				n = x3 - y3 - z3;
 			}
-			if (n >= -N_MAX && n != -2)
-				printSolution(n, x, -y, -z);
+			if (n < N_MIN)
+				continue;
+			printSolution(n, x, -y, -z);
 		}
 	}
 }
