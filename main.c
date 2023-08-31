@@ -155,7 +155,7 @@ static void listNontrivialSolutions(BigInt startX)
 			while (n > N_MAX)
 			{
 				++z;
-				BigInt z3 = z * z * z;
+				z3 = z * z * z;
 				n = x3 - y3 - z3;
 			}
 			if (n >= -N_MAX && n != -2)
