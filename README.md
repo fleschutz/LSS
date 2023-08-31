@@ -17,9 +17,9 @@ Execute in a terminal window: (requires a C/C++ compiler only)
 
 Mode 1 - Calculate a single solution
 -------------------------------------
-This mode calculates the solution for the given x,y,z parameters.
+This mode calculates x³ + y³ + z³ for the given x,y,z parameters.
 
-Executing: `./a.out 1  1 2 3` returns: `1³ + 2³ + 3³ = 36`. Big numbers are supported, e.g.: `./a.out 1 -80538738812075974 80435758145817515 1260212329733563` returns: `3982933876681³ + -636600549515³ + -3977505554546³ = 30`.
+Executing: `./a.out 1  1 2 3` returns: `1³ + 2³ + 3³ = 36`. Note that big numbers are supported, e.g.: `./a.out 1 -80538738812075974 80435758145817515 1260212329733563` returns: `3982933876681³ + -636600549515³ + -3977505554546³ = 30`.
 
 
 Mode 2 - List no solutions
