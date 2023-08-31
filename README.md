@@ -19,21 +19,21 @@ Mode 1 - List no solutions
 --------------------------
 No solution exists for: n equal 4 or 5 modulo 9.
 
-Executing: `./a.out 1` (for n = [0..100000]) the resulting output is: [no_solutions.txt](Solutions/no_solutions.txt) which took 0.116s.
+Executing: `./a.out 1` (for n = [0..100000]) returns the following output: [no_solutions.txt](Solutions/no_solutions.txt) (uses function listNoSolutions(), took 0.116s total).
 
 
 Mode 2 - List solutions for positive numbers of x,y,z
 -----------------------------------------------------
 Finding solutions for positive numbers of x,y,z is quite fast.
 
-Executing: `./a.out 2` (for n = [0..100000]) the resulting output is: [solutions_for_positive_xyz.txt](Solutions/solutions_for_positive_xyz.txt) (TXT file) or [solutions_for_positive_xyz.csv](Solutions/solutions_for_positive_xyz.csv) (CSV file) which took 0.037s.
+Executing: `./a.out 2` (for n = [0..100000]) returns the following output: [solutions_for_positive_xyz.txt (TXT file)](Solutions/solutions_for_positive_xyz.txt) or [solutions_for_positive_xyz.csv (CSV file)](Solutions/solutions_for_positive_xyz.csv) (uses function listSolutionsForPositiveXYZ(), took 0.037s total).
 
 
 Mode 3 - List solutions for negative numbers of x,y,z
 -----------------------------------------------------
 Finding solutions for negative numbers of x,y,z is quite slow.
 
-Executing: `./a.out 3` (for n = [0..100 000]) the resulting output is: [solutions_for_negative_xyz.txt](Solutions/solutions_for_negative_xyz.txt) (TXT file) or [solutions_for_negative_xyz.csv](Solutions/solutions_for_negative_xyz.csv) (CSV file) which took 4h.
+Executing: `./a.out 3` (for n = [0..100 000]) returns the following output: [solutions_for_negative_xyz.txt (TXT file)](Solutions/solutions_for_negative_xyz.txt) or [solutions_for_negative_xyz.csv (CSV file)](Solutions/solutions_for_negative_xyz.csv) (uses function listSolutionsForNegativeXYZ(), took 4h total).
 
 
 Mode 4 - List all trivial solutions
@@ -43,8 +43,8 @@ This is mode 1 + 2 + 3 combined.
 Executing: `./a.out 4` (for n = [0..1000] and x,y,z = [0..100000] and line-sorted afterwards) the resulting output is: [trivial_solutions.txt](Solutions/trivial_solutions.txt) (TXT file) or [trivial_solutions.csv](Results/trivial_solutions.csv) (CSV file) which took 4h.
 
 
-Mode 5 - Calculate a solution
------------------------------
+Mode 5 - Calculate a single solution
+-------------------------------------
 This mode calculates the solution for the given x,y,z parameters.
 
 Executing: `./a.out 5  1 2 3` returns: `1³ + 2³ + 3³ = 36`. Big numbers are supported, e.g.: `./a.out 5 -80538738812075974 80435758145817515 1260212329733563` returns: `3982933876681³ + -636600549515³ + -3977505554546³ = 30`.
