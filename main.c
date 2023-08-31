@@ -155,9 +155,8 @@ void listNontrivialSolutions(BigInt x)
 				z3 = z * z * z;
 				n = x3 - y3 - z3;
 			}
-			if (n < N_MIN)
-				continue;
-			printSolution(n, x, -y, -z);
+			if (n >= N_MIN)
+				printSolution(n, x, -y, -z);
 		}
 	}
 }
@@ -224,7 +223,7 @@ int main(int argc, char **argv)
 	}
 	else if (mode == 6) 
 	{
-		BigInt startX = (argc == 3) ? string2BigInt(argv[2]) : 99999999;
+		BigInt startX = string2BigInt(argc == 3 ? argv[2] : "99999999");
 #if CSV_OUTPUT
 		printf("    n, x, y, z,\n");
 #else
