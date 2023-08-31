@@ -1,3 +1,2 @@
 # Nontrivial solutions of n=x³+y³+z³ (x=99999999 as starting point, solutions formatted to be: x <= y <= z)
-  513 = -100024908³ + 8³ + 27262976³
-  431 = -47352869³ + -27678325³ + 100002057³
+  729 = -99999100³ + -2999991³ + 100000000³
