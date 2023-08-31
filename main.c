@@ -48,12 +48,6 @@ void printNoSolution(BigInt n)
 }
 void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 {
-	if (n < 0)
-	{	n = -n;
-		x = -x;
-		y = -y;
-		z = -z;
-	}
 #if CSV_OUTPUT	
 	if (x <= y && y <= z)
 		printf("%5ld, %ld, %ld, %ld,\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
@@ -128,13 +122,12 @@ void listSolutionsForNegativeXYZ(void)
 			for (BigInt z = XYZ_MIN; z <= y; ++z)
 			{
 				BigInt n = x3_minus_y3 + cubeNumbers[z];
-				if (-N_MAX <= n && n <= N_MAX)
-					if (!solutionKnown[abs(n)])
-						printSolution(n, x, -y, z);
+				if (N_MIN <= n && n <= N_MAX && !solutionKnown[n])
+					printSolution(n, x, -y, z);
+
 				n = x3_minus_y3 - cubeNumbers[z];
-				if (-N_MAX <= n && n <= N_MAX)
-					if (!solutionKnown[abs(n)])
-						printSolution(n, x, -y, -z);
+				if (N_MIN <= n && n <= N_MAX && !solutionKnown[n])
+					printSolution(n, x, -y, -z);
 			}
 		}
 	}
