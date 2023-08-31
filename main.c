@@ -4,13 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Search parameters:
 typedef int64_t        BigInt; // or use __int128_t instead
-#define N_MIN               0  // minimum value for n
-#define N_MAX            1000  // maximum value for n
-#define XYZ_MIN             0  // minimum value for x,y,z
-#define XYZ_MAX        100000  // maximum value for x,y,z
-#define CSV_OUTPUT          0  // CSV output, else text output
+#define N_MIN               0  // minimum desired value for n
+#define N_MAX            1000  // maximum desired value for n
+#define XYZ_MIN             0  // minimum value for x,y,z to use
+#define XYZ_MAX        100000  // maximum value for x,y,z to use
+#define CSV_OUTPUT          0  // CSV output desired, else text output
 
 // Converts the given string into a big number and returns it.
 static BigInt string2BigInt(const char *str)
@@ -170,7 +169,6 @@ int main(int argc, char **argv)
 	if (argc >= 2)
 		mode = atoi(argv[1]);
 	
-	preCalculateCubeNumbers();
 	if (mode == 1)
 	{
 		if (argc == 5)
@@ -200,6 +198,7 @@ int main(int argc, char **argv)
 #else
 		printf("# Trivial solutions of n=x³+y³+z³ for positive numbers of x,y,z (for n = [%ld..%ld] and x,y,z = [%ld..%ld], solutions formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
 #endif
+		preCalculateCubeNumbers();
 		listSolutionsForPositiveXYZ();
 	}
 	else if (mode == 4)
@@ -209,6 +208,7 @@ int main(int argc, char **argv)
 #else
 		printf("# Trivial solutions of n=x³+y³+z³ for negative numbers of x,y,z (for n = [%ld..%ld] and x,y,z = [%ld..%ld], solutions formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
 #endif
+		preCalculateCubeNumbers();
 		listSolutionsForNegativeXYZ();
 	}
 	else if (mode == 5) 
@@ -219,6 +219,7 @@ int main(int argc, char **argv)
 		printf("# Trivial solutions of n=x³+y³+z³  (for n = [%ld..%ld] and x,y,z = [%ld..%ld], solutions formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
 #endif
 		listNoSolutions();
+		preCalculateCubeNumbers();
 		listSolutionsForPositiveXYZ();
 		listSolutionsForNegativeXYZ();
 	}
