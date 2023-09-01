@@ -11,54 +11,54 @@ Execute in a terminal window: (requires a C/C++ compiler only)
 ```
 > git clone https://github.com/fleschutz/LSS    # Or download and unzip the ZIP file (click green button)
 > cd LSS
-> cc -O3 -fopenmp main.c 
-> ./a.out <MODE>                                # Replace <MODE> by the mode number (see below)
+> cc -O3 -fopenmp main.c -o mode
+> ./mode <NUMBER>                               # Replace <NUMBER> by the mode number (see below)
 ```
 
 Mode 1 - Calculate a solution
 -----------------------------
-This mode calculates the result of: x³ + y³ + z³ for the given values of x,y,z (e.g. executing: `./a.out 1  1 2 3` returns: `1³ + 2³ + 3³ = 36`).
+This mode calculates the result of: x³ + y³ + z³ for the given values of x,y,z (e.g. executing: `./mode 1  1 2 3` returns: `1³ + 2³ + 3³ = 36`).
 
-Note that big numbers are supported, e.g.: `./a.out 1 -80538738812075974 80435758145817515 1260212329733563` returns: `3982933876681³ + -636600549515³ + -3977505554546³ = 30`.
+Note that big numbers are supported, e.g.: `./mode 1 -80538738812075974 80435758145817515 1260212329733563` returns: `3982933876681³ + -636600549515³ + -3977505554546³ = 30`.
 
 
 Mode 2 - List no solutions
 --------------------------
 No solution exists for: n equal 4 or 5 modulo 9.
 
-`./a.out 2` returns the following: [no_solutions.txt](Solutions/no_solutions.txt) (for n = [0..100000]). It uses function listNoSolutions() and took 0.116s total.
+`./mode 2` returns the following: [no_solutions.txt](Solutions/no_solutions.txt) (for n = [0..100000]). It uses function listNoSolutions() and took 0.116s total.
 
 
 Mode 3 - List solutions for positive numbers of x,y,z
 -----------------------------------------------------
 Finding trivial solutions for positive numbers of x,y,z is quite fast.
 
-`./a.out 3` returns the following: [trivial_for_positive_xyz.txt](Solutions/trivial_for_positive_xyz.txt) (text file) or [trivial_for_positive_xyz.csv](Solutions/trivial_for_positive_xyz.csv) (CSV file) for n = [0..100000]. It uses function listSolutionsForPositiveXYZ() and took 0.037s total.
+`./mode 3` returns the following: [trivial_for_positive_xyz.txt](Solutions/trivial_for_positive_xyz.txt) (text file) or [trivial_for_positive_xyz.csv](Solutions/trivial_for_positive_xyz.csv) (CSV file) for n = [0..100000]. It uses function listSolutionsForPositiveXYZ() and took 0.037s total.
 
 
 Mode 4 - List solutions for negative numbers of x,y,z
 -----------------------------------------------------
 Finding trivial solutions for negative numbers of x,y,z is quite slow.
 
-`./a.out 4` returns the following: [trivial_for_negative_xyz.txt](Solutions/trivial_for_negative_xyz.txt) (text file) or [trivial_for_negative_xyz.csv](Solutions/trivial_for_negative_xyz.csv) (CSV file) for n = [0..100 000]. It uses function listSolutionsForNegativeXYZ() and took 4h total.
+`./mode 4` returns the following: [trivial_for_negative_xyz.txt](Solutions/trivial_for_negative_xyz.txt) (text file) or [trivial_for_negative_xyz.csv](Solutions/trivial_for_negative_xyz.csv) (CSV file) for n = [0..100 000]. It uses function listSolutionsForNegativeXYZ() and took 4h total.
 
 
 Mode 5 - List trivial solutions
 -------------------------------
 This is mode 2 + 3 + 4 combined.
 
-`./a.out 5` returns the following: [trivial_solutions.txt](Solutions/trivial_solutions.txt) (text file) or [trivial_solutions.csv](Results/trivial_solutions.csv) (CSV file) for n = [0..1000] and x,y,z = [0..100000] and line-sorted afterwards (took 4h total).
+`./mode 5` returns the following: [trivial_solutions.txt](Solutions/trivial_solutions.txt) (text file) or [trivial_solutions.csv](Results/trivial_solutions.csv) (CSV file) for n = [0..1000] and x,y,z = [0..100000] and line-sorted afterwards (took 4h total).
 
 
 Mode 6 - List nontrivial solutions
 ----------------------------------
 This mode lists nontrivial solutions by using a shotgun algorithm in function listNontrivialSolutions(). The argument is an exponent defining a value range for x, the default value of 6 means: x=[10^6..10^7].
 
-* `./a.out 6 4` returns the following: [solutions_for_10^4_range.txt](Solutions/solutions_for_10^4_range.txt).
-* `./a.out 6 5` returns the following: [solutions_for_10^5_range.txt](Solutions/solutions_for_10^5_range.txt).
-* `./a.out 6 6` returns the following: [solutions_for_10^6_range.txt](Solutions/solutions_for_10^6_range.txt).
-* `./a.out 6 7` returns the following: [solutions_for_10^7_range.txt](Solutions/solutions_for_10^7_range.txt).
-* `./a.out 6 8` returns the following: [solutions_for_10^8_range.txt](Solutions/solutions_for_10^8_range.txt).
+* `./mode 6 4` returns the following: [solutions_for_10^4_range.txt](Solutions/solutions_for_10^4_range.txt).
+* `./mode 6 5` returns the following: [solutions_for_10^5_range.txt](Solutions/solutions_for_10^5_range.txt).
+* `./mode 6 6` returns the following: [solutions_for_10^6_range.txt](Solutions/solutions_for_10^6_range.txt).
+* `./mode 6 7` returns the following: [solutions_for_10^7_range.txt](Solutions/solutions_for_10^7_range.txt).
+* `./mode 6 8` returns the following: [solutions_for_10^8_range.txt](Solutions/solutions_for_10^8_range.txt).
 
 
 🏆 Nontrivial Solutions
