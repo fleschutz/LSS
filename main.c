@@ -224,8 +224,8 @@ int main(int argc, char **argv)
 		int exponent = (argc == 3 ? atoi(argv[2]) : 6);
 		BigInt minX = 1;
 		for (int i = 0; i < exponent; ++i)
-			minX *= 10;
-		BigInt maxX = minX * 10;
+			minX *= (BigInt)10;
+		BigInt maxX = minX * (BigInt)10;
 #if CSV_OUTPUT
 		printf("    n, x, y, z,\n");
 #else
