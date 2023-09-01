@@ -17,7 +17,7 @@ Execute in a terminal window: (requires a C/C++ compiler only)
 
 Mode 1 - Calculate a single solution
 -------------------------------------
-This mode calculates x³ + y³ + z³ for the given x,y,z parameters.
+This mode calculates the result of: x³ + y³ + z³ for the given x,y,z parameters.
 
 Executing: `./a.out 1  1 2 3` returns: `1³ + 2³ + 3³ = 36`. Note that big numbers are supported, e.g.: `./a.out 1 -80538738812075974 80435758145817515 1260212329733563` returns: `3982933876681³ + -636600549515³ + -3977505554546³ = 30`.
 
@@ -26,21 +26,21 @@ Mode 2 - List no solutions
 --------------------------
 No solution exists for: n equal 4 or 5 modulo 9.
 
-Executing: `./a.out 2` (for n = [0..100000]) returns the following output: [no_solutions.txt](Solutions/no_solutions.txt) (uses function listNoSolutions(), took 0.116s total).
+Executing: `./a.out 2` (for n = [0..100000]) returns the following output: [no_solutions.txt](Solutions/no_solutions.txt). It uses function listNoSolutions() and took 0.116s total.
 
 
 Mode 3 - List solutions for positive numbers of x,y,z
 -----------------------------------------------------
-Finding solutions for positive numbers of x,y,z is quite fast.
+Finding trivial solutions for positive numbers of x,y,z is quite fast.
 
-Executing: `./a.out 3` (for n = [0..100000]) returns the following output: [solutions_for_positive_xyz.txt (TXT file)](Solutions/solutions_for_positive_xyz.txt) or [solutions_for_positive_xyz.csv (CSV file)](Solutions/solutions_for_positive_xyz.csv) (uses function listSolutionsForPositiveXYZ(), took 0.037s total).
+Executing: `./a.out 3` (for n = [0..100000]) returns the following output: [trivial_for_positive_xyz.txt](Solutions/trivial_for_positive_xyz.txt) (text file) or [trivial_for_positive_xyz.csv](Solutions/trivial_for_positive_xyz.csv) (CSV file). It uses function listSolutionsForPositiveXYZ() and took 0.037s total.
 
 
 Mode 4 - List solutions for negative numbers of x,y,z
 -----------------------------------------------------
-Finding solutions for negative numbers of x,y,z is quite slow.
+Finding trivial solutions for negative numbers of x,y,z is quite slow.
 
-Executing: `./a.out 4` (for n = [0..100 000]) returns the following output: [solutions_for_negative_xyz.txt (TXT file)](Solutions/solutions_for_negative_xyz.txt) or [solutions_for_negative_xyz.csv (CSV file)](Solutions/solutions_for_negative_xyz.csv) (uses function listSolutionsForNegativeXYZ(), took 4h total).
+Executing: `./a.out 4` (for n = [0..100 000]) returns the following output: [trivial_for_negative_xyz.txt](Solutions/trivial_for_negative_xyz.txt) (text file) or [trivial_for_negative_xyz.csv](Solutions/trivial_for_negative_xyz.csv) (CSV file). It uses function listSolutionsForNegativeXYZ() and took 4h total.
 
 
 Mode 5 - List trivial solutions
