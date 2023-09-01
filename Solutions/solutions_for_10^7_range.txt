@@ -1,0 +1,1 @@
+# Solutions of n=x³+y³+z³ for n=[0..1000] and x=[10000000..100000000] (formatted to be: x <= y <= z)

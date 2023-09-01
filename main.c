@@ -52,6 +52,7 @@ void printNoSolution(BigInt n)
 }
 void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 {
+	solutionKnown[n] = 1;
 #if CSV_OUTPUT	
 	if (x <= y && y <= z)
 		printf("%5ld, %ld, %ld, %ld,\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
@@ -80,7 +81,6 @@ void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 		printf("%5ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
 #endif
 	fflush(stdout); // to disable buffering
-	solutionKnown[n] = 1;
 }
 
 void listNoSolutions(void)
