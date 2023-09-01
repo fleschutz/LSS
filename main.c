@@ -137,15 +137,14 @@ void listSolutionsForNegativeXYZ(void)
 
 void listNontrivialSolutions(BigInt minX, BigInt maxX)
 {
+#pragma omp parallel for
 	for (BigInt x = minX; x <= maxX; ++x)
 	{
-		BigInt x3 = x * x * x;
-		BigInt z = 1, z3 = z * z * z;
-#pragma omp parallel for
+		BigInt x3 = x*x*x, z = 1, z3 = z*z*z;
+
 		for (BigInt y = x - 1; y > 0; --y)
 		{
-			BigInt y3 = y * y * y;
-			BigInt n = x3 - y3 - z3;
+			BigInt y3 = y*y*y, n = x3 - y3 - z3;
 
 			while (n > N_MAX)
 			{
