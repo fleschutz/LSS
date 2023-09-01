@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef int64_t        BigInt; // or use __int128_t instead
+typedef __int128_t     BigInt;
 #define N_MIN               0  // minimum desired value for n
 #define N_MAX            1000  // maximum desired value for n
 #define XYZ_MIN             0  // minimum value for x,y,z to use
@@ -151,9 +151,10 @@ void listNontrivialSolutions(BigInt x)
 
 			while (n > N_MAX)
 			{
+				n += z3; // remove previous z³
 				++z;
 				z3 = z * z * z;
-				n = x3 - y3 - z3;
+				n -= z3; // add new z³
 			}
 			if (n >= N_MIN)
 				printSolution(n, x, -y, -z);
