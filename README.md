@@ -33,14 +33,14 @@ Mode 3 - List solutions for positive numbers of x,y,z
 -----------------------------------------------------
 Finding trivial solutions for positive numbers of x,y,z is quite fast.
 
-`./mode 3` returns the following: [trivial_for_positive_xyz.txt](Solutions/trivial_for_positive_xyz.txt) (text file) or [trivial_for_positive_xyz.csv](Solutions/trivial_for_positive_xyz.csv) (CSV file) for n = [0..100000]. It uses function listSolutionsForPositiveXYZ() and took 0.037s total.
+`./mode 3` returns the following: [trivial_for_positive_xyz.txt](Solutions/trivial_for_positive_xyz.txt) (text file) or [trivial_for_positive_xyz.csv](Solutions/trivial_for_positive_xyz.csv) (CSV file) for n = [0..100000]. It uses function listTrivialSolutionsForPositiveXYZ() and took 0.037s total.
 
 
 Mode 4 - List solutions for negative numbers of x,y,z
 -----------------------------------------------------
 Finding trivial solutions for negative numbers of x,y,z is quite slow.
 
-`./mode 4` returns the following: [trivial_for_negative_xyz.txt](Solutions/trivial_for_negative_xyz.txt) (text file) or [trivial_for_negative_xyz.csv](Solutions/trivial_for_negative_xyz.csv) (CSV file) for n = [0..100 000]. It uses function listSolutionsForNegativeXYZ() and took 4h total.
+`./mode 4` returns the following: [trivial_for_negative_xyz.txt](Solutions/trivial_for_negative_xyz.txt) (text file) or [trivial_for_negative_xyz.csv](Solutions/trivial_for_negative_xyz.csv) (CSV file) for n = [0..100 000]. It uses function listTrivialSolutionsForNegativeXYZ() and took 4h total.
 
 
 Mode 5 - List trivial solutions
@@ -52,7 +52,7 @@ This is mode 2 + 3 + 4 combined.
 
 Mode 6 - List nontrivial solutions
 ----------------------------------
-This mode lists nontrivial solutions by using a shotgun algorithm in function listNontrivialSolutions(). The argument is an exponent defining a value range for x, the default value of 6 means: x=[10^6..10^7].
+This mode lists nontrivial solutions by using a shotgun algorithm in function listSolutionsForNegativeXY(). The argument is an exponent defining a value range for x, the default value of 6 means: x=[10^6..10^7].
 
 * `./mode 6 3` returns: [solutions_for_10^3_range.txt](Solutions/solutions_for_10^3_range.txt) (took 0.042s).
 * `./mode 6 4` returns: [solutions_for_10^4_range.txt](Solutions/solutions_for_10^4_range.txt) (took 3.4s).

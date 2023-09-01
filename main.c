@@ -88,7 +88,7 @@ void listNoSolutions(void)
 			printNoSolution(n);
 }
 
-void listSolutionsForPositiveXYZ(void)
+void listTrivialSolutionsForPositiveXYZ(void)
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
@@ -112,7 +112,7 @@ void listSolutionsForPositiveXYZ(void)
 	}
 }
 
-void listSolutionsForNegativeXYZ(void)
+void listTrivialSolutionsForNegativeXYZ(void)
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
@@ -135,25 +135,25 @@ void listSolutionsForNegativeXYZ(void)
 	}
 }
 
-void listNontrivialSolutions(BigInt minX, BigInt maxX)
+void listSolutionsForNegativeXY(BigInt minX, BigInt maxX)
 {
 #pragma omp parallel for
 	for (BigInt x = minX; x <= maxX; ++x)
 	{
-		BigInt x3 = x*x*x, z = 1, z3 = z*z*z;
+		BigInt x3 = x*x*x, z = 1, z3 = 1*1*1;
 
-		for (BigInt y = x - 1; y > 0; --y)
+		for (BigInt y = x - 1; y > z; --y)
 		{
 			BigInt y3 = y*y*y, n = x3 - y3 - z3;
 
 			while (n > N_MAX)
 			{
-				n += z3; // remove previous z³
 				++z;
+				n += z3; // to remove previous z³
 				z3 = z * z * z;
-				n -= z3; // add new z³
+				n -= z3; // to add new z³
 			}
-			if (n >= N_MIN && !solutionKnown[n])
+			if (n >= N_MIN)
 				printSolution(n, x, -y, -z);
 		}
 	}
@@ -192,10 +192,10 @@ int main(int argc, char **argv)
 #if CSV_OUTPUT
 		printf("    n, x, y, z,\n");
 #else
-		printf("# Solutions of n=x³+y³+z³ for n=[%ld..%ld] and x,y,z=[%ld..%ld] (formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
+		printf("# Trivial solutions of n=x³+y³+z³ for n=[%ld..%ld] and x,y,z=[%ld..%ld] (formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
 #endif
 		preCalculateCubeNumbers();
-		listSolutionsForPositiveXYZ();
+		listTrivialSolutionsForPositiveXYZ();
 	}
 	else if (mode == 4)
 	{
@@ -205,7 +205,7 @@ int main(int argc, char **argv)
 		printf("# Trivial solutions of n=x³+y³+z³ for negative numbers of x,y,z (for n = [%ld..%ld] and x,y,z = [%ld..%ld], solutions formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
 #endif
 		preCalculateCubeNumbers();
-		listSolutionsForNegativeXYZ();
+		listTrivialSolutionsForNegativeXYZ();
 	}
 	else if (mode == 5) 
 	{
@@ -216,8 +216,8 @@ int main(int argc, char **argv)
 #endif
 		listNoSolutions();
 		preCalculateCubeNumbers();
-		listSolutionsForPositiveXYZ();
-		listSolutionsForNegativeXYZ();
+		listTrivialSolutionsForPositiveXYZ();
+		listTrivialSolutionsForNegativeXYZ();
 	}
 	else if (mode == 6) 
 	{
@@ -231,7 +231,7 @@ int main(int argc, char **argv)
 #else
 		printf("# Solutions of n=x³+y³+z³ for n=[%ld..%ld] and x=[%ld..%ld] (formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)minX, (int64_t)maxX);
 #endif
-		listNontrivialSolutions(minX, maxX);
+		listSolutionsForNegativeXY(minX, maxX);
 	}
 	return 0;
 }
