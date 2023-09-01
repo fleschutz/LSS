@@ -137,9 +137,9 @@ void listSolutionsForNegativeXYZ(void)
 	}
 }
 
-void listNontrivialSolutions(BigInt x)
+void listNontrivialSolutions(BigInt minX, BigInt maxX)
 {
-	for (;; ++x)
+	for (BigInt x = minX; x <= maxX; ++x)
 	{
 		BigInt x3 = x * x * x;
 		BigInt z = 1, z3 = z * z * z;
@@ -224,13 +224,18 @@ int main(int argc, char **argv)
 	}
 	else if (mode == 6) 
 	{
-		BigInt startX = string2BigInt(argc == 3 ? argv[2] : "1000000");
+		int exponent = (argc == 3 ? atoi(argv[2]) : 6);
+		BigInt minX = 1, maxX = 1;
+		for (int i = 0; i < exponent; i++)
+			minX *= 10;
+		for (int i = 0; i < exponent + 1; i++)
+			maxX *= 10;
 #if CSV_OUTPUT
 		printf("    n, x, y, z,\n");
 #else
-		printf("# Nontrivial solutions of n=x³+y³+z³, starting from: x=%ld (solutions formatted to be: x <= y <= z)\n", (int64_t)startX);
+		printf("# Solutions of n=x³+y³+z³ for x=[%ld..%ld] (solutions formatted to be: x <= y <= z)\n", (int64_t)minX, (int64_t)maxX);
 #endif
-		listNontrivialSolutions(startX);
+		listNontrivialSolutions(minX, maxX);
 	}
 	return 0;
 }

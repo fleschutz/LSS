@@ -52,7 +52,7 @@ Executing: `./a.out 5` (for n = [0..1000] and x,y,z = [0..100000] and line-sorte
 
 Mode 6 - List nontrivial solutions
 ----------------------------------
-This mode lists nontrivial solutions by using a shotgun algorithm with a start value of **x** (1 million by default).
+This mode lists nontrivial solutions by using a shotgun algorithm. The argument is an exponent defining a value range for x, the default value of 6 means: x=[10^6..10^7].
 
 Executing: `./a.out 6` (for n = [0..1000]) returns the following output: [nontrivial_solutions.txt](Solutions/nontrivial_solutions.txt) (uses function listNontrivialSolutions(), took hours and hours).
 
