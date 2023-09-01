@@ -29,16 +29,16 @@ No solution exists for: n equal 4 or 5 modulo 9.
 `./mode 2` returns the following: [no_solutions.txt](Solutions/no_solutions.txt) (for n = [0..100000]). It uses function listNoSolutions() and took 0.116s total.
 
 
-Mode 3 - List solutions for positive numbers of x,y,z
------------------------------------------------------
-Finding trivial solutions for positive numbers of x,y,z is quite fast.
+Mode 3 - List trivial solutions for positive x,y,z
+--------------------------------------------------
+This mode lists trivial solutions for positive numbers of x,y,z.
 
 `./mode 3` returns the following: [trivial_for_positive_xyz.txt](Solutions/trivial_for_positive_xyz.txt) (text file) or [trivial_for_positive_xyz.csv](Solutions/trivial_for_positive_xyz.csv) (CSV file) for n = [0..100000]. It uses function listTrivialSolutionsForPositiveXYZ() and took 0.037s total.
 
 
-Mode 4 - List solutions for negative numbers of x,y,z
------------------------------------------------------
-Finding trivial solutions for negative numbers of x,y,z is quite slow.
+Mode 4 - List trivial solutions for negative x,y,z
+--------------------------------------------------
+This mode lists trivial solutions for negative numbers of x,y,z.
 
 `./mode 4` returns the following: [trivial_for_negative_xyz.txt](Solutions/trivial_for_negative_xyz.txt) (text file) or [trivial_for_negative_xyz.csv](Solutions/trivial_for_negative_xyz.csv) (CSV file) for n = [0..100 000]. It uses function listTrivialSolutionsForNegativeXYZ() and took 4h total.
 
@@ -50,8 +50,8 @@ This is mode 2 + 3 + 4 combined.
 `./mode 5` returns the following: [trivial_solutions.txt](Solutions/trivial_solutions.txt) (text file) or [trivial_solutions.csv](Results/trivial_solutions.csv) (CSV file) for n = [0..1000] and x,y,z = [0..100000] and line-sorted afterwards (took 4h total).
 
 
-Mode 6 - List nontrivial solutions
-----------------------------------
+Mode 6 - List nontrivial solutions for negative x,y
+---------------------------------------------------
 This mode lists nontrivial solutions by using a shotgun algorithm in function listSolutionsForNegativeXY(). The argument is an exponent defining a value range for x, the default value of 6 means: x=[10^6..10^7].
 
 * `./mode 6 3` returns: [solutions_for_10^3_range.txt](Solutions/solutions_for_10^3_range.txt) (took 0.042s).
