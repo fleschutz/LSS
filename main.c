@@ -156,7 +156,7 @@ void listNontrivialSolutions(BigInt x)
 				z3 = z * z * z;
 				n -= z3; // add new z³
 			}
-			if (n >= N_MIN)
+			if (n >= N_MIN && !solutionKnown[n])
 				printSolution(n, x, -y, -z);
 		}
 	}
