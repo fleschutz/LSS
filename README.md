@@ -52,9 +52,14 @@ Executing: `./a.out 5` (for n = [0..1000] and x,y,z = [0..100000] and line-sorte
 
 Mode 6 - List nontrivial solutions
 ----------------------------------
-This mode lists nontrivial solutions by using a shotgun algorithm. The argument is an exponent defining a value range for x, the default value of 6 means: x=[10^6..10^7].
+This mode lists nontrivial solutions by using a shotgun algorithm in function listNontrivialSolutions(). The argument is an exponent defining a value range for x, the default value of 6 means: x=[10^6..10^7].
 
-Executing: `./a.out 6` (for n = [0..1000]) returns the following output: [nontrivial_solutions.txt](Solutions/nontrivial_solutions.txt) (uses function listNontrivialSolutions(), took hours and hours).
+* Executing: `./a.out 6 4` returns the following: [solutions_for_10^4_range.txt](Solutions/solutions_for_10^4_range.txt).
+* Executing: `./a.out 6 5` returns the following: [solutions_for_10^5_range.txt](Solutions/solutions_for_10^5_range.txt).
+* Executing: `./a.out 6 6` returns the following: [solutions_for_10^6_range.txt](Solutions/solutions_for_10^6_range.txt).
+* Executing: `./a.out 6 7` returns the following: [solutions_for_10^7_range.txt](Solutions/solutions_for_10^7_range.txt).
+* Executing: `./a.out 6 8` returns the following: [solutions_for_10^8_range.txt](Solutions/solutions_for_10^8_range.txt).
+
 
 🏆 Nontrivial Solutions
 ------------------------
