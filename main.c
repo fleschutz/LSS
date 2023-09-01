@@ -224,7 +224,7 @@ int main(int argc, char **argv)
 	}
 	else if (mode == 6) 
 	{
-		BigInt startX = string2BigInt(argc == 3 ? argv[2] : "99999999");
+		BigInt startX = string2BigInt(argc == 3 ? argv[2] : "1000000");
 #if CSV_OUTPUT
 		printf("    n, x, y, z,\n");
 #else
