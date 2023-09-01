@@ -195,7 +195,7 @@ int main(int argc, char **argv)
 #if CSV_OUTPUT
 		printf("    n, x, y, z,\n");
 #else
-		printf("# Trivial solutions of n=x³+y³+z³ for positive numbers of x,y,z (for n = [%ld..%ld] and x,y,z = [%ld..%ld], solutions formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
+		printf("# Solutions of n=x³+y³+z³ for n=[%ld..%ld] and x,y,z=[%ld..%ld] (formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
 #endif
 		preCalculateCubeNumbers();
 		listSolutionsForPositiveXYZ();
