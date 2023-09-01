@@ -225,15 +225,14 @@ int main(int argc, char **argv)
 	else if (mode == 6) 
 	{
 		int exponent = (argc == 3 ? atoi(argv[2]) : 6);
-		BigInt minX = 1, maxX = 1;
-		for (int i = 0; i < exponent; i++)
+		BigInt minX = 1;
+		for (int i = 0; i < exponent; ++i)
 			minX *= 10;
-		for (int i = 0; i < exponent + 1; i++)
-			maxX *= 10;
+		BigInt maxX = minX * 10;
 #if CSV_OUTPUT
 		printf("    n, x, y, z,\n");
 #else
-		printf("# Solutions of n=x³+y³+z³ for x=[%ld..%ld] (solutions formatted to be: x <= y <= z)\n", (int64_t)minX, (int64_t)maxX);
+		printf("# Solutions of n=x³+y³+z³ for n=[%ld..%ld] and x=[%ld..%ld] with solutions formatted to be: x <= y <= z\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)minX, (int64_t)maxX);
 #endif
 		listNontrivialSolutions(minX, maxX);
 	}
