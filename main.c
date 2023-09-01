@@ -232,7 +232,7 @@ int main(int argc, char **argv)
 #if CSV_OUTPUT
 		printf("    n, x, y, z,\n");
 #else
-		printf("# Solutions of n=x³+y³+z³ for n=[%ld..%ld] and x=[%ld..%ld] with solutions formatted to be: x <= y <= z\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)minX, (int64_t)maxX);
+		printf("# Solutions of n=x³+y³+z³ for n=[%ld..%ld] and x=[%ld..%ld] (formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)minX, (int64_t)maxX);
 #endif
 		listNontrivialSolutions(minX, maxX);
 	}
