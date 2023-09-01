@@ -177,7 +177,7 @@ int main(int argc, char **argv)
 			printf("%ld³ + %ld³ + %ld³ = %ld\n", (int64_t)x, (int64_t)y, (int64_t)z, (int64_t)n);
 		}
 		else
-			printf("Sorry, expected syntax is: ./a.out 5 <x> <y> <z>\n");
+			printf("Sorry, expected syntax is: ./mode 1 <x> <y> <z>\n");
 	}
 	else if (mode == 2) 
 	{
