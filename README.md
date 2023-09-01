@@ -26,28 +26,28 @@ Mode 2 - List no solutions
 --------------------------
 No solution exists for: n equal 4 or 5 modulo 9.
 
-Executing: `./a.out 2` (for n = [0..100000]) returns the following output: [no_solutions.txt](Solutions/no_solutions.txt). It uses function listNoSolutions() and took 0.116s total.
+`./a.out 2` returns the following: [no_solutions.txt](Solutions/no_solutions.txt) (for n = [0..100000]). It uses function listNoSolutions() and took 0.116s total.
 
 
 Mode 3 - List solutions for positive numbers of x,y,z
 -----------------------------------------------------
 Finding trivial solutions for positive numbers of x,y,z is quite fast.
 
-Executing: `./a.out 3` (for n = [0..100000]) returns the following output: [trivial_for_positive_xyz.txt](Solutions/trivial_for_positive_xyz.txt) (text file) or [trivial_for_positive_xyz.csv](Solutions/trivial_for_positive_xyz.csv) (CSV file). It uses function listSolutionsForPositiveXYZ() and took 0.037s total.
+`./a.out 3` returns the following: [trivial_for_positive_xyz.txt](Solutions/trivial_for_positive_xyz.txt) (text file) or [trivial_for_positive_xyz.csv](Solutions/trivial_for_positive_xyz.csv) (CSV file) for n = [0..100000]. It uses function listSolutionsForPositiveXYZ() and took 0.037s total.
 
 
 Mode 4 - List solutions for negative numbers of x,y,z
 -----------------------------------------------------
 Finding trivial solutions for negative numbers of x,y,z is quite slow.
 
-Executing: `./a.out 4` (for n = [0..100 000]) returns the following output: [trivial_for_negative_xyz.txt](Solutions/trivial_for_negative_xyz.txt) (text file) or [trivial_for_negative_xyz.csv](Solutions/trivial_for_negative_xyz.csv) (CSV file). It uses function listSolutionsForNegativeXYZ() and took 4h total.
+`./a.out 4` returns the following: [trivial_for_negative_xyz.txt](Solutions/trivial_for_negative_xyz.txt) (text file) or [trivial_for_negative_xyz.csv](Solutions/trivial_for_negative_xyz.csv) (CSV file) for n = [0..100 000]. It uses function listSolutionsForNegativeXYZ() and took 4h total.
 
 
 Mode 5 - List trivial solutions
 -------------------------------
 This is mode 2 + 3 + 4 combined.
 
-Executing: `./a.out 5` (for n = [0..1000] and x,y,z = [0..100000] and line-sorted afterwards) returns the following output: [trivial_solutions.txt](Solutions/trivial_solutions.txt) (TXT file) or [trivial_solutions.csv](Results/trivial_solutions.csv) (CSV file) which took 4h.
+`./a.out 5` returns the following: [trivial_solutions.txt](Solutions/trivial_solutions.txt) (text file) or [trivial_solutions.csv](Results/trivial_solutions.csv) (CSV file) for n = [0..1000] and x,y,z = [0..100000] and line-sorted afterwards (took 4h total).
 
 
 Mode 6 - List nontrivial solutions
