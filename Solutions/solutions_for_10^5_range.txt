@@ -1,4 +1,4 @@
-# Solutions of n=x³+y³+z³ for n=[0..1000] and x=[100000..1000000] (formatted to be: x <= y <= z)
+# Solutions of n=x³+y³+z³ for n=[0..1000] and x=[10^5..10^6] (formatted to be: x <= y <= z)
   216 = -100836³ + -19908³ + 101094³
   250 = -101245³ + -6750³ + 101255³
  1000 = -95286³ + -56852³ + 101604³
