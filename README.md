@@ -74,7 +74,6 @@ The following nontrivial solutions have been solved already:
 * **165** = `(-385495523231271884)³ + 383344975542639445³ + 98422560467622814³`
 * **795** = `(-14219049725358227)³ + 14197965759741573³ + 2337348783323923³`
 * **906** = `(−74924259395610397)³ + 72054089679353378³ + 35961979615356503³`
-* HINT: Use [WolframAlpha](https://www.wolframalpha.com) with copy&paste to check the results.
 
 The only remaining unsolved cases up to 1,000 are the following seven numbers:
 
@@ -90,7 +89,9 @@ Want to get famous? Just solve one of these numbers. May the force be with you �
 
 Furthermore, there are also nontrivial solutions additionally to trivial solutions:
 
-* **3** = 569 936 821 221 962 380 720³ + (−569 936 821 113 563 493 509)³ + (−472 715 493 453 327 032)³ (solved 2019 by Andrew Booker and Andrew Sutherland)
+* **3** = `569936821221962380720³ + (−569936821113563493509)³ + (−47271593453327032)³` (solved 2019 by Andrew Booker and Andrew Sutherland)
+
+HINT: Use [WolframAlpha](https://www.wolframalpha.com) with copy&paste to check the results.
 
 📧 Feedback
 ------------
