@@ -229,14 +229,12 @@ int main(int argc, char **argv)
 	else if (mode == 6) 
 	{
 		int exponent = (argc == 3 ? atoi(argv[2]) : 6);
-		BigInt x_min = getBigIntFromPowerOf10(exponent);
-		BigInt x_max = getBigIntFromPowerOf10(exponent + 1);
 #if CSV_OUTPUT
 		printf("    n, x, y, z,\n");
 #else
-		printf("# Solutions of n=x³+y³+z³ for n=[%ld..%ld] and x=[%ld..%ld] (formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)x_min, (int64_t)x_max);
+		printf("# Solutions of n=x³+y³+z³ for n=[%ld..%ld] and x=[10^%d..10^%d] (formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, exponent, exponent + 1);
 #endif
-		listSolutionsForNegativeYZ(x_min, x_max);
+		listSolutionsForNegativeYZ(getBigIntFromPowerOf10(exponent), getBigIntFromPowerOf10(exponent + 1));
 	}
 	return 0;
 }
