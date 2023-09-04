@@ -44,7 +44,7 @@ void printBigInt(BigInt n)
 {
 	char str[80] = {};
 	char *s = str + sizeof( str ) - 1;  // start at the end
-	bool neg = n < 0;
+	int neg = (n < 0);
 	if (neg)
 		n = -n;
 	do
