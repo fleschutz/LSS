@@ -39,6 +39,24 @@ BigInt getBigIntFromPowerOf10(int exponent)
 	return result;
 }
 
+// Prints the given number on the console.
+void printBigInt(BigInt n)
+{
+	char str[80] = {};
+	char *s = str + sizeof( str ) - 1;  // start at the end
+	bool neg = n < 0;
+	if (neg)
+		n = -n;
+	do
+	{
+		*--s = "0123456789"[n % 10];    // save last digit
+		n /= 10;                // drop it
+	} while (n);
+ 	if (neg)
+ 		*--s = '-';
+	puts(s);
+}
+
 // Provide pre-calculated cube numbers for performance: (afterward, use cubeNumbers[3] instead of: 3*3*3)
 BigInt cubeNumbers[XYZ_MAX + 1];
 void preCalculateCubeNumbers(void) 
