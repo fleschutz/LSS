@@ -12,7 +12,7 @@ typedef __int128_t     BigInt;
 #define CSV_OUTPUT          0  // CSV output desired, else text output
 
 // Returns the given string as BigInt.
-BigInt BigIntFromString(const char *str)
+BigInt getBigIntFromString(const char *str)
 {
 	BigInt sign = 1, value = 0;
 	if (*str == '-')
@@ -31,7 +31,7 @@ BigInt BigIntFromString(const char *str)
 }
 
 // Returns the given 10^exponent number as BigInt.
-BigInt BigIntFromPowerOf10(int exponent)
+BigInt getBigIntFromPowerOf10(int exponent)
 {
 	BigInt result = 1;
 	for (int i = 0; i < exponent; ++i)
@@ -179,9 +179,9 @@ int main(int argc, char **argv)
 			printf("Sorry, expected syntax is: ./mode 1 <x> <y> <z>\n");
 			return 1; 
 		}
-		BigInt x = BigIntFromString(argv[2]);
-		BigInt y = BigIntFromString(argv[3]);
-		BigInt z = BigIntFromString(argv[4]);
+		BigInt x = getBigIntFromString(argv[2]);
+		BigInt y = getBigIntFromString(argv[3]);
+		BigInt z = getBigIntFromString(argv[4]);
 		BigInt n = (x * x * x) + (y * y * y) + (z * z * z);
 		printf("%ld³ + %ld³ + %ld³ = %ld\n", (int64_t)x, (int64_t)y, (int64_t)z, (int64_t)n);
 	}
@@ -229,8 +229,8 @@ int main(int argc, char **argv)
 	else if (mode == 6) 
 	{
 		int exponent = (argc == 3 ? atoi(argv[2]) : 6);
-		BigInt x_min = BigIntFromPowerOf10(exponent);
-		BigInt x_max = BigIntFromPowerOf10(exponent + 1);
+		BigInt x_min = getBigIntFromPowerOf10(exponent);
+		BigInt x_max = getBigIntFromPowerOf10(exponent + 1);
 #if CSV_OUTPUT
 		printf("    n, x, y, z,\n");
 #else
