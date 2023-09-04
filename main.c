@@ -12,7 +12,7 @@ typedef __int128_t     BigInt;
 #define CSV_OUTPUT          0  // CSV output desired, else text output
 
 // Returns the given string as BigInt.
-BigInt getBigIntFromString(const char *str)
+void stringToBigInt(const char *str, BigInt *result)
 {
 	BigInt sign = 1, value = 0;
 	if (*str == '-')
@@ -27,7 +27,7 @@ BigInt getBigIntFromString(const char *str)
 	}
 	for (size_t i = 0; i < strlen(str); ++i)
 		value = (value * 10) + (str[i] - '0');
-	return sign * value;
+	*result = sign * value;
 }
 
 // Returns the given 10^exponent number as BigInt.
@@ -192,15 +192,16 @@ int main(int argc, char **argv)
 	
 	if (mode == 1)
 	{
+		BigInt x = 0, y = 0, z = 0, n = 0;
 		if (argc != 5)
 		{
 			printf("Sorry, expected syntax is: ./mode 1 <x> <y> <z>\n");
 			return 1; 
 		}
-		BigInt x = getBigIntFromString(argv[2]);
-		BigInt y = getBigIntFromString(argv[3]);
-		BigInt z = getBigIntFromString(argv[4]);
-		BigInt n = (x * x * x) + (y * y * y) + (z * z * z);
+		stringToBigInt(argv[2], &x);
+		stringToBigInt(argv[3], &y);
+		stringToBigInt(argv[4], &z);
+		n = (x * x * x) + (y * y * y) + (z * z * z);
 		printBigInt(x);
 		printf("³ + ");
 		printBigInt(y);
