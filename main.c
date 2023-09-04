@@ -201,7 +201,14 @@ int main(int argc, char **argv)
 		BigInt y = getBigIntFromString(argv[3]);
 		BigInt z = getBigIntFromString(argv[4]);
 		BigInt n = (x * x * x) + (y * y * y) + (z * z * z);
-		printf("%ld³ + %ld³ + %ld³ = %ld\n", (int64_t)x, (int64_t)y, (int64_t)z, (int64_t)n);
+		printBigInt(x);
+		printf("³ + ");
+		printBigInt(y);
+		printf("³ + ");
+		printBigInt(z);
+		printf("³ = ");
+		printBigInt(n);
+		printf("\n");
 	}
 	else if (mode == 2) 
 	{
