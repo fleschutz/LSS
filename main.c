@@ -135,7 +135,7 @@ void listTrivialSolutionsForNegativeXYZ(void)
 	}
 }
 
-void listSolutionsForNegativeXY(BigInt minX, BigInt maxX)
+void listSolutionsForNegativeYZ(BigInt minX, BigInt maxX)
 {
 #pragma omp parallel for
 	for (BigInt x = minX; x <= maxX; ++x)
@@ -231,7 +231,7 @@ int main(int argc, char **argv)
 #else
 		printf("# Solutions of n=x³+y³+z³ for n=[%ld..%ld] and x=[%ld..%ld] (formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)minX, (int64_t)maxX);
 #endif
-		listSolutionsForNegativeXY(minX, maxX);
+		listSolutionsForNegativeYZ(minX, maxX);
 	}
 	return 0;
 }

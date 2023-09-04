@@ -50,9 +50,9 @@ This is mode 2 + 3 + 4 combined.
 `./mode 5` returns the following: [trivial_solutions.txt](Solutions/trivial_solutions.txt) (text file) or [trivial_solutions.csv](Results/trivial_solutions.csv) (CSV file) for n = [0..1000] and x,y,z = [0..100000] and line-sorted afterwards (took 4h total).
 
 
-Mode 6 - List nontrivial solutions for negative x,y
----------------------------------------------------
-This mode lists nontrivial solutions by using a shotgun algorithm in function listSolutionsForNegativeXY(). The argument is an exponent defining a value range for x, the default value of 6 means: x=[10^6..10^7].
+Mode 6 - List nontrivial solutions for negative y and z
+-------------------------------------------------------
+This mode lists nontrivial solutions by using a shotgun algorithm in function listSolutionsForNegativeYZ(). The argument is an exponent defining a value range for x, the default value of 6 means: x=[10^6..10^7].
 
 * `./mode 6 3` returns: [solutions_for_10^3_range.txt](Solutions/solutions_for_10^3_range.txt) (took 0.042s).
 * `./mode 6 4` returns: [solutions_for_10^4_range.txt](Solutions/solutions_for_10^4_range.txt) (took 3.4s).
