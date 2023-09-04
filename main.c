@@ -221,14 +221,7 @@ int main(int argc, char **argv)
 		stringToBigInt(argv[3], &y);
 		stringToBigInt(argv[4], &z);
 		n = (x * x * x) + (y * y * y) + (z * z * z);
-		printBigInt(x);
-		printf("³ + ");
-		printBigInt(y);
-		printf("³ + ");
-		printBigInt(z);
-		printf("³ = ");
-		printBigInt(n);
-		printf("\n");
+		myprintf("%B³ + %B³ + %B³ = %B\n", x, y, z, n);
 	}
 	else if (mode == 2) 
 	{
