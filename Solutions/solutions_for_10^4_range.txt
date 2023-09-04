@@ -1,4 +1,4 @@
-# Solutions of n=x³+y³+z³ for n=[0..1000] and x=[10000..100000] (formatted to be: x <= y <= z)
+# Solutions of n=x³+y³+z³ for n=[0..1000] and x=[10^4..10^5] (formatted to be: x <= y <= z)
   729 = -9910³ + -2991³ + 10000³
   399 = -10010³ + -2129³ + 10042³
   467 = -9340³ + -5845³ + 10048³
