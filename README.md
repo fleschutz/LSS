@@ -52,7 +52,7 @@ This is mode 2 + 3 + 4 combined.
 
 Mode 6 - List nontrivial solutions for negative y and z
 -------------------------------------------------------
-This mode lists nontrivial solutions by using a shotgun algorithm in function listSolutionsForNegativeYZ(). The argument is an exponent defining a value range for x, the default value of 6 means: x=[10^6..10^7].
+This mode lists nontrivial solutions by using a shotgun algorithm in function listSolutionsForNegativeYZ(). The additional argument is an exponent defining a value range for x, e.g. the default value of 6 means: x=[10^6..10^7].
 
 * `./mode 6 3` returns: [solutions_for_10^3_range.txt](Solutions/solutions_for_10^3_range.txt) (took 0.042s).
 * `./mode 6 4` returns: [solutions_for_10^4_range.txt](Solutions/solutions_for_10^4_range.txt) (took 3.4s).
