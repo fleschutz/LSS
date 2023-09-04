@@ -71,7 +71,7 @@ int myprintf(const char* formatString, ...)
 				printBigInt(va_arg(ptr, BigInt));
 		}
 		else
-                	putc(formatString[i]);
+                	fputc(formatString[i], stdout);
 	}
 	va_end(ptr);
 }
