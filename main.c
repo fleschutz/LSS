@@ -1,5 +1,6 @@
 #include <omp.h>
 #include <inttypes.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -39,7 +40,7 @@ BigInt getBigIntFromPowerOf10(int exponent)
 	return result;
 }
 
-// Prints the given number on the console.
+// Prints the given big number on the console.
 void printBigInt(BigInt n)
 {
 	char buf[80] = {};
@@ -55,6 +56,24 @@ void printBigInt(BigInt n)
  	if (neg)
  		*--s = '-';
 	printf("%s", s);
+}
+
+// My special printf(), supporting %B for BigInt.
+int myprintf(const char* formatString, ...)
+{
+	va_list ptr;
+	va_start(ptr, formatString);
+
+	for (int i = 0; str[i] != '\0'; i++)
+	{
+		if (str[i] == '%') {
+			if (str[++i] == 'B')
+				printBigInt(va_arg(ptr, BigInt));
+		}
+		else
+                	putc(str[i]);
+	}
+	va_end(ptr);
 }
 
 // Provide pre-calculated cube numbers for performance: (afterward, use cubeNumbers[3] instead of: 3*3*3)
