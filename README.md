@@ -66,14 +66,14 @@ This mode lists nontrivial solutions by using a shotgun algorithm in function li
 ------------------------
 The following nontrivial solutions have been solved already:
 
-* **30** = `3982933876681³ + (−636600549515)³ + (−3977505554546)³` (solved 1999 by Beck, Pine, Tarrant, and Yarbrough Jensen)
-* **33** = `88661289752875283³ + (−87784054428622393)³ + (−27361114688070403)³` (solved 2019 by Andrew Booker)
+* **30** = `3982933876681³ + (-636600549515)³ + (-3977505554546)³` (solved 1999 by Beck, Pine, Tarrant, and Yarbrough Jensen)
+* **33** = `88661289752875283³ + (-87784054428622393)³ + (-27361114688070403)³` (solved 2019 by Andrew Booker)
 * **42** = `(-80538738812075974)³ + 80435758145817515³ + 1260212329733563³` (solved 2019 by Andrew Booker and Andrew Sutherland)
-* **52** = `60702901317³ + 23961292454³ + (−61922712865)³`
+* **52** = `60702901317³ + 23961292454³ + (-61922712865)³`
 * **74** = `(-284650292555885)³ + 66229832190556³ + 283450105697727³` (solved 2016 by Sander G. Huisman)
 * **165** = `(-385495523231271884)³ + 383344975542639445³ + 98422560467622814³`
 * **795** = `(-14219049725358227)³ + 14197965759741573³ + 2337348783323923³`
-* **906** = `(−74924259395610397)³ + 72054089679353378³ + 35961979615356503³`
+* **906** = `(-74924259395610397)³ + 72054089679353378³ + 35961979615356503³`
 
 The only remaining unsolved cases up to 1,000 are the following seven numbers:
 
@@ -89,7 +89,7 @@ Want to get famous? Just solve one of these numbers. May the force be with you �
 
 Furthermore, there are also nontrivial solutions additionally to trivial solutions:
 
-* **3** = `569936821221962380720³ + (−569936821113563493509)³ + (−47271593453327032)³` (solved 2019 by Andrew Booker and Andrew Sutherland)
+* **3** = `569936821221962380720³ + (-569936821113563493509)³ + (-47271593453327032)³` (solved 2019 by Andrew Booker and Andrew Sutherland)
 
 HINT: Use [WolframAlpha](https://www.wolframalpha.com) with copy&paste to check the results.
 
