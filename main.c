@@ -58,20 +58,20 @@ void printBigInt(BigInt n)
 	printf("%s", s);
 }
 
-// My special printf(), supporting %B for BigInt.
+// Special printf() which supports %B for BigInt.
 int myprintf(const char* formatString, ...)
 {
 	va_list ptr;
 	va_start(ptr, formatString);
 
-	for (int i = 0; str[i] != '\0'; i++)
+	for (int i = 0; formatString[i] != '\0'; i++)
 	{
-		if (str[i] == '%') {
-			if (str[++i] == 'B')
+		if (formatString[i] == '%') {
+			if (formatString[++i] == 'B')
 				printBigInt(va_arg(ptr, BigInt));
 		}
 		else
-                	putc(str[i]);
+                	putc(formatString[i]);
 	}
 	va_end(ptr);
 }
