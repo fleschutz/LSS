@@ -144,14 +144,14 @@ void listTrivialSolutionsForNegativeXYZ(void)
 	}
 }
 
-void listSolutionsForNegativeYZ(BigInt minX, BigInt maxX)
+void listSolutionsForNegativeYZ(BigInt x_min, BigInt x_max)
 {
 #pragma omp parallel for
-	for (BigInt x = minX; x <= maxX; ++x)
+	for (BigInt x = x_min; x <= x_max; ++x)
 	{
 		BigInt x3 = x*x*x, z = 1, z3 = 1*1*1;
 
-		for (BigInt y = x - 1; y > z; --y)
+		for (BigInt y = x - 1; y >= z; --y)
 		{
 			BigInt y3 = y*y*y, n = x3 - y3 - z3;
 
