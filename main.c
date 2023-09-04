@@ -30,8 +30,8 @@ BigInt BigIntFromString(const char *str)
 	return sign * value;
 }
 
-// Returns the given 10^exponent as BigInt.
-BigInt BigIntFromExponent(int exponent)
+// Returns the given 10^exponent number as BigInt.
+BigInt BigIntFromPowerOf10(int exponent)
 {
 	BigInt result = 1;
 	for (int i = 0; i < exponent; ++i)
@@ -229,8 +229,8 @@ int main(int argc, char **argv)
 	else if (mode == 6) 
 	{
 		int exponent = (argc == 3 ? atoi(argv[2]) : 6);
-		BigInt x_min = BigIntFromExponent(exponent);
-		BigInt x_max = BigIntFromExponent(exponent + 1);
+		BigInt x_min = BigIntFromPowerOf10(exponent);
+		BigInt x_max = BigIntFromPowerOf10(exponent + 1);
 #if CSV_OUTPUT
 		printf("    n, x, y, z,\n");
 #else
