@@ -11,8 +11,8 @@ typedef __int128_t     BigInt;
 #define XYZ_MAX        100000  // maximum value for x,y,z to use
 #define CSV_OUTPUT          0  // CSV output desired, else text output
 
-// Converts the given string into a big number and returns it.
-BigInt string2BigInt(const char *str)
+// Returns the given string as BigInt.
+BigInt BigIntFromString(const char *str)
 {
 	BigInt sign = 1, value = 0;
 	if (*str == '-')
@@ -28,6 +28,15 @@ BigInt string2BigInt(const char *str)
 	for (size_t i = 0; i < strlen(str); ++i)
 		value = (value * 10) + (str[i] - '0');
 	return sign * value;
+}
+
+// Returns the given 10^exponent as BigInt.
+BigInt BigIntFromExponent(int exponent)
+{
+	BigInt result = 1;
+	for (int i = 0; i < exponent; ++i)
+		result *= (BigInt)10;
+	return result;
 }
 
 // Provide pre-calculated cube numbers for performance: (afterward, use cubeNumbers[3] instead of: 3*3*3)
@@ -161,22 +170,20 @@ void listSolutionsForNegativeYZ(BigInt minX, BigInt maxX)
 
 int main(int argc, char **argv)
 {
-	int mode = 2; // print no solutions by default
-	if (argc >= 2)
-		mode = atoi(argv[1]);
+	int mode = (argc >= 2) ? atoi(argv[1]) : 2; // list no solutions when no arguments given
 	
 	if (mode == 1)
 	{
-		if (argc == 5)
+		if (argc != 5)
 		{
-			BigInt x = string2BigInt(argv[2]);
-			BigInt y = string2BigInt(argv[3]);
-			BigInt z = string2BigInt(argv[4]);
-			BigInt n = (x * x * x) + (y * y * y) + (z * z * z);
-			printf("%ld³ + %ld³ + %ld³ = %ld\n", (int64_t)x, (int64_t)y, (int64_t)z, (int64_t)n);
-		}
-		else
 			printf("Sorry, expected syntax is: ./mode 1 <x> <y> <z>\n");
+			return 1; 
+		}
+		BigInt x = BigIntFromString(argv[2]);
+		BigInt y = BigIntFromString(argv[3]);
+		BigInt z = BigIntFromString(argv[4]);
+		BigInt n = (x * x * x) + (y * y * y) + (z * z * z);
+		printf("%ld³ + %ld³ + %ld³ = %ld\n", (int64_t)x, (int64_t)y, (int64_t)z, (int64_t)n);
 	}
 	else if (mode == 2) 
 	{
@@ -222,16 +229,14 @@ int main(int argc, char **argv)
 	else if (mode == 6) 
 	{
 		int exponent = (argc == 3 ? atoi(argv[2]) : 6);
-		BigInt minX = 1;
-		for (int i = 0; i < exponent; ++i)
-			minX *= (BigInt)10;
-		BigInt maxX = minX * (BigInt)10;
+		BigInt x_min = BigIntFromExponent(exponent);
+		BigInt x_max = BigIntFromExponent(exponent + 1);
 #if CSV_OUTPUT
 		printf("    n, x, y, z,\n");
 #else
-		printf("# Solutions of n=x³+y³+z³ for n=[%ld..%ld] and x=[%ld..%ld] (formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)minX, (int64_t)maxX);
+		printf("# Solutions of n=x³+y³+z³ for n=[%ld..%ld] and x=[%ld..%ld] (formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)x_min, (int64_t)x_max);
 #endif
-		listSolutionsForNegativeYZ(minX, maxX);
+		listSolutionsForNegativeYZ(x_min, x_max);
 	}
 	return 0;
 }
