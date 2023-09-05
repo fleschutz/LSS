@@ -40,19 +40,18 @@ BigInt BigIntFromPowerOf10(int exponent)
 // Prints the given big number on the console.
 void printBigInt(BigInt n)
 {
-	char buf[80] = {};
-	char *s = buf + sizeof(buf) - 1;  // start at the end
-	int neg = (n < 0);
-	if (neg)
+	char buf[80] = {}, *ptr = buf + sizeof(buf) - 1;  // start at the end
+	if (n < 0)
+	{
 		n = -n;
+                fputc('-', stdout);
+	}
 	do
 	{
-		*--s = "0123456789"[n % 10];    // save last digit
+		*--ptr = "0123456789"[n % 10];    // save last digit
 		n /= 10;                // drop it
 	} while (n);
- 	if (neg)
- 		*--s = '-';
-	fprintf(stdout, "%s", s);
+	fprintf(stdout, "%s", ptr);
 }
 
 // Special printf() to support "%B" for BigInt variables.
