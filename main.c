@@ -6,33 +6,30 @@
 #include <string.h>
 
 typedef __int128_t     BigInt;
-#define N_MIN               0  // minimum desired value for n
-#define N_MAX            1000  // maximum desired value for n
-#define XYZ_MIN             0  // minimum value for x,y,z to use
-#define XYZ_MAX        100000  // maximum value for x,y,z to use
-#define CSV_OUTPUT          0  // CSV output desired, else text output
+#define N_MIN               0 // minimum desired value for n
+#define N_MAX            1000 // maximum desired value for n
+#define XYZ_MIN             0 // minimum value for x,y,z to use
+#define XYZ_MAX        100000 // maximum value for x,y,z to use
+#define CSV_OUTPUT          0 // CSV output desired, else text output
 
 // Returns the given string as BigInt.
-void stringToBigInt(const char *str, BigInt *result)
+BigInt BigIntFromString(const char *str)
 {
 	BigInt sign = 1, value = 0;
-	if (*str == '-')
+	if (*str == '+')
+		str++;
+	else if (*str == '-')
 	{
 		sign = -1;
 		str++;
 	}
-	else if (*str == '+')
-	{
-		sign = 1;
-		str++;
-	}
 	for (size_t i = 0; i < strlen(str); ++i)
 		value = (value * 10) + (str[i] - '0');
-	*result = sign * value;
+	return sign * value;
 }
 
-// Returns the given 10^exponent number as BigInt.
-BigInt getBigIntFromPowerOf10(int exponent)
+// Returns the given power of 10 number as BigInt.
+BigInt BigIntFromPowerOf10(int exponent)
 {
 	BigInt result = 1;
 	for (int i = 0; i < exponent; ++i)
@@ -55,16 +52,16 @@ void printBigInt(BigInt n)
 	} while (n);
  	if (neg)
  		*--s = '-';
-	printf("%s", s);
+	fprintf(stdout, "%s", s);
 }
 
-// Special printf() which supports %B for BigInt.
-int myprintf(const char* formatString, ...)
+// Special printf() to support "%B" for BigInt variables.
+void printfBig(const char* formatString, ...)
 {
 	va_list ptr;
 	va_start(ptr, formatString);
 
-	for (int i = 0; formatString[i] != '\0'; i++)
+	for (int i = 0; formatString[i] != '\0'; ++i)
 	{
 		if (formatString[i] == '%') {
 			if (formatString[++i] == 'B')
@@ -73,10 +70,11 @@ int myprintf(const char* formatString, ...)
 		else
                 	fputc(formatString[i], stdout);
 	}
+	fflush(stdout); // to disable buffering
 	va_end(ptr);
 }
 
-// Provide pre-calculated cube numbers for performance: (afterward, use cubeNumbers[3] instead of: 3*3*3)
+// Provides pre-calculated cube numbers for performance. Afterward, use 'cubeNumbers[x]' instead of 'x*x*x'.
 BigInt cubeNumbers[XYZ_MAX + 1];
 void preCalculateCubeNumbers(void) 
 {
@@ -84,47 +82,48 @@ void preCalculateCubeNumbers(void)
 		cubeNumbers[x] = x * x * x;
 }
 
-// Print and remember a single solution (formatted to be: x <= y <= z):
-int solutionKnown[N_MAX + 1] = { 0 }; 
+// Prints single NO solution.
 void printNoSolution(BigInt n)
 {
 #if CSV_OUTPUT
-	printf("%5ld, , , ,\n", (int64_t)n);
+	printfBig("%B, , , ,\n", n);
 #else
-	printf("%5ld = no solution\n", (int64_t)n);
+	printfBig("%B = no solution\n", n);
 #endif
 }
+
+// Prints and remembers a single solution (formatted to be: x <= y <= z).
+int solutionKnown[N_MAX + 1] = { 0 }; 
 void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	solutionKnown[n] = 1;
 #if CSV_OUTPUT	
 	if (x <= y && y <= z)
-		printf("%5ld, %ld, %ld, %ld,\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
+		printfBig("%B, %B, %B, %B,\n", n, x, y, z);
 	else if (x <= z && z <= y)
-		printf("%5ld, %ld, %ld, %ld,\n", (int64_t)n, (int64_t)x, (int64_t)z, (int64_t)y);
+		printfBig("%B, %B, %B, %B,\n", n, x, z, y);
 	else if (y <= x && x <= z)
-		printf("%5ld, %ld, %ld, %ld,\n", (int64_t)n, (int64_t)y, (int64_t)x, (int64_t)z);
+		printfBig("%B, %B, %B, %B,\n", n, y, x, z);
 	else if (y <= z && z <= x)
-		printf("%5ld, %ld, %ld, %ld,\n", (int64_t)n, (int64_t)y, (int64_t)z, (int64_t)x);
+		printfBig("%B, %B, %B, %B,\n", n, y, z, x);
 	else if (z <= x && x <= y)
-		printf("%5ld, %ld, %ld, %ld,\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
+		printfBig("%B, %B, %B, %B,\n", n, z, x, y);
 	else
-		printf("%5ld, %ld, %ld, %ld,\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
+		printfBig("%B, %B, %B, %B,\n", n, z, y, x);
 #else
 	if (x <= y && y <= z)
-		printf("%5ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)y, (int64_t)z);
+		printfBig("%B = %B³ + %B³ + %B³\n", n, x, y, z);
 	else if (x <= z && z <= y)
-		printf("%5ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)x, (int64_t)z, (int64_t)y);
+		printfBig("%B = %B³ + %B³ + %B³\n", n, x, z, y);
 	else if (y <= x && x <= z)
-		printf("%5ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)x, (int64_t)z);
+		printfBig("%B = %B³ + %B³ + %B³\n", n, y, x, z);
 	else if (y <= z && z <= x)
-		printf("%5ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)y, (int64_t)z, (int64_t)x);
+		printfBig("%B = %B³ + %B³ + %B³\n", n, y, z, x);
 	else if (z <= x && x <= y)
-		printf("%5ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)x, (int64_t)y);
+		printfBig("%B = %B³ + %B³ + %B³\n", n, z, x, y);
 	else
-		printf("%5ld = %ld³ + %ld³ + %ld³\n", (int64_t)n, (int64_t)z, (int64_t)y, (int64_t)x);
+		printfBig("%B = %B³ + %B³ + %B³\n", n, z, y, x);
 #endif
-	fflush(stdout); // to disable buffering
 }
 
 void listNoSolutions(void)
@@ -195,9 +194,8 @@ void listSolutionsForNegativeYZ(BigInt x_min, BigInt x_max)
 			while (n > N_MAX)
 			{
 				++z;
-				n += z3; // to remove previous z³
 				z3 = z * z * z;
-				n -= z3; // to add new z³
+				n = x3 - y3 - z3;
 			}
 			if (n >= N_MIN)
 				printSolution(n, x, -y, -z);
@@ -211,33 +209,32 @@ int main(int argc, char **argv)
 	
 	if (mode == 1)
 	{
-		BigInt x = 0, y = 0, z = 0, n = 0;
 		if (argc != 5)
 		{
-			printf("Sorry, expected syntax is: ./mode 1 <x> <y> <z>\n");
+			printfBig("Sorry, syntax for mode 1 is: ./mode 1 <x> <y> <z>\n");
 			return 1; 
 		}
-		stringToBigInt(argv[2], &x);
-		stringToBigInt(argv[3], &y);
-		stringToBigInt(argv[4], &z);
-		n = (x * x * x) + (y * y * y) + (z * z * z);
-		myprintf("%B³ + %B³ + %B³ = %B\n", x, y, z, n);
+		BigInt x = BigIntFromString(argv[2]);
+		BigInt y = BigIntFromString(argv[3]);
+		BigInt z = BigIntFromString(argv[4]);
+		BigInt n = (x * x * x) + (y * y * y) + (z * z * z);
+		printfBig("%B³ + %B³ + %B³ = %B\n", x, y, z, n);
 	}
 	else if (mode == 2) 
 	{
 #if CSV_OUTPUT
-		printf("    n, x, y, z,\n");
+		printfBig("    n, x, y, z,\n");
 #else
-		printf("# No solutions of n=x³+y³+z³ for n=[%ld..%ld]\n", (int64_t)N_MIN, (int64_t)N_MAX);
+		printfBig("# No solutions of n=x³+y³+z³ for n=[%B..%B]\n", (BigInt)N_MIN, (BigInt)N_MAX);
 #endif
 		listNoSolutions();
 	}
 	else if (mode == 3)
 	{
 #if CSV_OUTPUT
-		printf("    n, x, y, z,\n");
+		printfBig("    n, x, y, z,\n");
 #else
-		printf("# Trivial solutions of n=x³+y³+z³ for n=[%ld..%ld] and x,y,z=[%ld..%ld] (formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
+		printfBig("# Trivial solutions of n=x³+y³+z³ for n=[%B..%B] and x,y,z=[%B..%B] (formatted to be: x <= y <= z)\n", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 #endif
 		preCalculateCubeNumbers();
 		listTrivialSolutionsForPositiveXYZ();
@@ -245,9 +242,9 @@ int main(int argc, char **argv)
 	else if (mode == 4)
 	{
 #if CSV_OUTPUT
-		printf("    n, x, y, z,\n");
+		printfBig("    n, x, y, z,\n");
 #else
-		printf("# Trivial solutions of n=x³+y³+z³ for negative numbers of x,y,z (for n=[%ld..%ld] and x,y,z=[%ld..%ld], solutions formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
+		printfBig("# Trivial solutions of n=x³+y³+z³ for negative numbers of x,y,z (for n=[%B..%B] and x,y,z=[%B..%B], solutions formatted to be: x <= y <= z)\n", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 #endif
 		preCalculateCubeNumbers();
 		listTrivialSolutionsForNegativeXYZ();
@@ -255,9 +252,9 @@ int main(int argc, char **argv)
 	else if (mode == 5) 
 	{
 #if CSV_OUTPUT
-		printf("    n, x, y, z,\n");
+		printfBig("    n, x, y, z,\n");
 #else
-		printf("# Trivial solutions of n=x³+y³+z³  for n=[%ld..%ld] and x,y,z=[%ld..%ld], solutions formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, (int64_t)XYZ_MIN, (int64_t)XYZ_MAX);
+		printfBig("# Trivial solutions of n=x³+y³+z³  for n=[%B..%B] and x,y,z=[%B..%B], solutions formatted to be: x <= y <= z)\n", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 #endif
 		listNoSolutions();
 		preCalculateCubeNumbers();
@@ -268,11 +265,11 @@ int main(int argc, char **argv)
 	{
 		int exponent = (argc == 3 ? atoi(argv[2]) : 6);
 #if CSV_OUTPUT
-		printf("    n, x, y, z,\n");
+		printfBig("    n, x, y, z,\n");
 #else
-		printf("# Solutions of n=x³+y³+z³ for n=[%ld..%ld] and x=[10^%d..10^%d] (formatted to be: x <= y <= z)\n", (int64_t)N_MIN, (int64_t)N_MAX, exponent, exponent + 1);
+		printfBig("# Solutions of n=x³+y³+z³ for n=[%B..%B] and x=[10^%B..10^%B] (formatted to be: x <= y <= z)\n", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)exponent, (BigInt)(exponent + 1));
 #endif
-		listSolutionsForNegativeYZ(getBigIntFromPowerOf10(exponent), getBigIntFromPowerOf10(exponent + 1));
+		listSolutionsForNegativeYZ(BigIntFromPowerOf10(exponent), BigIntFromPowerOf10(exponent + 1));
 	}
 	return 0;
 }
