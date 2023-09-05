@@ -5,12 +5,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef __int128_t     BigInt;
 #define N_MIN               0 // minimum desired value for n
 #define N_MAX            1000 // maximum desired value for n
 #define XYZ_MIN             0 // minimum value for x,y,z to use
 #define XYZ_MAX        100000 // maximum value for x,y,z to use
 #define CSV_OUTPUT          0 // CSV output desired, else text output
+
+typedef __int128_t     BigInt;
 
 // Returns the given string as BigInt.
 BigInt BigIntFromString(const char *str)
@@ -55,7 +56,7 @@ void printBigInt(BigInt n)
 }
 
 // Special printf() to support "%B" for BigInt variables.
-void printfBig(const char* formatString, ...)
+void printLine(const char* formatString, ...)
 {
 	va_list ptr;
 	va_start(ptr, formatString);
@@ -69,6 +70,7 @@ void printfBig(const char* formatString, ...)
 		else
                 	fputc(formatString[i], stdout);
 	}
+	fprintf(stdout, "\n");
 	fflush(stdout); // to disable buffering
 	va_end(ptr);
 }
@@ -85,9 +87,9 @@ void preCalculateCubeNumbers(void)
 void printNoSolution(BigInt n)
 {
 #if CSV_OUTPUT
-	printfBig("%B, , , ,\n", n);
+	printLine("%B, , , ,", n);
 #else
-	printfBig("%B = no solution\n", n);
+	printLine("%B = no solution", n);
 #endif
 }
 
@@ -98,30 +100,30 @@ void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 	solutionKnown[n] = 1;
 #if CSV_OUTPUT	
 	if (x <= y && y <= z)
-		printfBig("%B, %B, %B, %B,\n", n, x, y, z);
+		printLine("%B, %B, %B, %B,", n, x, y, z);
 	else if (x <= z && z <= y)
-		printfBig("%B, %B, %B, %B,\n", n, x, z, y);
+		printLine("%B, %B, %B, %B,", n, x, z, y);
 	else if (y <= x && x <= z)
-		printfBig("%B, %B, %B, %B,\n", n, y, x, z);
+		printLine("%B, %B, %B, %B,", n, y, x, z);
 	else if (y <= z && z <= x)
-		printfBig("%B, %B, %B, %B,\n", n, y, z, x);
+		printLine("%B, %B, %B, %B,", n, y, z, x);
 	else if (z <= x && x <= y)
-		printfBig("%B, %B, %B, %B,\n", n, z, x, y);
+		printLine("%B, %B, %B, %B,", n, z, x, y);
 	else
-		printfBig("%B, %B, %B, %B,\n", n, z, y, x);
+		printLine("%B, %B, %B, %B,", n, z, y, x);
 #else
 	if (x <= y && y <= z)
-		printfBig("%B = %B³ + %B³ + %B³\n", n, x, y, z);
+		printLine("%B = %B³ + %B³ + %B³", n, x, y, z);
 	else if (x <= z && z <= y)
-		printfBig("%B = %B³ + %B³ + %B³\n", n, x, z, y);
+		printLine("%B = %B³ + %B³ + %B³", n, x, z, y);
 	else if (y <= x && x <= z)
-		printfBig("%B = %B³ + %B³ + %B³\n", n, y, x, z);
+		printLine("%B = %B³ + %B³ + %B³", n, y, x, z);
 	else if (y <= z && z <= x)
-		printfBig("%B = %B³ + %B³ + %B³\n", n, y, z, x);
+		printLine("%B = %B³ + %B³ + %B³", n, y, z, x);
 	else if (z <= x && x <= y)
-		printfBig("%B = %B³ + %B³ + %B³\n", n, z, x, y);
+		printLine("%B = %B³ + %B³ + %B³", n, z, x, y);
 	else
-		printfBig("%B = %B³ + %B³ + %B³\n", n, z, y, x);
+		printLine("%B = %B³ + %B³ + %B³", n, z, y, x);
 #endif
 }
 
@@ -204,36 +206,36 @@ void listSolutionsForNegativeYZ(BigInt x_min, BigInt x_max)
 
 int main(int argc, char **argv)
 {
-	int mode = (argc >= 2) ? atoi(argv[1]) : 2; // list no solutions when no arguments given
+	int mode = (argc >= 2) ? atoi(argv[1]) : 2; // mode 2 when no arguments given
 	
 	if (mode == 1)
 	{
 		if (argc != 5)
 		{
-			printfBig("Sorry, syntax for mode 1 is: ./mode 1 <x> <y> <z>\n");
+			printLine("Sorry, syntax for mode 1 is: ./mode 1 <x> <y> <z>");
 			return 1; 
 		}
 		BigInt x = BigIntFromString(argv[2]);
 		BigInt y = BigIntFromString(argv[3]);
 		BigInt z = BigIntFromString(argv[4]);
 		BigInt n = (x * x * x) + (y * y * y) + (z * z * z);
-		printfBig("%B³ + %B³ + %B³ = %B\n", x, y, z, n);
+		printLine("%B³ + %B³ + %B³ = %B", x, y, z, n);
 	}
 	else if (mode == 2) 
 	{
 #if CSV_OUTPUT
-		printfBig("    n, x, y, z,\n");
+		printLine("    n, x, y, z,");
 #else
-		printfBig("# No solutions of n=x³+y³+z³ for n=[%B..%B]\n", (BigInt)N_MIN, (BigInt)N_MAX);
+		printLine("# No solutions of n=x³+y³+z³ for n=[%B..%B]", (BigInt)N_MIN, (BigInt)N_MAX);
 #endif
 		listNoSolutions();
 	}
 	else if (mode == 3)
 	{
 #if CSV_OUTPUT
-		printfBig("    n, x, y, z,\n");
+		printLine("    n, x, y, z,");
 #else
-		printfBig("# Trivial solutions of n=x³+y³+z³ for n=[%B..%B] and x,y,z=[%B..%B] (formatted to be: x <= y <= z)\n", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
+		printLine("# Trivial solutions of n=x³+y³+z³ for n=[%B..%B] and x,y,z=[%B..%B] (formatted to be: x <= y <= z)", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 #endif
 		preCalculateCubeNumbers();
 		listTrivialSolutionsForPositiveXYZ();
@@ -241,9 +243,9 @@ int main(int argc, char **argv)
 	else if (mode == 4)
 	{
 #if CSV_OUTPUT
-		printfBig("    n, x, y, z,\n");
+		printLine("    n, x, y, z,");
 #else
-		printfBig("# Trivial solutions of n=x³+y³+z³ for negative numbers of x,y,z (for n=[%B..%B] and x,y,z=[%B..%B], solutions formatted to be: x <= y <= z)\n", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
+		printLine("# Trivial solutions of n=x³+y³+z³ for negative numbers of x,y,z (for n=[%B..%B] and x,y,z=[%B..%B], solutions formatted to be: x <= y <= z)", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 #endif
 		preCalculateCubeNumbers();
 		listTrivialSolutionsForNegativeXYZ();
@@ -251,9 +253,9 @@ int main(int argc, char **argv)
 	else if (mode == 5) 
 	{
 #if CSV_OUTPUT
-		printfBig("    n, x, y, z,\n");
+		printLine("    n, x, y, z,");
 #else
-		printfBig("# Trivial solutions of n=x³+y³+z³  for n=[%B..%B] and x,y,z=[%B..%B], solutions formatted to be: x <= y <= z)\n", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
+		printLine("# Trivial solutions of n=x³+y³+z³  for n=[%B..%B] and x,y,z=[%B..%B], solutions formatted to be: x <= y <= z)", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 #endif
 		listNoSolutions();
 		preCalculateCubeNumbers();
@@ -264,9 +266,9 @@ int main(int argc, char **argv)
 	{
 		int exponent = (argc == 3 ? atoi(argv[2]) : 6);
 #if CSV_OUTPUT
-		printfBig("    n, x, y, z,\n");
+		printLine("    n, x, y, z,");
 #else
-		printfBig("# Solutions of n=x³+y³+z³ for n=[%B..%B] and x=[10^%B..10^%B] (formatted to be: x <= y <= z)\n", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)exponent, (BigInt)(exponent + 1));
+		printLine("# Solutions of n=x³+y³+z³ for n=[%B..%B] and x=[10^%B..10^%B] (formatted to be: x <= y <= z)", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)exponent, (BigInt)(exponent + 1));
 #endif
 		listSolutionsForNegativeYZ(BigIntFromPowerOf10(exponent), BigIntFromPowerOf10(exponent + 1));
 	}
