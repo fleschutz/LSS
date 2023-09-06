@@ -199,7 +199,7 @@ void listSolutionsForNegativeYZ(BigInt x_min, BigInt x_max)
 				n = x3 - y3 - z3;
 			}
 			if (n >= N_MIN)
-				printSolution(n, x, -y, -z);
+				printLine("%B = %B³ - %B³ - %B³", n, x, y, z);
 		}
 	}
 }
@@ -265,11 +265,7 @@ int main(int argc, char **argv)
 	else if (mode == 6) 
 	{
 		int exponent = (argc == 3 ? atoi(argv[2]) : 6);
-#if CSV_OUTPUT
-		printLine("    n, x, y, z,");
-#else
-		printLine("# Solutions of n=x³+y³+z³ for n=[%B..%B] and x=[10^%B..10^%B] (formatted to be: x<=y<=z)", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)exponent, (BigInt)(exponent + 1));
-#endif
+		printLine("# Solutions of n=x³+y³+z³ for n=[%B..%B] and x=[10^%B..10^%B]", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)exponent, (BigInt)(exponent + 1));
 		listSolutionsForNegativeYZ(BigIntFromPowerOf10(exponent), BigIntFromPowerOf10(exponent + 1));
 	}
 	return 0;
