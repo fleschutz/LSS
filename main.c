@@ -10,27 +10,12 @@
 #define N_MAX            1000 // maximum desired value for n
 #define XYZ_MIN             0 // minimum value for x,y,z to use
 #define XYZ_MAX        100000 // maximum value for x,y,z to use
-#define CSV_OUTPUT          0 // CSV output desired, else text output
 
 // Prints and remembers a single solution (formatted to be: x<=y<=z).
 int solutionKnown[N_MAX + 1] = { 0 }; 
 void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	solutionKnown[n] = 1;
-#if CSV_OUTPUT	
-	if (x <= y && y <= z)
-		printLine("%B, %B, %B, %B,", n, x, y, z);
-	else if (x <= z && z <= y)
-		printLine("%B, %B, %B, %B,", n, x, z, y);
-	else if (y <= x && x <= z)
-		printLine("%B, %B, %B, %B,", n, y, x, z);
-	else if (y <= z && z <= x)
-		printLine("%B, %B, %B, %B,", n, y, z, x);
-	else if (z <= x && x <= y)
-		printLine("%B, %B, %B, %B,", n, z, x, y);
-	else
-		printLine("%B, %B, %B, %B,", n, z, y, x);
-#else
 	if (x <= y && y <= z)
 		printLine("%B = %B³ + %B³ + %B³", n, x, y, z);
 	else if (x <= z && z <= y)
@@ -43,21 +28,13 @@ void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 		printLine("%B = %B³ + %B³ + %B³", n, z, x, y);
 	else
 		printLine("%B = %B³ + %B³ + %B³", n, z, y, x);
-#endif
 }
 
 void listNoSolutions(void)
 {
 	for (BigInt n = N_MIN; n <= N_MAX; ++n)
-	{
-		if ((n % 9) != 4 && (n % 9) != 5)
-			continue;
-#if CSV_OUTPUT
-		printLine("%B, , , ,", n);
-#else
-		printLine("%B = no solution", n);
-#endif
-	}
+		if ((n % 9) == 4 || (n % 9) == 5)
+			printLine("%B = no solution", n);
 }
 
 void listTrivialSolutionsForPositiveXYZ(void)
@@ -149,38 +126,25 @@ int main(int argc, char **argv)
 	}
 	else if (mode == 2) 
 	{
-#if CSV_OUTPUT
-		printLine("    n, x, y, z,");
-#else
 		printLine("# No solutions of n=x³+y³+z³ for n=[%B..%B]", (BigInt)N_MIN, (BigInt)N_MAX);
-#endif
 		listNoSolutions();
 	}
 	else if (mode == 3)
 	{
-#if CSV_OUTPUT
-		printLine("    n, x, y, z,");
-#else
-		printLine("# Trivial solutions of n=x³+y³+z³ for n=[%B..%B] and x,y,z=[%B..%B] (formatted to be: x<=y<=z)", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
-#endif
+		printLine("# Trivial solutions of n=x³+y³+z³ for n=[%B..%B] and x,y,z=[%B..%B] (formatted to be: x<=y<=z)",
+		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 		listTrivialSolutionsForPositiveXYZ();
 	}
 	else if (mode == 4)
 	{
-#if CSV_OUTPUT
-		printLine("    n, x, y, z,");
-#else
-		printLine("# Trivial solutions of n=x³+y³+z³ for negative numbers of x,y,z (for n=[%B..%B] and x,y,z=[%B..%B], formatted to be: x<=y<=z)", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
-#endif
+		printLine("# Trivial solutions of n=x³+y³+z³ for negative numbers of x,y,z (for n=[%B..%B] and x,y,z=[%B..%B], formatted to be: x<=y<=z)",
+		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 		listTrivialSolutionsForNegativeXYZ();
 	}
 	else if (mode == 5) 
 	{
-#if CSV_OUTPUT
-		printLine("    n, x, y, z,");
-#else
-		printLine("# Trivial solutions of n=x³+y³+z³  for n=[%B..%B] and x,y,z=[%B..%B] (formatted to be: x<=y<=z)", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
-#endif
+		printLine("# Trivial solutions of n=x³+y³+z³  for n=[%B..%B] and x,y,z=[%B..%B] (formatted to be: x<=y<=z)",
+		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 		listNoSolutions();
 		listTrivialSolutionsForPositiveXYZ();
 		listTrivialSolutionsForNegativeXYZ();
@@ -188,7 +152,9 @@ int main(int argc, char **argv)
 	else if (mode == 6) 
 	{
 		int exponent = (argc == 3 ? atoi(argv[2]) : 6);
-		printLine("# Solutions of n=x³+y³+z³ for n=[%B..%B] and x=[10^%B..10^%B]", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)exponent, (BigInt)(exponent + 1));
+		printLine("# Solutions of n=x³+y³+z³ for n=[%B..%B] and x=[10^%B..10^%B]",
+		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)exponent, (BigInt)(exponent + 1));
+
 		listSolutionsForNegativeYZ(BigIntFromPowerOf10(exponent), BigIntFromPowerOf10(exponent + 1));
 	}
 	return 0;
