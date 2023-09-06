@@ -85,8 +85,7 @@ The only remaining unsolved cases up to 1,000 are the following seven numbers:
 * **732** = ?
 * **921** = ?
 * **975** = ?
-
-Want to get famous? Just solve one of these numbers. May the force be with you 🖖
+* NOTE: Want to get famous? Just solve one of these numbers. May the force be with you 🖖
 
 
 📧 Feedback
