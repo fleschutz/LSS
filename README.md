@@ -73,7 +73,7 @@ These nontrivial solutions have been solved already:
 * **74** = *(-284650292555885)³ + 66229832190556³ + 283450105697727³* (solved 2016 by Sander G. Huisman)
 * **165** = *(-385495523231271884)³ + 383344975542639445³ + 98422560467622814³*
 * **795** = *(-14219049725358227)³ + 14197965759741573³ + 2337348783323923³* (solved by Andrew Booker)
-* **906** = *(-74924259395610397)³ + 72054089679353378³ + 35961979615356503³*
+* **906** = *(-74924259395610397)³ + 72054089679353378³ + 35961979615356503³* (solved by Andrew Booker)
 * NOTE: Use [WolframAlpha](https://www.wolframalpha.com) or `./mode 1` with copy & paste to check the results.
 
 The only remaining unsolved cases up to 1,000 are the following seven numbers:
