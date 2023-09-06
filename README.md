@@ -7,11 +7,11 @@ The sums of three cubes is a hard math problem, see https://en.wikipedia.org/wik
 
 🔧 Installation
 ----------------
-Execute in a terminal window: (requires a C/C++ compiler only)
+Execute in a terminal window: (requires a C or C++ compiler only)
 ```
 > git clone https://github.com/fleschutz/LSS    # Or download and unzip the ZIP file (click green button)
 > cd LSS
-> cc -O3 -fopenmp main.c -o mode
+> cc -O3 -fopenmp main.c -o mode                # Uses OpenMP API for multi-threading
 > ./mode <NUMBER>                               # Replace <NUMBER> by the mode number (see below)
 ```
 
