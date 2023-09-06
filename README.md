@@ -19,7 +19,7 @@ Mode 1 - Calculate a solution
 -----------------------------
 This mode calculates the result of: x³ + y³ + z³ for the given values of x,y,z (e.g. executing: `./mode 1  1 2 3` returns: `1³ + 2³ + 3³ = 36`).
 
-Note that big numbers are supported, e.g.: `./mode 1 -80538738812075974 80435758145817515 1260212329733563` returns: `3982933876681³ + -636600549515³ + -3977505554546³ = 30`.
+NOTE: BIG numbers are supported, e.g.: `./mode 1 -80538738812075974 80435758145817515 1260212329733563` returns: `3982933876681³ + -636600549515³ + -3977505554546³ = 30`.
 
 
 Mode 2 - List no solutions
