@@ -12,24 +12,6 @@
 #define XYZ_MAX        100000 // maximum value for x,y,z to use
 #define CSV_OUTPUT          0 // CSV output desired, else text output
 
-// Provides pre-calculated cube numbers for performance. Afterward, use 'cubeNumbers[x]' instead of 'x*x*x'.
-BigInt cubeNumbers[XYZ_MAX + 1];
-void preCalculateCubeNumbers(void) 
-{
-	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
-		cubeNumbers[x] = x * x * x;
-}
-
-// Prints single NO solution.
-void printNoSolution(BigInt n)
-{
-#if CSV_OUTPUT
-	printLine("%B, , , ,", n);
-#else
-	printLine("%B = no solution", n);
-#endif
-}
-
 // Prints and remembers a single solution (formatted to be: x<=y<=z).
 int solutionKnown[N_MAX + 1] = { 0 }; 
 void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
@@ -67,25 +49,32 @@ void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 void listNoSolutions(void)
 {
 	for (BigInt n = N_MIN; n <= N_MAX; ++n)
-		if ((n % 9) == 4 || (n % 9) == 5)
-			printNoSolution(n);
+	{
+		if ((n % 9) != 4 && (n % 9) != 5)
+			continue;
+#if CSV_OUTPUT
+		printLine("%B, , , ,", n);
+#else
+		printLine("%B = no solution", n);
+#endif
+	}
 }
 
 void listTrivialSolutionsForPositiveXYZ(void)
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
-		BigInt x3 = cubeNumbers[x];
+		BigInt x3 = x*x*x;
 		if (x3 > N_MAX)
 			break; // x³ is too big already
 		for (BigInt y = XYZ_MIN; y <= x; ++y)
 		{
-			BigInt y3 = cubeNumbers[y], x3_plus_y3 = x3 + y3;
+			BigInt y3 = y*y*y, x3_plus_y3 = x3 + y3;
 			if (x3_plus_y3 > N_MAX)
 				break; // x³ + y³ is too big already
 			for (BigInt z = XYZ_MIN; z <= y; ++z)
 			{
-				BigInt z3 = cubeNumbers[z], n = x3_plus_y3 + z3;
+				BigInt z3 = z*z*z, n = x3_plus_y3 + z3;
 				if (n > N_MAX)
 				       break; // x³ + y³ + z³ is too big already
 				if (!solutionKnown[n])
@@ -99,18 +88,18 @@ void listTrivialSolutionsForNegativeXYZ(void)
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
-		BigInt x3 = cubeNumbers[x];
+		BigInt x3 = x*x*x;
 		for (BigInt y = XYZ_MIN; y <= x; ++y)
 		{
-			BigInt x3_minus_y3 = x3 - cubeNumbers[y];
+			BigInt x3_minus_y3 = x3 - y*y*y;
 #pragma omp parallel for
 			for (BigInt z = XYZ_MIN; z <= y; ++z)
 			{
-				BigInt n = x3_minus_y3 + cubeNumbers[z];
+				BigInt n = x3_minus_y3 + z*z*z;
 				if (N_MIN <= n && n <= N_MAX && !solutionKnown[n])
 					printSolution(n, x, -y, z);
 
-				n = x3_minus_y3 - cubeNumbers[z];
+				n = x3_minus_y3 - z*z*z;
 				if (N_MIN <= n && n <= N_MAX && !solutionKnown[n])
 					printSolution(n, x, -y, -z);
 			}
@@ -174,7 +163,6 @@ int main(int argc, char **argv)
 #else
 		printLine("# Trivial solutions of n=x³+y³+z³ for n=[%B..%B] and x,y,z=[%B..%B] (formatted to be: x<=y<=z)", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 #endif
-		preCalculateCubeNumbers();
 		listTrivialSolutionsForPositiveXYZ();
 	}
 	else if (mode == 4)
@@ -184,7 +172,6 @@ int main(int argc, char **argv)
 #else
 		printLine("# Trivial solutions of n=x³+y³+z³ for negative numbers of x,y,z (for n=[%B..%B] and x,y,z=[%B..%B], formatted to be: x<=y<=z)", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 #endif
-		preCalculateCubeNumbers();
 		listTrivialSolutionsForNegativeXYZ();
 	}
 	else if (mode == 5) 
@@ -195,7 +182,6 @@ int main(int argc, char **argv)
 		printLine("# Trivial solutions of n=x³+y³+z³  for n=[%B..%B] and x,y,z=[%B..%B] (formatted to be: x<=y<=z)", (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 #endif
 		listNoSolutions();
-		preCalculateCubeNumbers();
 		listTrivialSolutionsForPositiveXYZ();
 		listTrivialSolutionsForNegativeXYZ();
 	}
