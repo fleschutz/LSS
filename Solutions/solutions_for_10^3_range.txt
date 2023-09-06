@@ -1,4 +1,4 @@
-# Solutions of n=x³+y³+z³ for n=[0..1000] and x=[10^3..10^4] (formatted to be: x <= y <= z)
+# Solutions of n=x³+y³+z³ for n=[0..1000] and x=[10^3..10^4] (formatted to be: x<=y<=z)
   128 = -3218³ + -1022³ + 3252³
    27 = -3005³ + -1936³ + 3252³
   575 = -5486³ + -1177³ + 5504³
