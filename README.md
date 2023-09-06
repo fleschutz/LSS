@@ -19,7 +19,7 @@ Mode 1 - Calculate a solution
 -----------------------------
 This mode calculates the result of: x³ + y³ + z³ for the given values of x,y,z (e.g. executing: `./mode 1  1 2 3` returns: `1³ + 2³ + 3³ = 36`).
 
-NOTE: Big numbers are supported, e.g.: `./mode 1 -80538738812075974 80435758145817515 1260212329733563` returns: `3982933876681³ + -636600549515³ + -3977505554546³ = 30`.
+NOTE: Big numbers are supported, e.g.: `./mode 1 -80538738812075974 80435758145817515 12602123297335631` returns: `-80538738812075974³ + 80435758145817515³ + 12602123297335631³ = 42`.
 
 
 Mode 2 - List no solutions
@@ -68,7 +68,7 @@ The following nontrivial solutions have been solved already:
 
 * **30** = `3982933876681³ + (-636600549515)³ + (-3977505554546)³` (solved 1999 by Beck, Pine, Tarrant, and Yarbrough Jensen)
 * **33** = `88661289752875283³ + (-87784054428622393)³ + (-27361114688070403)³` (solved 2019 by Andrew Booker)
-* **42** = `(-80538738812075974)³ + 80435758145817515³ + 1260212329733563³` (solved 2019 by Andrew Booker and Andrew Sutherland)
+* **42** = `(-80538738812075974)³ + 80435758145817515³ + 12602123297335631³` (solved 2019 by Andrew Booker and Andrew Sutherland)
 * **52** = `60702901317³ + 23961292454³ + (-61922712865)³`
 * **74** = `(-284650292555885)³ + 66229832190556³ + 283450105697727³` (solved 2016 by Sander G. Huisman)
 * **165** = `(-385495523231271884)³ + 383344975542639445³ + 98422560467622814³`
