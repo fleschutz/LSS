@@ -26,28 +26,28 @@ Mode 2 - List no solutions
 --------------------------
 No solution exists for: n equal 4 or 5 modulo 9.
 
-`./mode 2` returns the following: [no_solutions.txt](Solutions/no_solutions.txt) (for n = [0..100000]). It uses function listNoSolutions() and took 0.116s total.
+`./mode 2` returns: [no_solutions.txt](Solutions/no_solutions.txt). This mode uses function listNoSolutions() and took 0.116s total.
 
 
 Mode 3 - List trivial solutions for positive x,y,z
 --------------------------------------------------
 This mode lists trivial solutions for positive numbers of x,y,z.
 
-`./mode 3` returns the following: [trivial_for_positive_xyz.txt](Solutions/trivial_for_positive_xyz.txt) (text file) or [trivial_for_positive_xyz.csv](Solutions/trivial_for_positive_xyz.csv) (CSV file) for n = [0..100000]. It uses function listTrivialSolutionsForPositiveXYZ() and took 0.037s total.
+`./mode 3` returns: [trivial_for_positive_xyz.txt](Solutions/trivial_for_positive_xyz.txt) (text file) or [trivial_for_positive_xyz.csv](Solutions/trivial_for_positive_xyz.csv) (CSV file). It uses function listTrivialSolutionsForPositiveXYZ() and took 0.037s total.
 
 
 Mode 4 - List trivial solutions for negative x,y,z
 --------------------------------------------------
 This mode lists trivial solutions for negative numbers of x,y,z.
 
-`./mode 4` returns the following: [trivial_for_negative_xyz.txt](Solutions/trivial_for_negative_xyz.txt) (text file) or [trivial_for_negative_xyz.csv](Solutions/trivial_for_negative_xyz.csv) (CSV file) for n = [0..100 000]. It uses function listTrivialSolutionsForNegativeXYZ() and took 4h total.
+`./mode 4` returns: [trivial_for_negative_xyz.txt](Solutions/trivial_for_negative_xyz.txt) (text file) or [trivial_for_negative_xyz.csv](Solutions/trivial_for_negative_xyz.csv) (CSV file). It uses function listTrivialSolutionsForNegativeXYZ() and took 4h total.
 
 
 Mode 5 - List trivial solutions
 -------------------------------
 This is mode 2 + 3 + 4 combined.
 
-`./mode 5` returns the following: [trivial_solutions.txt](Solutions/trivial_solutions.txt) (text file) or [trivial_solutions.csv](Results/trivial_solutions.csv) (CSV file) for n = [0..1000] and x,y,z = [0..100000] and line-sorted afterwards (took 4h total).
+`./mode 5` returns: [trivial_solutions.txt](Solutions/trivial_solutions.txt) (text file) or [trivial_solutions.csv](Results/trivial_solutions.csv) (CSV file) and took 4h total.
 
 
 Mode 6 - List nontrivial solutions for negative y and z
