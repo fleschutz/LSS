@@ -66,7 +66,7 @@ This mode lists nontrivial solutions by using a shotgun algorithm in function li
 ------------------------
 The following nontrivial solutions have been solved already:
 
-* **30** = `3982933876681³ + (-636600549515)³ + (-3977505554546)³` (solved 1999 by Beck, Pine, Tarrant, and Yarbrough Jensen)
+* **30** = *3982933876681³ + (-636600549515)³ + (-3977505554546)³* (solved 1999 by Beck, Pine, Tarrant, and Yarbrough Jensen)
 * **33** = `88661289752875283³ + (-87784054428622393)³ + (-27361114688070403)³` (solved 2019 by Andrew Booker)
 * **42** = `(-80538738812075974)³ + 80435758145817515³ + 12602123297335631³` (solved 2019 by Andrew Booker and Andrew Sutherland)
 * **52** = `60702901317³ + 23961292454³ + (-61922712865)³`
