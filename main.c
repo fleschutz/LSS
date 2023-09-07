@@ -6,7 +6,7 @@
 #define XYZ_MIN             0 // minimum value for x,y,z to use
 #define XYZ_MAX        100000 // maximum value for x,y,z to use
 
-// Prints and remembers a single solution (formatted to be: x<=y<=z).
+// Remembers and prints a single solution (formatted to be: x<=y<=z).
 void foundSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	static int solutionKnown[N_MAX + 1] = { 0 }; 
