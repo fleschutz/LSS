@@ -1,5 +1,10 @@
+#include <stdarg.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-typedef __int128_t     BigInt;
+// Datatype to hold really big integer values.
+typedef __int128_t BigInt;
 
 // Returns the given string as BigInt.
 BigInt BigIntFromString(const char *str)

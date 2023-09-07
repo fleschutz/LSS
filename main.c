@@ -1,10 +1,5 @@
-#include <omp.h>
-#include <inttypes.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "BigInt.h" // BigInt datatype and support functions
+#include <omp.h>              // OpenMP API for multi-threading
+#include "BigInt.h"           // BigInt datatype and support functions
 
 #define N_MIN               0 // minimum desired value for n
 #define N_MAX            1000 // maximum desired value for n
@@ -13,8 +8,10 @@
 
 // Prints and remembers a single solution (formatted to be: x<=y<=z).
 int solutionKnown[N_MAX + 1] = { 0 }; 
-void printSolution(BigInt n, BigInt x, BigInt y, BigInt z)
+void foundSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 {
+	if (solutionKnown[n])
+		return;
 	solutionKnown[n] = 1;
 	if (x <= y && y <= z)
 		printLine("%B = %B³ + %B³ + %B³", n, x, y, z);
@@ -54,8 +51,7 @@ void listTrivialSolutionsForPositiveXYZ(void)
 				BigInt z3 = z*z*z, n = x3_plus_y3 + z3;
 				if (n > N_MAX)
 				       break; // x³ + y³ + z³ is too big already
-				if (!solutionKnown[n])
-					printSolution(n, x, y, z);
+				foundSolution(n, x, y, z);
 			}
 		}
 	}
@@ -73,12 +69,12 @@ void listTrivialSolutionsForNegativeXYZ(void)
 			for (BigInt z = XYZ_MIN; z <= y; ++z)
 			{
 				BigInt n = x3_minus_y3 + z*z*z;
-				if (N_MIN <= n && n <= N_MAX && !solutionKnown[n])
-					printSolution(n, x, -y, z);
+				if (N_MIN <= n && n <= N_MAX)
+					foundSolution(n, x, -y, z);
 
 				n = x3_minus_y3 - z*z*z;
-				if (N_MIN <= n && n <= N_MAX && !solutionKnown[n])
-					printSolution(n, x, -y, -z);
+				if (N_MIN <= n && n <= N_MAX)
+					foundSolution(n, x, -y, -z);
 			}
 		}
 	}
