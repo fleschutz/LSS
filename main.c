@@ -9,32 +9,17 @@
 // Remembers and prints a single solution.
 void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 {
-	static int solutionKnown[N_MAX + 1] = { 0 }; 
+	static int knownSolutions[N_MAX + 1] = { 0 }; 
 
-	if (solutionKnown[n])
-		return;
-	solutionKnown[n] = 1;
-#if 0
-	if (x <= y && y <= z)
-		printLine("%B = %B³ + %B³ + %B³", n, x, y, z);
-	else if (x <= z && z <= y)
-		printLine("%B = %B³ + %B³ + %B³", n, x, z, y);
-	else if (y <= x && x <= z)
-		printLine("%B = %B³ + %B³ + %B³", n, y, x, z);
-	else if (y <= z && z <= x)
-		printLine("%B = %B³ + %B³ + %B³", n, y, z, x);
-	else if (z <= x && x <= y)
-		printLine("%B = %B³ + %B³ + %B³", n, z, x, y);
-	else
-		printLine("%B = %B³ + %B³ + %B³", n, z, y, x);
-#else
-	if (x >= 0 && y <= 0 && z < 0)
-		printLine("%B = %B³ - %B³ - %B³", n, x, -y, -z);
-	else if (x >= 0 && y >= 0 && z < 0)
-		printLine("%B = %B³ + %B³ - %B³", n, x, y, -z);
-	else
-		printLine("%B = %B³ + %B³ + %B³", n, x, y, z);
-#endif
+	if (!knownSolutions[n]++)
+	{
+		if (x >= 0 && y <= 0 && z < 0)
+			printLine("%B = %B³ - %B³ - %B³", n, x, -y, -z);
+		else if (x >= 0 && y >= 0 && z < 0)
+			printLine("%B = %B³ + %B³ - %B³", n, x, y, -z);
+		else
+			printLine("%B = %B³ + %B³ + %B³", n, x, y, z);
+	}
 }
 
 void listNoSolutions(void)
