@@ -6,14 +6,15 @@
 #define XYZ_MIN             0 // minimum value for x,y,z to use
 #define XYZ_MAX        100000 // maximum value for x,y,z to use
 
-// Remembers and prints a single solution (formatted to be: x<=y<=z).
-void foundSolution(BigInt n, BigInt x, BigInt y, BigInt z)
+// Remembers and prints a single solution.
+void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	static int solutionKnown[N_MAX + 1] = { 0 }; 
 
 	if (solutionKnown[n])
 		return;
 	solutionKnown[n] = 1;
+#if 0
 	if (x <= y && y <= z)
 		printLine("%B = %B³ + %B³ + %B³", n, x, y, z);
 	else if (x <= z && z <= y)
@@ -26,6 +27,14 @@ void foundSolution(BigInt n, BigInt x, BigInt y, BigInt z)
 		printLine("%B = %B³ + %B³ + %B³", n, z, x, y);
 	else
 		printLine("%B = %B³ + %B³ + %B³", n, z, y, x);
+#else
+	if (x >= 0 && y <= 0 && z < 0)
+		printLine("%B = %B³ - %B³ - %B³", n, x, -y, -z);
+	else if (x >= 0 && y >= 0 && z < 0)
+		printLine("%B = %B³ + %B³ - %B³", n, x, y, -z);
+	else
+		printLine("%B = %B³ + %B³ + %B³", n, x, y, z);
+#endif
 }
 
 void listNoSolutions(void)
@@ -52,7 +61,7 @@ void listTrivialSolutionsForPositiveXYZ(void)
 				BigInt z3 = z*z*z, n = x3_plus_y3 + z3;
 				if (n > N_MAX)
 				       break; // x³ + y³ + z³ is too big already
-				foundSolution(n, x, y, z);
+				onSolutionFound(n, x, y, z);
 			}
 		}
 	}
@@ -71,11 +80,11 @@ void listTrivialSolutionsForNegativeXYZ(void)
 			{
 				BigInt n = x3_minus_y3 + z*z*z;
 				if (N_MIN <= n && n <= N_MAX)
-					foundSolution(n, x, -y, z);
+					onSolutionFound(n, x, -y, z);
 
 				n = x3_minus_y3 - z*z*z;
 				if (N_MIN <= n && n <= N_MAX)
-					foundSolution(n, x, -y, -z);
+					onSolutionFound(n, x, -y, -z);
 			}
 		}
 	}
@@ -99,7 +108,7 @@ void listSolutionsForNegativeYZ(BigInt x_min, BigInt x_max)
 				n = x3 - y3 - z3;
 			}
 			if (n >= N_MIN)
-				printLine("%B = %B³ - %B³ - %B³", n, x, y, z);
+				onSolutionFound(n, x, -y, -z);
 		}
 	}
 }
@@ -128,19 +137,19 @@ int main(int argc, char **argv)
 	}
 	else if (mode == 3)
 	{
-		printLine("# Trivial solutions of n=x³+y³+z³ for n=[%B..%B] and x,y,z=[%B..%B] (formatted to be: x<=y<=z)",
+		printLine("# Trivial solutions of n=x³+y³+z³ for n=[%B..%B] and x,y,z=[%B..%B]",
 		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 		listTrivialSolutionsForPositiveXYZ();
 	}
 	else if (mode == 4)
 	{
-		printLine("# Trivial solutions of n=x³+y³+z³ for negative numbers of x,y,z (for n=[%B..%B] and x,y,z=[%B..%B], formatted to be: x<=y<=z)",
+		printLine("# Trivial solutions of n=x³+y³+z³ for negative numbers of x,y,z (for n=[%B..%B] and x,y,z=[%B..%B]",
 		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 		listTrivialSolutionsForNegativeXYZ();
 	}
 	else if (mode == 5) 
 	{
-		printLine("# Trivial solutions of n=x³+y³+z³  for n=[%B..%B] and x,y,z=[%B..%B] (formatted to be: x<=y<=z)",
+		printLine("# Trivial solutions of n=x³+y³+z³  for n=[%B..%B] and x,y,z=[%B..%B]",
 		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 		listNoSolutions();
 		listTrivialSolutionsForPositiveXYZ();
