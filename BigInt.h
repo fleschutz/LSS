@@ -7,7 +7,7 @@
 typedef __int128_t BigInt;
 
 // Returns the given string as BigInt.
-BigInt BigIntFromString(const char *str)
+static BigInt BigIntFromString(const char *str)
 {
 	BigInt sign = 1, value = 0;
 	if (*str == '+')
@@ -23,7 +23,7 @@ BigInt BigIntFromString(const char *str)
 }
 
 // Returns the given power of 10 number as BigInt.
-BigInt BigIntFromPowerOf10(int exponent)
+static BigInt BigIntFromPowerOf10(int exponent)
 {
 	BigInt result = 1;
 	for (int i = 0; i < exponent; ++i)
@@ -32,7 +32,7 @@ BigInt BigIntFromPowerOf10(int exponent)
 }
 
 // Prints the given big number on the console.
-void printBigInt(BigInt n)
+static void printBigInt(BigInt n)
 {
 	char buf[80] = {}, *ptr = buf + sizeof(buf) - 1;  // start at the end
 	if (n < 0)
@@ -49,7 +49,7 @@ void printBigInt(BigInt n)
 }
 
 // Special printf() to support "%B" for BigInt variables.
-void printLine(const char* formatString, ...)
+static void printLine(const char* formatString, ...)
 {
 	va_list ptr;
 	va_start(ptr, formatString);
@@ -67,3 +67,5 @@ void printLine(const char* formatString, ...)
 	fflush(stdout); // to disable buffering
 	va_end(ptr);
 }
+
+#define cube(_x) ((_x) * (_x) * (_x))
