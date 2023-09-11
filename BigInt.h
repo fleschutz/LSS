@@ -1,3 +1,4 @@
+// Provides the BigInt datatype and support functions.
 #include <stdarg.h>
 #include <string.h>
 #include <stdio.h>
