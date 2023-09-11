@@ -82,7 +82,7 @@ void listSolutionsForNegativeYZ(BigInt x_min, BigInt x_max)
 	{
 		BigInt x3 = x*x*x, z = 1, z3 = 1*1*1;
 
-		for (BigInt y = x - 1; y >= z; --y)
+		for (BigInt y = x; --y >= z; )
 		{
 			BigInt y3 = y*y*y, n = x3 - y3 - z3;
 
