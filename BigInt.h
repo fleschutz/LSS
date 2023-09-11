@@ -69,17 +69,17 @@ static void printLine(const char* formatString, ...)
 	va_end(ptr);
 }
 
-static BigInt _cubeNumbers[1000];
+static BigInt _cubeNumbers[100000];
 
 static void preCalculateCubeNumbers(void)
 {
-	for (BigInt i = 0; i < 1000; i++)
+	for (BigInt i = 0; i < 100000; i++)
 		_cubeNumbers[i] = i * i * i;
 }
 
 static BigInt cubeNumber(BigInt n)
 {
-	return n < 1000 ? _cubeNumbers[n] : n*n*n;
+	return n < 100000 ? _cubeNumbers[n] : n*n*n;
 }
 
 #if 0
