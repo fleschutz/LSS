@@ -80,9 +80,9 @@ void listSolutionsForNegativeYZ(BigInt x_min, BigInt x_max)
 #pragma omp parallel for
 	for (BigInt x = x_min; x <= x_max; ++x)
 	{
-		BigInt x3 = x*x*x, z = 1, z3 = 1*1*1;
+		BigInt x3 = x*x*x;
 
-		for (BigInt y = x; --y >= z; )
+		for (BigInt y = x, z = 1, z3 = 1*1*1; --y >= z; )
 		{
 			BigInt y3 = y*y*y, n = x3 - y3 - z3;
 
