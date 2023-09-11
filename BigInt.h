@@ -69,7 +69,18 @@ static void printLine(const char* formatString, ...)
 	va_end(ptr);
 }
 
-#define cube(_x) ((_x) * (_x) * (_x))
+static BigNumber _cubeNumbers[1000];
+
+static void preCalculateCubeNumbers(void)
+{
+	for (BigInt i = 0; i < 1000; i++)
+		_cubeNumbers[i] = i * i * i;
+}
+
+static BigNumber cubeNumber(BigInt n)
+{
+	return n < 1000 ? _cubeNumbers[n] : n*n*n;
+}
 
 #if 0
 // Returns the absolute value of n-mid*mid*mid
