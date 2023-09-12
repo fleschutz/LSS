@@ -82,41 +82,21 @@ static BigInt cubeNumber(BigInt n)
 	return n < 100000 ? _cubeNumbers[n] : n*n*n;
 }
 
-#if 0
-// Returns the absolute value of n-mid*mid*mid
-double diff(double n,double mid)
-{
-    if (n > (mid*mid*mid))
-        return (n-(mid*mid*mid));
-    else
-        return ((mid*mid*mid) - n);
-}
- 
 // Returns the cube root of the given number, e.g. cubicRoot(27) returns 3.
 static BigInt cubicRoot(BigInt n)
 {
-    // Set start and end for binary search
-    BigInt start = 0, end = n;
- 
-    // Set precision
-    double e = 0.0000001;
- 
-    while (true)
+    BigInt start = 0, end = n; // Set start and end for binary search
+
+    for (;;)
     {
         BigInt mid = (start + end) / 2;
-        double error = diff(n, mid);
- 
-        // If error is less than e then mid is
-        // our answer so return mid
-        if (error <= e)
-            return mid;
- 
-        // If mid*mid*mid is greater than n set
-        // end = mid
+
+        if (start + 1 >= end)
+                return mid;
+
         if ((mid*mid*mid) > n)
             end = mid;
         else
             start = mid;
     }
 }
-#endif
