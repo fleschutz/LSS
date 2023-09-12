@@ -89,7 +89,7 @@ static BigInt cubicRoot(BigInt n)
 
     for (;;)
     {
-        BigInt mid = (start + end) / 2;
+        const BigInt mid = (start + end) / (BigInt)2;
 
         if (start + 1 >= end)
                 return mid;
