@@ -11,9 +11,16 @@ void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	static int knownSolutions[N_MAX + 1] = { 0 }; 
 
+	if (n < 0)
+	{
+		n = -n;
+		x = -x;
+		y = -y;
+		z = -z;
+	}
 	if (!knownSolutions[n]++)
 	{
-		if (x >= 0 && y <= 0 && z < 0)
+		if (x > 0 && y < 0 && z < 0)
 			printLine("%B = %B³ - %B³ - %B³", n, x, -y, -z);
 		else if (x >= 0 && y >= 0 && z < 0)
 			printLine("%B = %B³ + %B³ - %B³", n, x, y, -z);
@@ -93,7 +100,7 @@ void listSolutionsForNegativeYZ(BigInt x_min, BigInt x_max)
 				z3 = z * z * z;
 				n = x3 - y3 - z3;
 			}
-			if (n >= N_MIN)
+			if (n >= -N_MAX)
 				onSolutionFound(n, x, -y, -z);
 		}
 	}
