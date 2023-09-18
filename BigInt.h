@@ -32,39 +32,45 @@ static BigInt BigIntFromPowerOf10(int exponent)
 	return result;
 }
 
-// Prints the given big number on the console.
-static void printBigInt(BigInt n)
+// Converts the given BigInt to a string.
+static void BigIntToString(BigInt n, char *str)
 {
-	char buf[80] = {}, *ptr = buf + sizeof(buf) - 1;  // start at the end
+	char buf[41] = {}, *bufPtr = buf + sizeof(buf) - 1;  // start at the end
 	if (n < 0)
 	{
 		n = -n;
-                fputc('-', stdout);
+                *str++ = '-';
 	}
 	do
 	{
-		*--ptr = "0123456789"[n % 10];    // save last digit
+		*--bufPtr = "0123456789"[n % 10];    // save last digit
 		n /= 10;                // drop it
 	} while (n);
-	fprintf(stdout, "%s", ptr);
+	strcpy(str, bufPtr);
 }
 
 // Special printf() to support "%B" for BigInt variables.
 static void printLine(const char* formatString, ...)
 {
+	char buf[1024], *bufPtr = buf;
 	va_list ptr;
 	va_start(ptr, formatString);
 
 	for (int i = 0; formatString[i] != '\0'; ++i)
 	{
-		if (formatString[i] == '%') {
+		if (formatString[i] == '%')
+		{
 			if (formatString[++i] == 'B')
-				printBigInt(va_arg(ptr, BigInt));
+			{
+				BigIntToString(va_arg(ptr, BigInt), bufPtr);
+				bufPtr += strlen(bufPtr);
+			}
 		}
 		else
-                	fputc(formatString[i], stdout);
+                	*bufPtr++ = formatString[i];
 	}
-	fprintf(stdout, "\n");
+	*bufPtr = '\0';
+	fprintf(stdout, "%s\n", buf);
 	fflush(stdout); // to disable buffering
 	va_end(ptr);
 }

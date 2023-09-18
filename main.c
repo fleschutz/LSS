@@ -6,29 +6,23 @@
 #define XYZ_MIN             0 // minimum value for x,y,z to use
 #define XYZ_MAX        100000 // maximum value for x,y,z to use
 
-// Remembers and prints a single solution.
+// A solution has been found - remember and print.
 void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	static int knownSolutions[N_MAX + 1] = { 0 }; 
 
 	if (n < 0)
-	{
-		n = -n;
-		x = -x;
-		y = -y;
-		z = -z;
-	}
-	if (!knownSolutions[n]++)
-	{
-		if (x > 0 && y < 0 && z < 0)
-			printLine("%B = %B³ - %B³ - %B³", n, x, -y, -z);
-		else if (x > 0 && y > 0 && z < 0)
-			printLine("%B = %B³ + %B³ - %B³", n, x, y, -z);
-		else if (x < 0 && y > 0 && z > 0)
-			printLine("%B = %B³ + %B³ - %B³", n, y, z, -x);
-		else
-			printLine("%B = %B³ + %B³ + %B³", n, x, y, z);
-	}
+		onSolutionFound(-n, -x, -y, -z); // negate everything
+	else if (knownSolutions[n]++ > 0)
+		; // already found a solution for <n> 
+	else if (x > 0 && y < 0 && z < 0)
+		printLine("%B = %B³ - %B³ - %B³", n, x, -y, -z);
+	else if (x > 0 && y > 0 && z < 0)
+		printLine("%B = %B³ + %B³ - %B³", n, x, y, -z);
+	else if (x < 0 && y > 0 && z > 0)
+		printLine("%B = %B³ + %B³ - %B³", n, y, z, -x);
+	else
+		printLine("%B = %B³ + %B³ + %B³", n, x, y, z);
 }
 
 void listNoSolutions(void)
