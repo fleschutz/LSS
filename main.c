@@ -22,8 +22,10 @@ void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 	{
 		if (x > 0 && y < 0 && z < 0)
 			printLine("%B = %B³ - %B³ - %B³", n, x, -y, -z);
-		else if (x >= 0 && y >= 0 && z < 0)
+		else if (x > 0 && y > 0 && z < 0)
 			printLine("%B = %B³ + %B³ - %B³", n, x, y, -z);
+		else if (x < 0 && y > 0 && z > 0)
+			printLine("%B = %B³ + %B³ - %B³", n, y, z, -x);
 		else
 			printLine("%B = %B³ + %B³ + %B³", n, x, y, z);
 	}
