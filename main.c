@@ -127,24 +127,24 @@ int main(int argc, char **argv)
 	}
 	else if (mode == 2) 
 	{
-		printLine("# No solutions of n=x³+y³+z³ for n=[%B..%B]", (BigInt)N_MIN, (BigInt)N_MAX);
+		printLine("# List of no solutions for n=x³+y³+z³ with n=[%B..%B]", (BigInt)N_MIN, (BigInt)N_MAX);
 		listNoSolutions();
 	}
 	else if (mode == 3)
 	{
-		printLine("# Trivial solutions of n=x³+y³+z³ for n=[%B..%B] and x,y,z=[%B..%B]",
+		printLine("# List of trivial solutions for n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B]",
 		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 		listTrivialSolutionsForPositiveXYZ();
 	}
 	else if (mode == 4)
 	{
-		printLine("# Trivial solutions of n=x³+y³+z³ for negative numbers of x,y,z (for n=[%B..%B] and x,y,z=[%B..%B]",
+		printLine("# List of trivial solutions for n=x³+y³+z³ with negative numbers of x,y,z (for n=[%B..%B] and x,y,z=[%B..%B]",
 		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 		listTrivialSolutionsForNegativeXYZ();
 	}
 	else if (mode == 5) 
 	{
-		printLine("# Trivial solutions of n=x³+y³+z³  for n=[%B..%B] and x,y,z=[%B..%B]",
+		printLine("# List of trivial solutions for n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B]",
 		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 		listNoSolutions();
 		listTrivialSolutionsForPositiveXYZ();
@@ -153,7 +153,7 @@ int main(int argc, char **argv)
 	else if (mode == 6) 
 	{
 		int exponent = (argc == 3 ? atoi(argv[2]) : 6);
-		printLine("# Solutions of n=x³+y³+z³ for n=[%B..%B] and x=[10^%B..10^%B]",
+		printLine("# List of solutions for n=x³+y³+z³ with n=[%B..%B] and x=[10^%B..10^%B]",
 		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)exponent, (BigInt)(exponent + 1));
 
 		listSolutionsForNegativeYZ(BigIntFromPowerOf10(exponent), BigIntFromPowerOf10(exponent + 1));
