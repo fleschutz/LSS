@@ -67,11 +67,11 @@ void listTrivialSolutionsForNegativeYZ(void)
 			for (BigInt z = XYZ_MIN; z <= y; ++z)
 			{
 				BigInt n = x3_minus_y3 + z*z*z;
-				if (N_MIN <= n && n <= N_MAX)
+				if (-N_MAX <= n && n <= N_MAX)
 					onSolutionFound(n, x, -y, z);
 
 				n = x3_minus_y3 - z*z*z;
-				if (N_MIN <= n && n <= N_MAX)
+				if (-N_MAX <= n && n <= N_MAX)
 					onSolutionFound(n, x, -y, -z);
 			}
 		}
