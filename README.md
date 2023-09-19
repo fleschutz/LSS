@@ -24,7 +24,7 @@ NOTE: Big numbers are supported, e.g.: `./mode 1 -80538738812075974 804357581458
 
 Mode 2 - List no solutions
 --------------------------
-No solution exists for: n equal 4 or 5 modulo 9.
+No solution at all exists for: n equal 4 or 5 modulo 9.
 
 `./mode 2` returns: [no_solutions.txt](Solutions/no_solutions.txt). This mode uses function listNoSolutions() and took 0.116s.
 
