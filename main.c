@@ -2,9 +2,9 @@
 #include "BigInt.h"           // BigInt datatype and support functions
 
 #define N_MIN               0 // we are interested in n >= 0
-#define N_MAX           10000 //             and n <= 10,000
-#define XYZ_MIN             0 // minimum value for x,y,z to use
-#define XYZ_MAX        100000 // maximum value for x,y,z to use
+#define N_MAX           10000 //        and n <= 10,000 only
+#define XYZ_MIN             0 // minimum x,y,z value for trivial search
+#define XYZ_MAX        100000 // maximum x,y,z value for trivial search
 
 // A solution has been found - remember and print.
 void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
