@@ -33,21 +33,21 @@ Mode 3 - List trivial solutions for positive x,y,z
 --------------------------------------------------
 This mode lists trivial solutions for positive numbers of x,y,z.
 
-`./mode 3` returns: [trivial_for_positive_xyz.txt](Solutions/trivial_for_positive_xyz.txt) (text file) or [trivial_for_positive_xyz.csv](Solutions/trivial_for_positive_xyz.csv) (CSV file). It uses function listTrivialSolutionsForPositiveXYZ() and took 0.037s.
+`./mode 3` returns: [trivial_for_positive_xyz.txt](Solutions/trivial_for_positive_xyz.txt). It uses the function listTrivialSolutionsForPositiveXYZ() and took 0.037s.
 
 
-Mode 4 - List trivial solutions for negative x,y,z
---------------------------------------------------
-This mode lists trivial solutions for negative numbers of x,y,z.
+Mode 4 - List trivial solutions for negative y and z
+----------------------------------------------------
+This mode lists trivial solutions for negative numbers of y and z.
 
-`./mode 4` returns: [trivial_for_negative_xyz.txt](Solutions/trivial_for_negative_xyz.txt) (text file) or [trivial_for_negative_xyz.csv](Solutions/trivial_for_negative_xyz.csv) (CSV file). It uses function listTrivialSolutionsForNegativeXYZ() and took 4h.
+`./mode 4` returns: [trivial_for_negative_xyz.txt](Solutions/trivial_for_negative_xyz.txt). It uses the function listTrivialSolutionsForNegativeYZ() and took 4h.
 
 
 Mode 5 - List trivial solutions
 -------------------------------
 This is mode 2 + 3 + 4 combined.
 
-`./mode 5` returns: [trivial_solutions.txt](Solutions/trivial_solutions.txt) (text file) or [trivial_solutions.csv](Results/trivial_solutions.csv) (CSV file) and took 4h.
+`./mode 5` returns: [trivial_solutions.txt](Solutions/trivial_solutions.txt) and took 4h.
 
 
 Mode 6 - List nontrivial solutions for negative y and z
