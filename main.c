@@ -142,7 +142,7 @@ int main(int argc, char **argv)
 		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 		listNoSolutions();
 		listTrivialSolutionsForPositiveXYZ();
-		listTrivialSolutionsForNegativeXYZ();
+		listTrivialSolutionsForNegativeYZ();
 	}
 	else if (mode == 6) 
 	{
