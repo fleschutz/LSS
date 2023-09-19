@@ -6,7 +6,7 @@
 #define XYZ_MIN             0 // minimum x,y,z value for trivial search
 #define XYZ_MAX        100000 // maximum x,y,z value for trivial search
 
-// A solution has been found - remember and print.
+// A solution has been found - remember and print it.
 void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	static int knownSolutions[N_MAX + 1] = { 0 }; 
