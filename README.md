@@ -36,8 +36,8 @@ This mode lists trivial solutions for positive numbers of x,y,z only (or: no sub
 `./mode 3` returns: [trivial_for_positive_numbers.txt](Solutions/trivial_for_positive_xyz.txt). It uses the function listTrivialSolutionsForPositiveNumbers() and took 0.037s.
 
 
-Mode 4 - List trivial solutions for negative numbers only
----------------------------------------------------------
+Mode 4 - List trivial solutions for negative numbers
+----------------------------------------------------
 This mode lists trivial solutions for x,y,z having at least one negative number (or: at least one subtraction).
 
 `./mode 4` returns: [trivial_for_negative_numbers.txt](Solutions/trivial_for_negative_xyz.txt). It uses the function listTrivialSolutionsForNegativeNumbers() and took 4h.
