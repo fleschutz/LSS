@@ -1,4 +1,4 @@
-# Solutions of n=x³+y³+z³ for n=[0..1000] and x=[10^6..10^7] (formatted to be: x<=y<=z and line sorted)
+# List of solutions for n=x³+y³+z³ with n=[0..1000] and x=[10^6..10^7] (formatted to be: x<=y<=z and line sorted)
     1 = -1052540³ + -311999³ + 1061600³
     2 = -1053695³ + -18816³ + 1053697³
     8 = -1112695³ + -292248³ + 1119375³
