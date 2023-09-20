@@ -81,7 +81,7 @@ void listTrivialSolutionsForNegativeNumbers(void)
 	}
 }
 
-void listSolutionsForNegativeYZ(BigInt x_min, BigInt x_max)
+void listNontrivialSolutions(BigInt x_min, BigInt x_max)
 {
 #pragma omp parallel for
 	for (BigInt x = x_min; x <= x_max; ++x)
@@ -153,7 +153,7 @@ int main(int argc, char **argv)
 		printLine("# List of solutions for n=x³+y³+z³ with n=[%B..%B] and x=[10^%B..10^%B]",
 		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)exponent, (BigInt)(exponent + 1));
 
-		listSolutionsForNegativeYZ(BigIntFromPowerOf10(exponent), BigIntFromPowerOf10(exponent + 1));
+		listNontrivalSolutions(BigIntFromPowerOf10(exponent), BigIntFromPowerOf10(exponent + 1));
 	}
 	return 0;
 }
