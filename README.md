@@ -29,18 +29,18 @@ No solution at all exists for: n equal 4 or 5 modulo 9.
 `./mode 2` returns: [no_solutions.txt](Solutions/no_solutions.txt). This mode uses function listNoSolutions() and took 0.116s.
 
 
-Mode 3 - List trivial solutions for positive numbers only
----------------------------------------------------------
+Mode 3 - List trivial solutions for positive numbers
+----------------------------------------------------
 This mode lists trivial solutions for positive numbers of x,y,z only (or: no subtraction, only addition).
 
-`./mode 3` returns: [trivial_for_positive_xyz.txt](Solutions/trivial_for_positive_xyz.txt). It uses the function listTrivialSolutionsForPositiveXYZ() and took 0.037s.
+`./mode 3` returns: [trivial_for_positive_numbers.txt](Solutions/trivial_for_positive_xyz.txt). It uses the function listTrivialSolutionsForPositiveNumbers() and took 0.037s.
 
 
 Mode 4 - List trivial solutions for negative numbers only
 ---------------------------------------------------------
 This mode lists trivial solutions for x,y,z having at least one negative number (or: at least one subtraction).
 
-`./mode 4` returns: [trivial_for_negative_xyz.txt](Solutions/trivial_for_negative_xyz.txt). It uses the function listTrivialSolutionsForNegativeYZ() and took 4h.
+`./mode 4` returns: [trivial_for_negative_numbers.txt](Solutions/trivial_for_negative_xyz.txt). It uses the function listTrivialSolutionsForNegativeNumbers() and took 4h.
 
 
 Mode 5 - List trivial solutions
