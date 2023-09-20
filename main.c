@@ -13,6 +13,8 @@ void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 
 	if (n < 0)
 		onSolutionFound(-n, -x, -y, -z); // negate everything
+	else if (n < N_MIN || n > N_MAX)
+		return; // out of range (should not happen)
 	else if (knownSolutions[n]++ > 0)
 		; // already found a solution for <n> 
 	else if (x > 0 && y < 0 && z < 0)
@@ -59,18 +61,20 @@ void listTrivialSolutionsForNegativeYZ(void)
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
-		BigInt x3 = x*x*x;
+		const BigInt x3 = x*x*x;
+		
+#pragma omp parallel for
 		for (BigInt y = XYZ_MIN; y <= x; ++y)
 		{
-			BigInt x3_minus_y3 = x3 - y*y*y;
-#pragma omp parallel for
+			const BigInt x3_minus_y3 = x3 - y*y*y;
 			for (BigInt z = XYZ_MIN; z <= y; ++z)
 			{
-				BigInt n = x3_minus_y3 + z*z*z;
+				const BigInt z3 = z*z*z;
+				BigInt n = x3_minus_y3 + z3;
 				if (-N_MAX <= n && n <= N_MAX)
 					onSolutionFound(n, x, -y, z);
 
-				n = x3_minus_y3 - z*z*z;
+				n = x3_minus_y3 - z3;
 				if (-N_MAX <= n && n <= N_MAX)
 					onSolutionFound(n, x, -y, -z);
 			}
