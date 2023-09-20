@@ -34,7 +34,7 @@ void listNoSolutions(void)
 			printLine("%B = no solution", n);
 }
 
-void listTrivialSolutionsForPositiveXYZ(void)
+void listTrivialSolutionsForPositiveNumbers(void)
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
@@ -57,7 +57,7 @@ void listTrivialSolutionsForPositiveXYZ(void)
 	}
 }
 
-void listTrivialSolutionsForNegativeYZ(void)
+void listTrivialSolutionsForNegativeNumbers(void)
 {
 	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
 	{
@@ -130,23 +130,23 @@ int main(int argc, char **argv)
 	}
 	else if (mode == 3)
 	{
-		printLine("# List of trivial solutions for n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B]",
+		printLine("# List of trivial solutions for n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B] (positive only)",
 		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
-		listTrivialSolutionsForPositiveXYZ();
+		listTrivialSolutionsForPositiveNumbers();
 	}
 	else if (mode == 4)
 	{
-		printLine("# List of trivial solutions for n=x³+y³+z³ with negative numbers of y and z (for n=[%B..%B] and x,y,z=[%B..%B]",
-		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
-		listTrivialSolutionsForNegativeYZ();
+		printLine("# List of trivial solutions for n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B]",
+		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)-XYZ_MAX, (BigInt)XYZ_MAX);
+		listTrivialSolutionsForNegativeNumbers();
 	}
 	else if (mode == 5) 
 	{
 		printLine("# List of trivial solutions for n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B]",
 		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
 		listNoSolutions();
-		listTrivialSolutionsForPositiveXYZ();
-		listTrivialSolutionsForNegativeYZ();
+		listTrivialSolutionsForPositiveNumbers();
+		listTrivialSolutionsForNegativeNumbers();
 	}
 	else if (mode == 6) 
 	{
