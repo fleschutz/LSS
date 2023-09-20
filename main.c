@@ -3,7 +3,6 @@
 
 #define N_MIN               0 // we are interested in n >= 0
 #define N_MAX           10000 //        and n <= 10,000 only
-#define XYZ_MIN             0 // minimum x,y,z value for trivial search
 #define XYZ_MAX        100000 // maximum x,y,z value for trivial search
 
 // A solution has been found - remember and print it.
@@ -36,17 +35,17 @@ void listNoSolutions(void)
 
 void listTrivialSolutionsForPositiveNumbers(void)
 {
-	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
+	for (BigInt x = 0; x <= XYZ_MAX; ++x)
 	{
 		BigInt x3 = x*x*x;
 		if (x3 > N_MAX)
 			break; // x³ is too big already
-		for (BigInt y = XYZ_MIN; y <= x; ++y)
+		for (BigInt y = 0; y <= x; ++y)
 		{
 			BigInt y3 = y*y*y, x3_plus_y3 = x3 + y3;
 			if (x3_plus_y3 > N_MAX)
 				break; // x³ + y³ is too big already
-			for (BigInt z = XYZ_MIN; z <= y; ++z)
+			for (BigInt z = 0; z <= y; ++z)
 			{
 				BigInt z3 = z*z*z, n = x3_plus_y3 + z3;
 				if (n > N_MAX)
@@ -59,15 +58,15 @@ void listTrivialSolutionsForPositiveNumbers(void)
 
 void listTrivialSolutionsForNegativeNumbers(void)
 {
-	for (BigInt x = XYZ_MIN; x <= XYZ_MAX; ++x)
+	for (BigInt x = 0; x <= XYZ_MAX; ++x)
 	{
 		const BigInt x3 = x*x*x;
 		
 #pragma omp parallel for
-		for (BigInt y = XYZ_MIN; y <= x; ++y)
+		for (BigInt y = 0; y <= x; ++y)
 		{
 			const BigInt x3_minus_y3 = x3 - y*y*y;
-			for (BigInt z = XYZ_MIN; z <= y; ++z)
+			for (BigInt z = 0; z <= y; ++z)
 			{
 				const BigInt z3 = z*z*z;
 				BigInt n = x3_minus_y3 + z3;
@@ -131,7 +130,7 @@ int main(int argc, char **argv)
 	else if (mode == 3)
 	{
 		printLine("# List of trivial solutions for n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B] (positive numbers only)",
-		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)XYZ_MIN, (BigInt)XYZ_MAX);
+		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)0, (BigInt)XYZ_MAX);
 		listTrivialSolutionsForPositiveNumbers();
 	}
 	else if (mode == 4)
