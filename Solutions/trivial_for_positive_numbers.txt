@@ -1,4 +1,4 @@
-# List of trivial solutions for n=x³+y³+z³ with n=[0..10000] and x,y,z=[0..100000]
+# List of trivial solutions for n=x³+y³+z³ with n=[0..10000] and x,y,z=[0..100000] (positive numbers only)
 0 = 0³ + 0³ + 0³
 1 = 1³ + 0³ + 0³
 2 = 1³ + 1³ + 0³
