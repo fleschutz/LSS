@@ -119,7 +119,7 @@ int main(int argc, char **argv)
 		BigInt x = BigIntFromString(argv[2]);
 		BigInt y = BigIntFromString(argv[3]);
 		BigInt z = BigIntFromString(argv[4]);
-		BigInt n = (x*x*x) + (y*y*y) + (z*z*z);
+		BigInt n = x*x*x + y*y*y + z*z*z;
 		printLine("%B³ + %B³ + %B³ = %B", x, y, z, n);
 	}
 	else if (mode == 2) 
