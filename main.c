@@ -33,11 +33,15 @@ void listNoSolutions(void)
 			printLine("%B = no solution", n);
 }
 
+#define foreach_x_and_x3(_min, _max) \
+	for (BigInt x = (_min), x3 = x*x*x; x <= (_max); ++x, x3 = x*x*x)
+
 void listTrivialSolutionsForPositiveNumbers(void)
 {
-	for (BigInt x = 0; x <= XYZ_MAX; ++x)
+	// for (BigInt x = 0; x <= XYZ_MAX; ++x)
+	foreach_x_and_x3(1, XYZ_MAX)
 	{
-		BigInt x3 = x*x*x;
+		// BigInt x3 = x*x*x;
 		if (x3 > N_MAX)
 			break; // x³ is too big already
 		for (BigInt y = 0; y <= x; ++y)
