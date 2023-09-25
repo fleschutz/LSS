@@ -54,7 +54,7 @@ void listTrivialSolutionsForPositiveNumbers(void)
 			BigInt x3_plus_y3 = x3 + y3;
 			if (x3_plus_y3 > N_MAX)
 				break; // x³ + y³ is too big already
-			foreach_z_and_z3(0; y)
+			foreach_z_and_z3(0, y)
 			{
 				BigInt n = x3_plus_y3 + z3;
 				if (n > N_MAX)
