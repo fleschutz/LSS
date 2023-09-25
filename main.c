@@ -33,15 +33,14 @@ void listNoSolutions(void)
 			printLine("%B = no solution", n);
 }
 
+// Loops through every x and x^3 from <min> to <max> (upwards).
 #define foreach_x_and_x3(_min, _max) \
 	for (BigInt x = (_min), x3 = x*x*x; x <= (_max); ++x, x3 = x*x*x)
 
 void listTrivialSolutionsForPositiveNumbers(void)
 {
-	// for (BigInt x = 0; x <= XYZ_MAX; ++x)
-	foreach_x_and_x3(1, XYZ_MAX)
+	foreach_x_and_x3(0, XYZ_MAX)
 	{
-		// BigInt x3 = x*x*x;
 		if (x3 > N_MAX)
 			break; // x³ is too big already
 		for (BigInt y = 0; y <= x; ++y)
@@ -62,10 +61,8 @@ void listTrivialSolutionsForPositiveNumbers(void)
 
 void listTrivialSolutionsForNegativeNumbers(void)
 {
-	for (BigInt x = 0; x <= XYZ_MAX; ++x)
+	foreach_x_and_x3(0, XYZ_MAX)
 	{
-		const BigInt x3 = x*x*x;
-		
 #pragma omp parallel for
 		for (BigInt y = 0; y <= x; ++y)
 		{
