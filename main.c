@@ -37,20 +37,26 @@ void listNoSolutions(void)
 #define foreach_x_and_x3(_min, _max) \
 	for (BigInt x = (_min), x3 = x*x*x; x <= (_max); ++x, x3 = x*x*x)
 
+#define foreach_y_and_y3(_min, _max) \
+	for (BigInt y = (_min), y3 = y*y*y; y <= (_max); ++y, y3 = y*y*y)
+
+#define foreach_z_and_z3(_min, _max) \
+	for (BigInt z = (_min), z3 = z*z*z; z <= (_max); ++z, z3 = z*z*z)
+
 void listTrivialSolutionsForPositiveNumbers(void)
 {
 	foreach_x_and_x3(0, XYZ_MAX)
 	{
 		if (x3 > N_MAX)
 			break; // x³ is too big already
-		for (BigInt y = 0; y <= x; ++y)
+		foreach_y_and_y3(0, x)
 		{
-			BigInt y3 = y*y*y, x3_plus_y3 = x3 + y3;
+			BigInt x3_plus_y3 = x3 + y3;
 			if (x3_plus_y3 > N_MAX)
 				break; // x³ + y³ is too big already
-			for (BigInt z = 0; z <= y; ++z)
+			foreach_z_and_z3(0; y)
 			{
-				BigInt z3 = z*z*z, n = x3_plus_y3 + z3;
+				BigInt n = x3_plus_y3 + z3;
 				if (n > N_MAX)
 				       break; // x³ + y³ + z³ is too big already
 				onSolutionFound(n, x, y, z);
