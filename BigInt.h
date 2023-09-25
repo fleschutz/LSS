@@ -7,7 +7,7 @@
 // Datatype to hold really big integer values.
 typedef __int128_t BigInt;
 
-// Returns the given string as BigInt.
+// Returns the given string as BigInt, e.g. BigIntFromString("123") returns 123.
 static BigInt BigIntFromString(const char *str)
 {
 	BigInt sign = 1, value = 0;
@@ -23,7 +23,7 @@ static BigInt BigIntFromString(const char *str)
 	return sign * value;
 }
 
-// Returns the given number from base and exponent as BigInt.
+// Returns base and exponent as BigInt, e.g. BigIntFromBaseAndExponent(10,3) returns 1000.
 static BigInt BigIntFromBaseAndExponent(BigInt base, BigInt exponent)
 {
 	BigInt result = 1;
