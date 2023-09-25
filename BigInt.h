@@ -23,12 +23,12 @@ static BigInt BigIntFromString(const char *str)
 	return sign * value;
 }
 
-// Returns the given power of 10 number as BigInt.
-static BigInt BigIntFromPowerOf10(int exponent)
+// Returns the given number from base and exponent as BigInt.
+static BigInt BigIntFromBaseAndExponent(BigInt base, BigInt exponent)
 {
 	BigInt result = 1;
-	for (int i = 0; i < exponent; ++i)
-		result *= (BigInt)10;
+	for (BigInt i = 0; i < exponent; ++i)
+		result *= base;
 	return result;
 }
 

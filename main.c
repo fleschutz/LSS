@@ -159,8 +159,8 @@ int main(int argc, char **argv)
 		int exponent = (argc == 3 ? atoi(argv[2]) : 6);
 		printLine("# List of solutions for: n=x³+y³+z³ with n=[%B..%B] and x=[10^%B..10^%B]",
 		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)exponent, (BigInt)(exponent + 1));
-
-		listNontrivialSolutions(BigIntFromPowerOf10(exponent), BigIntFromPowerOf10(exponent + 1));
+		listNontrivialSolutions(BigIntFromBaseAndExponent(10, exponent),
+		    BigIntFromBaseAndExponent(10, exponent + 1));
 	}
 	return 0;
 }
