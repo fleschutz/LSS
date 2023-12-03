@@ -5,14 +5,14 @@ This repo contains a C program to list simple solutions (LSS) for: **x³ + y³ +
 The sums of three cubes is a hard math problem, see https://en.wikipedia.org/wiki/Sums_of_three_cubes and https://en.wikipedia.org/wiki/Diophantine_equation for details. For a C# program please visit: https://github.com/mill1/SumOfThreeCubesSolver.
 
 
-🔧 Installation
-----------------
-Execute in a terminal window: (requires a C or C++ compiler only)
+🔧 Requirements & Installation
+-------------------------------
+Requires a **C/C++ compiler** only. Then execute in a terminal window: 
 ```
-> git clone https://github.com/fleschutz/LSS    # Or download and unzip the ZIP file (click green button)
+> git clone https://github.com/fleschutz/LSS    # or download and unzip the ZIP file (click green button)
 > cd LSS
-> cc -O3 -fopenmp main.c -o mode                # Compiles with OpenMP API for multi-threading
-> ./mode <NUMBER>                               # Replace <NUMBER> by the mode number (see below)
+> cc -O3 -fopenmp main.c -o mode                # compiles with OpenMP API for multi-threading
+> ./mode <NUMBER>                               # replace <NUMBER> by the mode number (see below)
 ```
 
 Mode 1: Calculate a solution
