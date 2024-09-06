@@ -90,11 +90,11 @@ void listTrivialSolutionsForNegativeNumbers(void) // mode 4
 
 void listNontrivialSolutions(int exponent) // mode 6
 {
-	BigInt x_min = BaseAndExponentToBigInt(10, exponent);
-	BigInt x_max = BaseAndExponentToBigInt(10, exponent + 1);
+	const BigInt x_min = BaseAndExponentToBigInt(10, exponent);
+	const BigInt x_max = BaseAndExponentToBigInt(10, exponent + 1);
 
-	printfBigInts("# List of solutions for: n = x³ + y³ + z³  with n=[%B..%B] and x=[10^%B..10^%B]",
-	    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)exponent, (BigInt)(exponent + 1));
+	printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x=[10^%d..10^%d]\n",
+	    N_MIN, N_MAX, exponent, exponent + 1);
 
 	for (BigInt x = x_min; x <= x_max; ++x)
 	{
@@ -138,29 +138,26 @@ int main(int argc, char **argv)
 	}
 	else if (mode == 2) 
 	{
-		printfBigInts("# List of no solutions for: n=x³+y³+z³ with n=[%B..%B]",
-		    (BigInt)N_MIN, (BigInt)N_MAX);
-
+		printf("# List of no solutions for: n = x³ + y³ + z³  with n=[%d..%d]", N_MIN, N_MAX);
 		listNoSolutions();
 	}
 	else if (mode == 3)
 	{
-		printfBigInts("# List of trivial solutions for: n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B] (positive numbers only)",
-		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)0, (BigInt)TRIVIAL_XYZ_MAX);
+		printf("# List of trivial solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x,y,z=[%d..%d] (positive numbers only)\n", N_MIN, N_MAX, 0, TRIVIAL_XYZ_MAX);
 
 		listTrivialSolutionsForPositiveNumbers();
 	}
 	else if (mode == 4)
 	{
-		printfBigInts("# List of trivial solutions for: n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B]",
-		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)-TRIVIAL_XYZ_MAX, (BigInt)TRIVIAL_XYZ_MAX);
+		printf("# List of trivial solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x,y,z=[%d..%d]\n",
+		    N_MIN, N_MAX, -TRIVIAL_XYZ_MAX, TRIVIAL_XYZ_MAX);
 
 		listTrivialSolutionsForNegativeNumbers();
 	}
 	else if (mode == 5) 
 	{
-		printfBigInts("# List of trivial solutions for: n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B]",
-		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)-TRIVIAL_XYZ_MAX, (BigInt)TRIVIAL_XYZ_MAX);
+		printf("# List of trivial solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x,y,z=[%d..%d]\n",
+		    N_MIN, N_MAX, -TRIVIAL_XYZ_MAX, TRIVIAL_XYZ_MAX);
 
 		listNoSolutions();
 		listTrivialSolutionsForPositiveNumbers();
