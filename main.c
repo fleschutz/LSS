@@ -125,16 +125,16 @@ int main(int argc, char **argv)
 	
 	if (mode == 1)
 	{
-		if (argc != 5)
+		if (argc == 5)
 		{
-			printf("Sorry, syntax for mode 1 is: ./mode 1 <x> <y> <z>\n");
-			return 1; 
+			BigInt x = StringToBigInt(argv[2]);
+			BigInt y = StringToBigInt(argv[3]);
+			BigInt z = StringToBigInt(argv[4]);
+			BigInt n = x*x*x + y*y*y + z*z*z;
+			printfBigInts("%B³ + %B³ + %B³ = %B", x, y, z, n);
 		}
-		BigInt x = StringToBigInt(argv[2]);
-		BigInt y = StringToBigInt(argv[3]);
-		BigInt z = StringToBigInt(argv[4]);
-		BigInt n = x*x*x + y*y*y + z*z*z;
-		printfBigInts("%B³ + %B³ + %B³ = %B", x, y, z, n);
+		else
+			printf("Sorry, syntax for mode 1 is: ./mode 1 <x> <y> <z>\n");
 	}
 	else if (mode == 2) 
 	{
@@ -168,9 +168,11 @@ int main(int argc, char **argv)
 	}
 	else if (mode == 6) 
 	{
-		int exponent = (argc == 3 ? atoi(argv[2]) : 6);
+		if (argc == 3)
+			listNontrivialSolutions(atoi(argv[2]));
+		else
+			printf("Sorry, syntax for mode 6 is: ./mode 6 <exponent>\n");
 
-		listNontrivialSolutions(exponent);
 	}
-	return 0; // success
+	return 0;
 }
