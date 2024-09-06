@@ -5,7 +5,7 @@
 #define N_MAX            10000 //                  and n <= 10,000 
 #define TRIVIAL_XYZ_MAX 100000 // maximum x,y,z value for trivial search
 
-// A solution has been found - print and remember it.
+// A potential solution has been found, so check and print and remember it.
 void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	static int knownSolutions[N_MAX + 1] = { 0 }; 
