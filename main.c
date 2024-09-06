@@ -90,12 +90,13 @@ void listTrivialSolutionsForNegativeNumbers(void) // mode 4
 
 void listNontrivialSolutions(BigInt x_min, BigInt x_max) // mode 6
 {
-#pragma omp parallel for
 	for (BigInt x = x_min; x <= x_max; ++x)
 	{
 		const BigInt x3 = x*x*x;
+		BigInt z = 1, z3 = z*z*z;
 
-		for (BigInt y = x, z = 1, z3 = 1*1*1; --y >= z; )
+#pragma omp parallel for
+		for (BigInt y = x - 1; y >= z; --y)
 		{
 			const BigInt y3 = y*y*y;
 			
