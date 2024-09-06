@@ -1,11 +1,11 @@
-#include <omp.h>              // OpenMP API for multi-threading
-#include "BigInt.h"           // BigInt datatype and support functions
+#include <omp.h>               // OpenMP API for multi-threading
+#include "BigInt.h"            // BigInt datatype and support functions
 
-#define N_MIN               0 // we are interested in n >= 0
-#define N_MAX           10000 //        and n <= 10,000 only
-#define XYZ_MAX        100000 // maximum x,y,z value for trivial search
+#define N_MIN                0 // we are interested in n >= 0
+#define N_MAX            10000 //                  and n <= 10,000 
+#define TRIVIAL_XYZ_MAX 100000 // maximum x,y,z value for trivial search
 
-// A solution has been found - remember and print it.
+// A solution has been found - print and remember it.
 void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	static int knownSolutions[N_MAX + 1] = { 0 }; 
@@ -45,7 +45,7 @@ void listNoSolutions(void) // mode 2
 
 void listTrivialSolutionsForPositiveNumbers(void) // mode 3
 {
-	foreach_x_and_x3(0, XYZ_MAX)
+	foreach_x_and_x3(0, TRIVIAL_XYZ_MAX)
 	{
 		if (x3 > N_MAX)
 			break; // x³ is too big already
@@ -67,7 +67,7 @@ void listTrivialSolutionsForPositiveNumbers(void) // mode 3
 
 void listTrivialSolutionsForNegativeNumbers(void) // mode 4
 {
-	foreach_x_and_x3(0, XYZ_MAX)
+	foreach_x_and_x3(0, TRIVIAL_XYZ_MAX)
 	{
 #pragma omp parallel for
 		for (BigInt y = 0; y <= x; ++y)
@@ -139,21 +139,21 @@ int main(int argc, char **argv)
 	else if (mode == 3)
 	{
 		printfBigInts("# List of trivial solutions for: n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B] (positive numbers only)",
-		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)0, (BigInt)XYZ_MAX);
+		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)0, (BigInt)TRIVIAL_XYZ_MAX);
 
 		listTrivialSolutionsForPositiveNumbers();
 	}
 	else if (mode == 4)
 	{
 		printfBigInts("# List of trivial solutions for: n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B]",
-		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)-XYZ_MAX, (BigInt)XYZ_MAX);
+		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)-TRIVIAL_XYZ_MAX, (BigInt)TRIVIAL_XYZ_MAX);
 
 		listTrivialSolutionsForNegativeNumbers();
 	}
 	else if (mode == 5) 
 	{
 		printfBigInts("# List of trivial solutions for: n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B]",
-		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)-XYZ_MAX, (BigInt)XYZ_MAX);
+		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)-TRIVIAL_XYZ_MAX, (BigInt)TRIVIAL_XYZ_MAX);
 
 		listNoSolutions();
 		listTrivialSolutionsForPositiveNumbers();
