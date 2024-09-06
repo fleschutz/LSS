@@ -88,8 +88,14 @@ void listTrivialSolutionsForNegativeNumbers(void) // mode 4
 	}
 }
 
-void listNontrivialSolutions(BigInt x_min, BigInt x_max) // mode 6
+void listNontrivialSolutions(int exponent) // mode 6
 {
+	BigInt x_min = BaseAndExponentToBigInt(10, exponent);
+	BigInt x_max = BaseAndExponentToBigInt(10, exponent + 1);
+
+	printfBigInts("# List of solutions for: n = x³ + y³ + z³  with n=[%B..%B] and x=[10^%B..10^%B]",
+	    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)exponent, (BigInt)(exponent + 1));
+
 	for (BigInt x = x_min; x <= x_max; ++x)
 	{
 		const BigInt x3 = x*x*x;
@@ -121,7 +127,7 @@ int main(int argc, char **argv)
 	{
 		if (argc != 5)
 		{
-			printfBigInts("Sorry, syntax for mode 1 is: ./mode 1 <x> <y> <z>");
+			printf("Sorry, syntax for mode 1 is: ./mode 1 <x> <y> <z>\n");
 			return 1; 
 		}
 		BigInt x = StringToBigInt(argv[2]);
@@ -164,11 +170,7 @@ int main(int argc, char **argv)
 	{
 		int exponent = (argc == 3 ? atoi(argv[2]) : 6);
 
-		printfBigInts("# List of solutions for: n=x³+y³+z³ with n=[%B..%B] and x=[10^%B..10^%B]",
-		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)exponent, (BigInt)(exponent + 1));
-
-		listNontrivialSolutions(BaseAndExponentToBigInt(10, exponent),
-		    BaseAndExponentToBigInt(10, exponent + 1));
+		listNontrivialSolutions(exponent);
 	}
 	return 0; // success
 }
