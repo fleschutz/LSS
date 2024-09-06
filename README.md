@@ -64,7 +64,7 @@ This mode lists nontrivial solutions by using a 'shotgun' algorithm in function 
 
 🏆 Nontrivial Solutions
 ------------------------
-These nontrivial solutions have been solved already:
+These nontrivial solutions have been solved already in the past:
 
 * **30** = *3982933876681³ + (-636600549515)³ + (-3977505554546)³* (solved 1999 by Beck, Pine, Tarrant, and Yarbrough Jensen)
 * **33** = *88661289752875283³ + (-87784054428622393)³ + (-27361114688070403)³* (solved 2019 by Andrew Booker)
@@ -74,7 +74,7 @@ These nontrivial solutions have been solved already:
 * **165** = *(-385495523231271884)³ + 383344975542639445³ + 98422560467622814³*
 * **795** = *(-14219049725358227)³ + 14197965759741573³ + 2337348783323923³* (solved by Andrew Booker)
 * **906** = *(-74924259395610397)³ + 72054089679353378³ + 35961979615356503³* (solved by Andrew Booker)
-* NOTE: Use [WolframAlpha](https://www.wolframalpha.com) or `./mode 1` with copy & paste to check the results.
+* **NOTE:** Use [WolframAlpha](https://www.wolframalpha.com) or `./mode 1` with copy & paste to check the results.
 
 The only remaining unsolved cases up to 1,000 are the following seven numbers:
 
@@ -85,7 +85,7 @@ The only remaining unsolved cases up to 1,000 are the following seven numbers:
 * **732** = ?
 * **921** = ?
 * **975** = ?
-* NOTE: Want to get famous? Just solve one of these numbers. May the force be with you 🖖
+* **NOTE:** Want to get famous? Just solve one of these numbers. May the force be with you 🖖
 
 
 📧 Feedback
