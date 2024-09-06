@@ -7,8 +7,8 @@
 // Datatype to hold really big integer values.
 typedef __int128_t BigInt;
 
-// Returns the given string as BigInt, e.g. BigIntFromString("123") returns 123.
-static BigInt BigIntFromString(const char *str)
+// Returns the given string as BigInt, e.g. StringToBigInt("123") returns 123.
+static BigInt StringToBigInt(const char *str)
 {
 	BigInt sign = 1, value = 0;
 	if (*str == '+')
@@ -23,8 +23,8 @@ static BigInt BigIntFromString(const char *str)
 	return sign * value;
 }
 
-// Returns base and exponent as BigInt, e.g. BigIntFromBaseAndExponent(10,3) returns 1000.
-static BigInt BigIntFromBaseAndExponent(BigInt base, BigInt exponent)
+// Returns base and exponent as BigInt, e.g. BaseAndExponentToBigInt(10,3) returns 1000.
+static BigInt BaseAndExponentToBigInt(BigInt base, BigInt exponent)
 {
 	BigInt result = 1;
 	for (BigInt i = 0; i < exponent; ++i)
@@ -50,7 +50,7 @@ static void BigIntToString(BigInt n, char *str)
 }
 
 // Special printf() to support "%B" for BigInt variables.
-static void printLine(const char* formatString, ...)
+static void printfBigInts(const char* formatString, ...)
 {
 	char buf[1024], *bufPtr = buf;
 	va_list ptr;

@@ -17,20 +17,20 @@ void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 	else if (knownSolutions[n]++ > 0)
 		; // already found a solution for <n> 
 	else if (x > 0 && y < 0 && z < 0)
-		printLine("%B = %B³ - %B³ - %B³", n, x, -y, -z);
+		printfBigInts("%B = %B³ - %B³ - %B³", n, x, -y, -z);
 	else if (x > 0 && y > 0 && z < 0)
-		printLine("%B = %B³ + %B³ - %B³", n, x, y, -z);
+		printfBigInts("%B = %B³ + %B³ - %B³", n, x, y, -z);
 	else if (x < 0 && y > 0 && z > 0)
-		printLine("%B = %B³ + %B³ - %B³", n, y, z, -x);
+		printfBigInts("%B = %B³ + %B³ - %B³", n, y, z, -x);
 	else
-		printLine("%B = %B³ + %B³ + %B³", n, x, y, z);
+		printfBigInts("%B = %B³ + %B³ + %B³", n, x, y, z);
 }
 
-void listNoSolutions(void)
+void listNoSolutions(void) // mode 2
 {
 	for (BigInt n = N_MIN; n <= N_MAX; ++n)
 		if ((n % 9) == 4 || (n % 9) == 5)
-			printLine("%B = no solution", n);
+			printfBigInts("%B = no solution", n);
 }
 
 // Loops through every x and x^3 from <min> to <max> (upwards).
@@ -43,7 +43,7 @@ void listNoSolutions(void)
 #define foreach_z_and_z3(_min, _max) \
 	for (BigInt z = (_min), z3 = z*z*z; z <= (_max); ++z, z3 = z*z*z)
 
-void listTrivialSolutionsForPositiveNumbers(void)
+void listTrivialSolutionsForPositiveNumbers(void) // mode 3
 {
 	foreach_x_and_x3(0, XYZ_MAX)
 	{
@@ -65,7 +65,7 @@ void listTrivialSolutionsForPositiveNumbers(void)
 	}
 }
 
-void listTrivialSolutionsForNegativeNumbers(void)
+void listTrivialSolutionsForNegativeNumbers(void) // mode 4
 {
 	foreach_x_and_x3(0, XYZ_MAX)
 	{
@@ -88,7 +88,7 @@ void listTrivialSolutionsForNegativeNumbers(void)
 	}
 }
 
-void listNontrivialSolutions(BigInt x_min, BigInt x_max)
+void listNontrivialSolutions(BigInt x_min, BigInt x_max) // mode 6
 {
 #pragma omp parallel for
 	for (BigInt x = x_min; x <= x_max; ++x)
@@ -120,36 +120,41 @@ int main(int argc, char **argv)
 	{
 		if (argc != 5)
 		{
-			printLine("Sorry, syntax for mode 1 is: ./mode 1 <x> <y> <z>");
+			printfBigInts("Sorry, syntax for mode 1 is: ./mode 1 <x> <y> <z>");
 			return 1; 
 		}
-		BigInt x = BigIntFromString(argv[2]);
-		BigInt y = BigIntFromString(argv[3]);
-		BigInt z = BigIntFromString(argv[4]);
+		BigInt x = StringToBigInt(argv[2]);
+		BigInt y = StringToBigInt(argv[3]);
+		BigInt z = StringToBigInt(argv[4]);
 		BigInt n = x*x*x + y*y*y + z*z*z;
-		printLine("%B³ + %B³ + %B³ = %B", x, y, z, n);
+		printfBigInts("%B³ + %B³ + %B³ = %B", x, y, z, n);
 	}
 	else if (mode == 2) 
 	{
-		printLine("# List of no solutions for: n=x³+y³+z³ with n=[%B..%B]", (BigInt)N_MIN, (BigInt)N_MAX);
+		printfBigInts("# List of no solutions for: n=x³+y³+z³ with n=[%B..%B]",
+		    (BigInt)N_MIN, (BigInt)N_MAX);
+
 		listNoSolutions();
 	}
 	else if (mode == 3)
 	{
-		printLine("# List of trivial solutions for: n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B] (positive numbers only)",
+		printfBigInts("# List of trivial solutions for: n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B] (positive numbers only)",
 		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)0, (BigInt)XYZ_MAX);
+
 		listTrivialSolutionsForPositiveNumbers();
 	}
 	else if (mode == 4)
 	{
-		printLine("# List of trivial solutions for: n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B]",
+		printfBigInts("# List of trivial solutions for: n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B]",
 		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)-XYZ_MAX, (BigInt)XYZ_MAX);
+
 		listTrivialSolutionsForNegativeNumbers();
 	}
 	else if (mode == 5) 
 	{
-		printLine("# List of trivial solutions for: n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B]",
+		printfBigInts("# List of trivial solutions for: n=x³+y³+z³ with n=[%B..%B] and x,y,z=[%B..%B]",
 		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)-XYZ_MAX, (BigInt)XYZ_MAX);
+
 		listNoSolutions();
 		listTrivialSolutionsForPositiveNumbers();
 		listTrivialSolutionsForNegativeNumbers();
@@ -157,10 +162,12 @@ int main(int argc, char **argv)
 	else if (mode == 6) 
 	{
 		int exponent = (argc == 3 ? atoi(argv[2]) : 6);
-		printLine("# List of solutions for: n=x³+y³+z³ with n=[%B..%B] and x=[10^%B..10^%B]",
+
+		printfBigInts("# List of solutions for: n=x³+y³+z³ with n=[%B..%B] and x=[10^%B..10^%B]",
 		    (BigInt)N_MIN, (BigInt)N_MAX, (BigInt)exponent, (BigInt)(exponent + 1));
-		listNontrivialSolutions(BigIntFromBaseAndExponent(10, exponent),
-		    BigIntFromBaseAndExponent(10, exponent + 1));
+
+		listNontrivialSolutions(BaseAndExponentToBigInt(10, exponent),
+		    BaseAndExponentToBigInt(10, exponent + 1));
 	}
-	return 0;
+	return 0; // success
 }
