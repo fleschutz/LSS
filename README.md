@@ -17,14 +17,14 @@ Requires a **C/C++ compiler** only. Then execute in a terminal window:
 
 Mode 1: Calculate a solution
 ------------------------------
-This mode calculates the result of: x³ + y³ + z³ for the given values of x,y,z (e.g. executing: `./mode 1  1 2 3` returns: 1³ + 2³ + 3³ = 36).
+This mode calculates the result of: x³ + y³ + z³ for the given values of x, y, z.
 
-It supports BIG numbers, e.g. executing: `./mode 1 -80538738812075974 80435758145817515 12602123297335631` returns: -80538738812075974³ + 80435758145817515³ + 12602123297335631³ = 42.
+For example executing: `./mode 1  1 2 3` returns: 1³ + 2³ + 3³ = 36). It also supports BIG numbers, e.g. executing: `./mode 1 -80538738812075974 80435758145817515 12602123297335631` returns: -80538738812075974³ + 80435758145817515³ + 12602123297335631³ = 42.
 
 
 Mode 2: List no solutions
 -------------------------
-No solution at all exists for: n equal 4 or 5 modulo 9.
+This mode calculates and lists non-existing solutions. No solution exists for: n equal 4 or 5 modulo 9.
 
 `./mode 2` returns: [no_solutions.txt](Solutions/no_solutions.txt). This mode uses function listNoSolutions() and took 0.116s.
 
@@ -45,7 +45,7 @@ This mode lists trivial solutions for x,y,z having at least one negative number 
 
 Mode 5: List trivial solutions
 ------------------------------
-This is mode 2 + 3 + 4 combined.
+This mode combines the mode 2 + 3 + 4.
 
 `./mode 5` returns: [trivial_solutions.txt](Solutions/trivial_solutions.txt) and took 4h.
 
