@@ -1,4 +1,4 @@
-# List of no solutions for: n=x³+y³+z³ with n=[0..10000]
+# List of no solutions for: n = x³ + y³ + z³  with n=[0..10000]
 4 = no solution
 5 = no solution
 13 = no solution

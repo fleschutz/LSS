@@ -28,9 +28,9 @@ void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 
 void listNoSolutions(void) // mode 2
 {
-	for (BigInt n = N_MIN; n <= N_MAX; ++n)
+	for (int n = N_MIN; n <= N_MAX; ++n)
 		if ((n % 9) == 4 || (n % 9) == 5)
-			printfBigInts("%B = no solution", n);
+			printf("%d = no solution\n", n);
 }
 
 // Loops through every x and x^3 from <min> to <max> (upwards).
@@ -138,7 +138,7 @@ int main(int argc, char **argv)
 	}
 	else if (mode == 2) 
 	{
-		printf("# List of no solutions for: n = x³ + y³ + z³  with n=[%d..%d]", N_MIN, N_MAX);
+		printf("# List of no solutions for: n = x³ + y³ + z³  with n=[%d..%d]\n", N_MIN, N_MAX);
 		listNoSolutions();
 	}
 	else if (mode == 3)
