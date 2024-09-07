@@ -27,14 +27,14 @@ Mode 2 - List no solutions
 --------------------------
 This mode calculates and lists all non-existing solutions. No solution exists for: n equal 4 or 5 modulo 9.
 
-`./mode 2` returns: [no_solutions.txt](Solutions/no_solutions.txt). This mode uses function listNoSolutions() and took 0.116s.
+`./mode 2` returns: [no_solutions.txt](Solutions/no_solutions.txt). This mode uses function listNoSolutions() and took 0.116s on a Core i9.
 
 
 Mode 3 - List solutions for positive x,y,z
 -------------------------------------------
 This mode calculates and lists all solutions for positive numbers of x, y, z only.
 
-`./mode 3` returns: [solutions_for_positive_xyz.txt](Solutions/solutions_for_positive_xyz.txt). It uses the function listSolutionsForPositiveNumbersOnly() and took 0.037s.
+`./mode 3` returns: [solutions_for_positive_xyz.txt](Solutions/solutions_for_positive_xyz.txt). It uses the function listSolutionsForPositiveNumbersOnly() and took 0.037s on a Core i9.
 
 
 Mode 4 - List trivial solutions for negative numbers
@@ -55,7 +55,7 @@ Mode 6 - List nontrivial solutions
 ----------------------------------
 This mode calculates and lists nontrivial solutions for a value range of x. The additional argument is an exponent that defines the value range for x, e.g. 6 means: x=[10^6..10^7].
 
-It uses a 'shotgun' algorithm in function listNontrivialSolutions(). For readability the following files have been numerically sorted with: `sort -g < infile > outfile`.
+It uses a 'shotgun' algorithm in the listNontrivialSolutions() function. For readability the following files have been numerically sorted with: `sort -g < infile > outfile`.
 
 * `./mode 6 3` returns: [solutions_for_x_greater_10^3.txt](Solutions/solutions_for_x_greater_10^3.txt) (took 0.042s on a Core i9).
 * `./mode 6 4` returns: [solutions_for_x_greater_10^4.txt](Solutions/solutions_for_x_greater_10^4.txt) (took 3.4s on a Core i9).
