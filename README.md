@@ -5,8 +5,8 @@ This repo contains a C program to list simple solutions (LSS) for the equation: 
 The sums of three cubes is a hard math problem, see https://en.wikipedia.org/wiki/Sums_of_three_cubes and https://en.wikipedia.org/wiki/Diophantine_equation for details. For a C# program please visit: https://github.com/mill1/SumOfThreeCubesSolver.
 
 
-🔧 Requirements & Installation
--------------------------------
+🔧 Installation
+----------------
 Requires a **C/C++ compiler** only. Then execute in a terminal window: 
 ```
 > git clone https://github.com/fleschutz/LSS  # or download and unzip the ZIP file (click green button)
@@ -15,43 +15,43 @@ Requires a **C/C++ compiler** only. Then execute in a terminal window:
 > ./mode <NUMBER>                             # replace <NUMBER> by the mode number (see below)
 ```
 
-Mode 1: Calculate a solution
-------------------------------
+Mode 1 - Calculate a solution
+-----------------------------
 This mode calculates the result of: x³ + y³ + z³ for the given values of x, y, z.
 
 For example executing: `./mode 1  1 2 3` returns: 1³ + 2³ + 3³ = 36). It also supports BIG numbers, e.g. executing: `./mode 1 -80538738812075974 80435758145817515 12602123297335631` returns: -80538738812075974³ + 80435758145817515³ + 12602123297335631³ = 42.
 
 
-Mode 2: List no solutions
--------------------------
+Mode 2 - List no solutions
+--------------------------
 This mode calculates and lists non-existing solutions. No solution exists for: n equal 4 or 5 modulo 9.
 
 `./mode 2` returns: [no_solutions.txt](Solutions/no_solutions.txt). This mode uses function listNoSolutions() and took 0.116s.
 
 
-Mode 3: List trivial solutions for positive numbers
----------------------------------------------------
+Mode 3 - List trivial solutions for positive numbers
+----------------------------------------------------
 This mode calculates and lists trivial solutions for positive numbers of x,y,z only (or: no subtraction, only addition).
 
 `./mode 3` returns: [trivial_for_positive_numbers.txt](Solutions/trivial_for_positive_numbers.txt). It uses the function listTrivialSolutionsForPositiveNumbers() and took 0.037s.
 
 
-Mode 4: List trivial solutions for negative numbers
----------------------------------------------------
+Mode 4 - List trivial solutions for negative numbers
+----------------------------------------------------
 This mode calculates and lists trivial solutions for x,y,z having at least one negative number (or: at least one subtraction).
 
 `./mode 4` returns: [trivial_for_negative_numbers.txt](Solutions/trivial_for_negative_numbers.txt). It uses the function listTrivialSolutionsForNegativeNumbers() and took 4h.
 
 
-Mode 5: List trivial solutions
-------------------------------
+Mode 5 - List trivial solutions
+-------------------------------
 This mode combines mode 2, mode 3, and mode 4.
 
 `./mode 5` returns: [trivial_solutions.txt](Solutions/trivial_solutions.txt) and took 4h.
 
 
-Mode 6: List nontrivial solutions
----------------------------------
+Mode 6 - List nontrivial solutions
+----------------------------------
 This mode calculates and lists nontrivial solutions by using a 'shotgun' algorithm in function listNontrivialSolutions(). The additional argument is an exponent defining a value range for x, e.g. the default value of 6 means: x=[10^6..10^7].
 
 * `./mode 6 3` returns: [solutions_for_10^3_range.txt](Solutions/solutions_for_10^3_range.txt) (took 0.042s on a Core i9).
