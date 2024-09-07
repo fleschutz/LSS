@@ -1,2 +1,2 @@
-# List of solutions for n=x³+y³+z³ with n=[0..10000] and x=[10^12..10^13]
+# List of solutions for n = x³ + y³ + z³  with n=[0..10000] and x=[10^12..10^13]
 729 = 1000000000000³ - 999999991000³ - 2999999991³
