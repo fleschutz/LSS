@@ -57,14 +57,15 @@ This mode calculates and lists nontrivial solutions for a value range of x. The 
 
 It uses a 'shotgun' algorithm in function listNontrivialSolutions(). For readability the following files have been numerically sorted with: `sort -g < infile > outfile`.
 
-* `./mode 6 3` returns: [solutions_for_10^3_range.txt](Solutions/solutions_for_10^3_range.txt) (took 0.042s on a Core i9).
-* `./mode 6 4` returns: [solutions_for_10^4_range.txt](Solutions/solutions_for_10^4_range.txt) (took 3.4s on a Core i9).
-* `./mode 6 5` returns: [solutions_for_10^5_range.txt](Solutions/solutions_for_10^5_range.txt) (took 5min 23s on a Core i9).
-* `./mode 6 6` returns: [solutions_for_10^6_range.txt](Solutions/solutions_for_10^6_range.txt) (took 2h on a Core i9).
-* `./mode 6 7` returns: [solutions_for_10^7_range.txt](Solutions/solutions_for_10^7_range.txt) (took 13h on a Core i9).
-* `./mode 6 8` returns: [solutions_for_10^8_range.txt](Solutions/solutions_for_10^8_range.txt) (unfinished yet).
-* `./mode 6 9` returns: [solutions_for_10^9_range.txt](Solutions/solutions_for_10^9_range.txt) (unfinished yet).
-* `./mode 6 12` returns: [solutions_for_10^12_range.txt](Solutions/solutions_for_10^12_range.txt) (unfinished yet).
+* `./mode 6 3` returns: [solutions_for_x_greater_10^3.txt](Solutions/solutions_for_x_greater_10^3.txt) (took 0.042s on a Core i9).
+* `./mode 6 4` returns: [solutions_for_x_greater_10^4.txt](Solutions/solutions_for_x_greater_10^4.txt) (took 3.4s on a Core i9).
+* `./mode 6 5` returns: [solutions_for_x_greater_10^5.txt](Solutions/solutions_for_x_greater_10^5.txt) (took 5min 23s on a Core i9).
+* `./mode 6 6` returns: [solutions_for_x_greater_10^6.txt](Solutions/solutions_for_x_greater_10^6.txt) (took 2h on a Core i9).
+* `./mode 6 7` returns: [solutions_for_x_greater_10^7.txt](Solutions/solutions_for_x_greater_10^7.txt) (took 13h on a Core i9).
+* `./mode 6 8` returns: [solutions_for_x_greater_10^8.txt](Solutions/solutions_for_x_greater_10^8.txt) (unfinished yet).
+* `./mode 6 9` returns: [solutions_for_x_greater_10^9.txt](Solutions/solutions_for_x_greater_10^9.txt) (unfinished yet).
+* `./mode 6 10` returns: [solutions_for_x_greater_10^10.txt](Solutions/solutions_for_x_greater_10^10.txt) (unfinished yet).
+* `./mode 6 12` returns: [solutions_for_x_greater_10^12.txt](Solutions/solutions_for_x_greater_10^12.txt) (unfinished yet).
 
 
 🏆 Nontrivial Solutions
