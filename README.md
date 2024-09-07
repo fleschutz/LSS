@@ -63,6 +63,7 @@ This mode calculates and lists nontrivial solutions by using a 'shotgun' algorit
 * `./mode 6 9` returns: [solutions_for_10^9_range.txt](Solutions/solutions_for_10^9_range.txt).
 * `./mode 6 12` returns: [solutions_for_10^12_range.txt](Solutions/solutions_for_10^12_range.txt).
 
+NOTE: for readability the files have been numerically sorted with: `sort -g < infile > outfile`.
 
 🏆 Nontrivial Solutions
 ------------------------
