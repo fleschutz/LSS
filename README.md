@@ -52,7 +52,9 @@ This mode combines mode 2, mode 3, and mode 4.
 
 Mode 6 - List nontrivial solutions
 ----------------------------------
-This mode calculates and lists nontrivial solutions by using a 'shotgun' algorithm in function listNontrivialSolutions(). The additional argument is an exponent defining a value range for x, e.g. the default value of 6 means: x=[10^6..10^7].
+This mode calculates and lists nontrivial solutions for a value range of x. The additional argument is an exponent that defines the value range for x, e.g. 6 means: x=[10^6..10^7].
+
+It uses a 'shotgun' algorithm in function listNontrivialSolutions(). For readability the following files have been numerically sorted with: `sort -g < infile > outfile`.
 
 * `./mode 6 3` returns: [solutions_for_10^3_range.txt](Solutions/solutions_for_10^3_range.txt) (took 0.042s on a Core i9).
 * `./mode 6 4` returns: [solutions_for_10^4_range.txt](Solutions/solutions_for_10^4_range.txt) (took 3.4s on a Core i9).
@@ -63,7 +65,6 @@ This mode calculates and lists nontrivial solutions by using a 'shotgun' algorit
 * `./mode 6 9` returns: [solutions_for_10^9_range.txt](Solutions/solutions_for_10^9_range.txt) (unfinished yet).
 * `./mode 6 12` returns: [solutions_for_10^12_range.txt](Solutions/solutions_for_10^12_range.txt) (unfinished yet).
 
-NOTE: for readability the files have been numerically sorted with: `sort -g < infile > outfile`.
 
 🏆 Nontrivial Solutions
 ------------------------
