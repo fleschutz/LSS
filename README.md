@@ -17,9 +17,10 @@ Requires a **C/C++ compiler** only. Then execute in a terminal window:
 
 Mode 1 - Calculate a solution
 -----------------------------
-This mode calculates the result of: x³ + y³ + z³ for the given values of x, y, z.
+This mode calculates the result of: x³ + y³ + z³ for the given values of x, y, z. Note the following examples:
 
-For example executing: `./mode 1  1 2 3` returns: 1³ + 2³ + 3³ = 36. It also supports BIG numbers, e.g. executing: `./mode 1 -80538738812075974 80435758145817515 12602123297335631` returns: -80538738812075974³ + 80435758145817515³ + 12602123297335631³ = 42.
+* `./mode 1  1 2 3` returns: 1³ + 2³ + 3³ = 36
+* `./mode 1 -80538738812075974 80435758145817515 12602123297335631` returns: -80538738812075974³ + 80435758145817515³ + 12602123297335631³ = 42
 
 
 Mode 2 - List no solutions
