@@ -59,9 +59,9 @@ This mode calculates and lists nontrivial solutions by using a 'shotgun' algorit
 * `./mode 6 5` returns: [solutions_for_10^5_range.txt](Solutions/solutions_for_10^5_range.txt) (took 5min 23s on a Core i9).
 * `./mode 6 6` returns: [solutions_for_10^6_range.txt](Solutions/solutions_for_10^6_range.txt) (took 2h on a Core i9).
 * `./mode 6 7` returns: [solutions_for_10^7_range.txt](Solutions/solutions_for_10^7_range.txt) (took 13h on a Core i9).
-* `./mode 6 8` returns: [solutions_for_10^8_range.txt](Solutions/solutions_for_10^8_range.txt).
-* `./mode 6 9` returns: [solutions_for_10^9_range.txt](Solutions/solutions_for_10^9_range.txt).
-* `./mode 6 12` returns: [solutions_for_10^12_range.txt](Solutions/solutions_for_10^12_range.txt).
+* `./mode 6 8` returns: [solutions_for_10^8_range.txt](Solutions/solutions_for_10^8_range.txt) (unfinished yet).
+* `./mode 6 9` returns: [solutions_for_10^9_range.txt](Solutions/solutions_for_10^9_range.txt) (unfinished yet).
+* `./mode 6 12` returns: [solutions_for_10^12_range.txt](Solutions/solutions_for_10^12_range.txt) (unfinished yet).
 
 NOTE: for readability the files have been numerically sorted with: `sort -g < infile > outfile`.
 
