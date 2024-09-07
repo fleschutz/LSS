@@ -43,7 +43,7 @@ void listNoSolutions(void) // mode 2
 #define foreach_z_and_z3(_min, _max) \
 	for (BigInt z = (_min), z3 = z*z*z; z <= (_max); ++z, z3 = z*z*z)
 
-void listTrivialSolutionsForPositiveNumbers(void) // mode 3
+void listSolutionsForPositiveNumbersOnly(void) // mode 3
 {
 	foreach_x_and_x3(0, TRIVIAL_XYZ_MAX)
 	{
@@ -143,9 +143,9 @@ int main(int argc, char **argv)
 	}
 	else if (mode == 3)
 	{
-		printf("# List of trivial solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x,y,z=[%d..%d] (positive numbers only)\n", N_MIN, N_MAX, 0, TRIVIAL_XYZ_MAX);
+		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x,y,z > 0 (positive numbers only)\n", N_MIN, N_MAX);
 
-		listTrivialSolutionsForPositiveNumbers();
+		listSolutionsForPositiveNumbersOnly();
 	}
 	else if (mode == 4)
 	{
@@ -160,7 +160,7 @@ int main(int argc, char **argv)
 		    N_MIN, N_MAX, -TRIVIAL_XYZ_MAX, TRIVIAL_XYZ_MAX);
 
 		listNoSolutions();
-		listTrivialSolutionsForPositiveNumbers();
+		listSolutionsForPositiveNumbersOnly();
 		listTrivialSolutionsForNegativeNumbers();
 	}
 	else if (mode == 6) 
