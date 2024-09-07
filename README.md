@@ -60,6 +60,8 @@ This mode calculates and lists nontrivial solutions by using a 'shotgun' algorit
 * `./mode 6 6` returns: [solutions_for_10^6_range.txt](Solutions/solutions_for_10^6_range.txt) (took 2h on a Core i9).
 * `./mode 6 7` returns: [solutions_for_10^7_range.txt](Solutions/solutions_for_10^7_range.txt) (took 13h on a Core i9).
 * `./mode 6 8` returns: [solutions_for_10^8_range.txt](Solutions/solutions_for_10^8_range.txt).
+* `./mode 6 9` returns: [solutions_for_10^9_range.txt](Solutions/solutions_for_10^9_range.txt).
+* `./mode 6 12` returns: [solutions_for_10^12_range.txt](Solutions/solutions_for_10^12_range.txt).
 
 
 🏆 Nontrivial Solutions
