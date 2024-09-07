@@ -62,10 +62,11 @@ It uses a 'shotgun' algorithm in the listNontrivialSolutions() function. For rea
 * `./mode 6 5` returns: [solutions_for_x_greater_10^5.txt](Solutions/solutions_for_x_greater_10^5.txt) (took 5min 23s on a Core i9).
 * `./mode 6 6` returns: [solutions_for_x_greater_10^6.txt](Solutions/solutions_for_x_greater_10^6.txt) (took 2h on a Core i9).
 * `./mode 6 7` returns: [solutions_for_x_greater_10^7.txt](Solutions/solutions_for_x_greater_10^7.txt) (took 13h on a Core i9).
-* `./mode 6 8` returns: [solutions_for_x_greater_10^8.txt](Solutions/solutions_for_x_greater_10^8.txt) (unfinished yet).
-* `./mode 6 9` returns: [solutions_for_x_greater_10^9.txt](Solutions/solutions_for_x_greater_10^9.txt) (unfinished yet).
-* `./mode 6 10` returns: [solutions_for_x_greater_10^10.txt](Solutions/solutions_for_x_greater_10^10.txt) (unfinished yet).
-* `./mode 6 12` returns: [solutions_for_x_greater_10^12.txt](Solutions/solutions_for_x_greater_10^12.txt) (unfinished yet).
+* `./mode 6 8` returns: [solutions_for_x_greater_10^8.txt](Solutions/solutions_for_x_greater_10^8.txt) (not finished yet).
+* `./mode 6 9` returns: [solutions_for_x_greater_10^9.txt](Solutions/solutions_for_x_greater_10^9.txt) (not finished yet).
+* `./mode 6 10` returns: [solutions_for_x_greater_10^10.txt](Solutions/solutions_for_x_greater_10^10.txt) (not finished yet).
+* `./mode 6 11` returns: [solutions_for_x_greater_10^11.txt](Solutions/solutions_for_x_greater_10^11.txt) (not finished yet).
+* `./mode 6 12` returns: [solutions_for_x_greater_10^12.txt](Solutions/solutions_for_x_greater_10^12.txt) (not finished yet).
 
 
 🏆 Nontrivial Solutions
