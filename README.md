@@ -79,7 +79,7 @@ The following nontrivial solutions have been solved already in the past:
 * **795** = *(-14219049725358227)³ + 14197965759741573³ + 2337348783323923³* (solved by Andrew Booker)
 * **906** = *(-74924259395610397)³ + 72054089679353378³ + 35961979615356503³* (solved by Andrew Booker)
 
-To check the results use [WolframAlpha](https://www.wolframalpha.com) or `./mode 1 x y z` (copy & paste strongly recommended). The only remaining unsolved cases up to 1,000 are the following seven numbers:
+To verify the solutions use [WolframAlpha](https://www.wolframalpha.com) or `./mode 1 x y z` (copy & paste strongly recommended). The only remaining unsolved cases up to 1,000 are the following seven numbers:
 
 * **114** = ?
 * **390** = ?
