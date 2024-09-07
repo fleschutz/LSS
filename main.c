@@ -30,6 +30,8 @@ void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 		printfBigInts("%B = %B³ + %B³ - %B³", n, z, y, -x);
 	else
 		printfBigInts("%B = %B³ + %B³ + %B³", n, x, y, z);
+	if (n == 114 || n == 390 || n == 627 || n == 633 || n == 732 || n == 921 || n == 975)
+		printf("JACKPOT - a nontrivial solution has been found!!!\n");
 }
 
 void listNoSolutions(void) // mode 2
@@ -109,17 +111,15 @@ void listNontrivialSolutions(int exponent) // mode 6
 #pragma omp parallel for
 		for (BigInt y = x - 1; y >= z; --y)
 		{
-			const BigInt y3 = y*y*y;
+			const BigInt x3_minus_y3 = x3 - y*y*y;
 			
-			BigInt n = x3 - y3 - z3;
-			while (n > N_MAX)
+			while (x3_minus_y3 - z3 > N_MAX)
 			{
 				++z;
 				z3 = z*z*z;
-				n = x3 - y3 - z3;
 			}
-			if (n >= -N_MAX)
-				onSolutionFound(n, x, -y, -z);
+			if (x3_minus_y3 - z3 >= -N_MAX)
+				onSolutionFound(x3_minus_y3 - z3, x, -y, -z);
 		}
 	}
 }
