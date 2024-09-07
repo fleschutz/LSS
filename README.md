@@ -9,7 +9,7 @@ The sums of three cubes is a hard math problem, see https://en.wikipedia.org/wik
 -------------------------------
 Requires a **C/C++ compiler** only. Then execute in a terminal window: 
 ```
-> git clone https://github.com/fleschutz/LSS  # or download and unzip the ZIP file (click the green button)
+> git clone https://github.com/fleschutz/LSS  # or download and unzip the ZIP file (click green button)
 > cd LSS
 > cc -O3 -fopenmp main.c -o mode              # compiles with OpenMP API for multi-threading
 > ./mode <NUMBER>                             # replace <NUMBER> by the mode number (see below)
