@@ -5,6 +5,12 @@
 #define N_MAX            10000 //                  and n <= 10,000 
 #define TRIVIAL_XYZ_MAX 100000 // maximum x,y,z value for trivial search
 
+void calculateSolution(BigInt x, BigInt y, BigInt z) // mode 1
+{
+	BigInt n = x*x*x + y*y*y + z*z*z;
+	printfBigInts("%B³ + %B³ + %B³ = %B", x, y, z, n);
+}
+
 // A potential solution has been found, so check and print and remember it.
 void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 {
@@ -21,7 +27,7 @@ void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 	else if (x > 0 && y > 0 && z < 0)
 		printfBigInts("%B = %B³ + %B³ - %B³", n, x, y, -z);
 	else if (x < 0 && y > 0 && z > 0)
-		printfBigInts("%B = %B³ + %B³ - %B³", n, y, z, -x);
+		printfBigInts("%B = %B³ + %B³ - %B³", n, z, y, -x);
 	else
 		printfBigInts("%B = %B³ + %B³ + %B³", n, x, y, z);
 }
@@ -90,15 +96,14 @@ void listTrivialSolutionsForNegativeNumbers(void) // mode 4
 
 void listNontrivialSolutions(int exponent) // mode 6
 {
-	const BigInt x_min = BaseAndExponentToBigInt(10, exponent);
-	const BigInt x_max = BaseAndExponentToBigInt(10, exponent + 1);
+	const BigInt x_min = baseAndExponentToBigInt(10, exponent);
+	const BigInt x_max = baseAndExponentToBigInt(10, exponent + 1);
 
 	printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x=[10^%d..10^%d]\n",
 	    N_MIN, N_MAX, exponent, exponent + 1);
 
-	for (BigInt x = x_min; x <= x_max; ++x)
+	foreach_x_and_x3(x_min, x_max)
 	{
-		const BigInt x3 = x*x*x;
 		BigInt z = 1, z3 = z*z*z;
 
 #pragma omp parallel for
@@ -121,20 +126,14 @@ void listNontrivialSolutions(int exponent) // mode 6
 
 int main(int argc, char **argv)
 {
-	int mode = (argc >= 2) ? atoi(argv[1]) : 2; // mode 2 when no arguments given
+	int mode = (argc >= 2) ? atoi(argv[1]) : 0/*invalid*/;
 	
 	if (mode == 1)
 	{
 		if (argc == 5)
-		{
-			BigInt x = StringToBigInt(argv[2]);
-			BigInt y = StringToBigInt(argv[3]);
-			BigInt z = StringToBigInt(argv[4]);
-			BigInt n = x*x*x + y*y*y + z*z*z;
-			printfBigInts("%B³ + %B³ + %B³ = %B", x, y, z, n);
-		}
+			calculateSolution(stringToBigInt(argv[2]), stringToBigInt(argv[3]), stringToBigInt(argv[4]));
 		else
-			printf("Sorry, syntax for mode 1 is: ./mode 1 <x> <y> <z>\n");
+			printf("Syntax for mode 1 is: ./mode 1 <x> <y> <z>\n");
 	}
 	else if (mode == 2) 
 	{
@@ -168,8 +167,10 @@ int main(int argc, char **argv)
 		if (argc == 3)
 			listNontrivialSolutions(atoi(argv[2]));
 		else
-			printf("Sorry, syntax for mode 6 is: ./mode 6 <exponent>\n");
+			printf("Syntax for mode 6 is: ./mode 6 <exponent>\n");
 
 	}
+	else
+		printf("Syntax is: ./mode <NUMBER> (with value range 1...6)\n");
 	return 0;
 }
