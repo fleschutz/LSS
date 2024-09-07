@@ -24,16 +24,16 @@ For example executing: `./mode 1  1 2 3` returns: 1³ + 2³ + 3³ = 36). It also
 
 Mode 2 - List no solutions
 --------------------------
-This mode calculates and lists non-existing solutions. No solution exists for: n equal 4 or 5 modulo 9.
+This mode calculates and lists all non-existing solutions. No solution exists for: n equal 4 or 5 modulo 9.
 
 `./mode 2` returns: [no_solutions.txt](Solutions/no_solutions.txt). This mode uses function listNoSolutions() and took 0.116s.
 
 
-Mode 3 - List trivial solutions for positive numbers
-----------------------------------------------------
-This mode calculates and lists trivial solutions for positive numbers of x,y,z only (or: no subtraction, only addition).
+Mode 3 - List solutions for positive numbers only
+-------------------------------------------------
+This mode calculates and lists all solutions for positive numbers of x,y,z only.
 
-`./mode 3` returns: [trivial_for_positive_numbers.txt](Solutions/trivial_for_positive_numbers.txt). It uses the function listTrivialSolutionsForPositiveNumbers() and took 0.037s.
+`./mode 3` returns: [solutions_for_positive_numbers_only.txt](Solutions/solutions_for_positive_numbers_only.txt). It uses the function listSolutionsForPositiveNumbersOnly() and took 0.037s.
 
 
 Mode 4 - List trivial solutions for negative numbers
