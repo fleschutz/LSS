@@ -87,8 +87,8 @@ void listSolutionsForNegativeZ(void) // mode 7
 		{
 			const BigInt x3_plus_y3 = x3 + y3;
 
-			for (; x3_plus_y3 - z*z*z > N_MAX; ++z)
-				;
+			while (x3_plus_y3 - z*z*z > N_MAX)
+				++z;
 		
 			if (x3_plus_y3 - z*z*z >= N_MIN)
 				onSolutionFound(x3_plus_y3 - z*z*z, x, y, -z);
