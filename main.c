@@ -1,9 +1,23 @@
-#include <omp.h>               // OpenMP API for multi-threading
-#include "BigInt.h"            // BigInt datatype and support functions
+#include <omp.h>              // OpenMP API for multi-threading
+#include "BigInt.h"           // BigInt datatype and support functions
 
-#define N_MIN                0 // we are interested in n >= 0
-#define N_MAX            10000 //                  and n <= 10,000 
-#define TRIVIAL_XYZ_MAX 100000 // maximum x,y,z value for trivial search
+#define N_MIN               0 // we are interested in n >= 0
+#define N_MAX           10000 //                  and n <= 10,000 
+			      //
+#define TRIVIAL_X_MIN       0 // use x >= 0
+#define TRIVIAL_X_MAX  100000 // and x <= 100,000 for trivial searches
+
+// Loops through every x from <min> to <max> and calculates x^3. 
+#define foreach_x_and_x3(_min, _max) \
+	for (BigInt x = (_min), x3 = x*x*x; x <= (_max); ++x, x3 = x*x*x)
+
+// Loops through every y from <min> to <max> and calculates y^3. 
+#define foreach_y_and_y3(_min, _max) \
+	for (BigInt y = (_min), y3 = y*y*y; y <= (_max); ++y, y3 = y*y*y)
+
+// Loops through every z from <min> to <max> and calculates z^3. 
+#define foreach_z_and_z3(_min, _max) \
+	for (BigInt z = (_min), z3 = z*z*z; z <= (_max); ++z, z3 = z*z*z)
 
 void calculateSolution(BigInt x, BigInt y, BigInt z) // mode 1
 {
@@ -11,7 +25,7 @@ void calculateSolution(BigInt x, BigInt y, BigInt z) // mode 1
 	printfBigInts("%B³ + %B³ + %B³ = %B", x, y, z, n);
 }
 
-// A potential solution has been found, so check and print and remember it.
+// A potential solution has been found, so check/print/remember it.
 void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	static int knownSolutions[N_MAX + 1] = { 0 }; 
@@ -21,7 +35,7 @@ void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 	else if (n < N_MIN || n > N_MAX)
 		return; // out of range (should not happen)
 	else if (knownSolutions[n]++ > 0)
-		; // already found a solution for <n> 
+		return; // already found a solution for <n> 
 	else if (x > 0 && y < 0 && z < 0)
 		printfBigInts("%B = %B³ - %B³ - %B³", n, x, -y, -z);
 	else if (x > 0 && y > 0 && z < 0)
@@ -30,8 +44,9 @@ void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 		printfBigInts("%B = %B³ + %B³ - %B³", n, z, y, -x);
 	else
 		printfBigInts("%B = %B³ + %B³ + %B³", n, x, y, z);
-	if (n == 114 || n == 390 || n == 627 || n == 633 || n == 732 || n == 921 || n == 975)
-		printf("JACKPOT - a nontrivial solution has been found!!!\n");
+	if (n == 30 || n == 33 || n == 42 || n == 52 || n == 74 || n == 165 || n == 795 || n == 906 // known nontrivial solutions
+	    || n == 114 || n == 390 || n == 627 || n == 633 || n == 732 || n == 921 || n == 975) // unknown nontrivial solutions
+		printf("JACKPOT - found a nontrivial solution !!!\n");
 }
 
 void listNoSolutions(void) // mode 2
@@ -41,19 +56,9 @@ void listNoSolutions(void) // mode 2
 			printf("%d = no solution\n", n);
 }
 
-// Loops through every x and x^3 from <min> to <max> (upwards).
-#define foreach_x_and_x3(_min, _max) \
-	for (BigInt x = (_min), x3 = x*x*x; x <= (_max); ++x, x3 = x*x*x)
-
-#define foreach_y_and_y3(_min, _max) \
-	for (BigInt y = (_min), y3 = y*y*y; y <= (_max); ++y, y3 = y*y*y)
-
-#define foreach_z_and_z3(_min, _max) \
-	for (BigInt z = (_min), z3 = z*z*z; z <= (_max); ++z, z3 = z*z*z)
-
-void listSolutionsForPositiveNumbersOnly(void) // mode 3
+void listSolutionsForPositiveXYZ(void) // mode 3
 {
-	foreach_x_and_x3(0, TRIVIAL_XYZ_MAX)
+	foreach_x_and_x3(0, N_MAX)
 	{
 		if (x3 > N_MAX)
 			break; // x³ is too big already
@@ -75,20 +80,17 @@ void listSolutionsForPositiveNumbersOnly(void) // mode 3
 
 void listTrivialSolutionsForNegativeNumbers(void) // mode 4
 {
-	foreach_x_and_x3(0, TRIVIAL_XYZ_MAX)
+	foreach_x_and_x3(TRIVIAL_X_MIN, TRIVIAL_X_MAX)
 	{
-#pragma omp parallel for
-		for (BigInt y = 0; y <= x; ++y)
+		foreach_y_and_y3(0, x)
 		{
-			const BigInt x3_minus_y3 = x3 - y*y*y;
-			for (BigInt z = 0; z <= y; ++z)
+			const BigInt x3_minus_y3 = x3 - y3; // result is never negative
+			foreach_z_and_z3(0, y)
 			{
-				const BigInt z3 = z*z*z;
-				BigInt n = x3_minus_y3 + z3;
-				if (-N_MAX <= n && n <= N_MAX)
-					onSolutionFound(n, x, -y, z);
+				if (x3_minus_y3 + z3 <= N_MAX)
+					onSolutionFound(x3_minus_y3 + z3, x, -y, z);
 
-				n = x3_minus_y3 - z3;
+				const BigInt n = x3_minus_y3 - z3;
 				if (-N_MAX <= n && n <= N_MAX)
 					onSolutionFound(n, x, -y, -z);
 			}
@@ -144,22 +146,22 @@ int main(int argc, char **argv)
 	{
 		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x,y,z > 0 (positive numbers only)\n", N_MIN, N_MAX);
 
-		listSolutionsForPositiveNumbersOnly();
+		listSolutionsForPositiveXYZ();
 	}
 	else if (mode == 4)
 	{
-		printf("# List of trivial solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x,y,z=[%d..%d]\n",
-		    N_MIN, N_MAX, -TRIVIAL_XYZ_MAX, TRIVIAL_XYZ_MAX);
+		printf("# List of trivial solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x=[%d..%d]\n",
+		    N_MIN, N_MAX, TRIVIAL_X_MIN, TRIVIAL_X_MAX);
 
 		listTrivialSolutionsForNegativeNumbers();
 	}
 	else if (mode == 5) 
 	{
-		printf("# List of trivial solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x,y,z=[%d..%d]\n",
-		    N_MIN, N_MAX, -TRIVIAL_XYZ_MAX, TRIVIAL_XYZ_MAX);
+		printf("# List of trivial solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x=[%d..%d]\n",
+		    N_MIN, N_MAX, TRIVIAL_X_MIN, TRIVIAL_X_MAX);
 
 		listNoSolutions();
-		listSolutionsForPositiveNumbersOnly();
+		listSolutionsForPositiveXYZ();
 		listTrivialSolutionsForNegativeNumbers();
 	}
 	else if (mode == 6) 
