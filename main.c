@@ -78,6 +78,24 @@ void listSolutionsForPositiveXYZ(void) // mode 3
 	}
 }
 
+void listSolutionsForNegativeZ(void) // mode 7
+{
+	foreach_x_and_x3(TRIVIAL_X_MIN, TRIVIAL_X_MAX)
+	{
+		BigInt z = x;
+		foreach_y_and_y3(1, x - 1)
+		{
+			const BigInt x3_plus_y3 = x3 + y3;
+
+			for (; x3_plus_y3 - z*z*z > N_MAX; ++z)
+				;
+		
+			if (x3_plus_y3 - z*z*z >= N_MIN)
+				onSolutionFound(x3_plus_y3 - z*z*z, x, y, -z);
+		}
+	}
+}
+
 void listTrivialSolutionsForNegativeNumbers(void) // mode 4
 {
 	foreach_x_and_x3(TRIVIAL_X_MIN, TRIVIAL_X_MAX)
@@ -171,6 +189,11 @@ int main(int argc, char **argv)
 		else
 			printf("Syntax for mode 6 is: ./mode 6 <exponent>\n");
 
+	}
+	else if (mode == 7)
+	{
+		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and negative z\n", N_MIN, N_MAX);
+		listSolutionsForNegativeZ();
 	}
 	else
 		printf("Syntax is: ./mode <NUMBER> (with value range 1...6)\n");
