@@ -37,42 +37,43 @@ This mode calculates and lists all solutions for positive numbers of x, y, z onl
 `./mode 3` returns: [solutions_for_positive_xyz.txt](Solutions/solutions_for_positive_xyz.txt). It uses the function listSolutionsForPositiveXYZ() and took 0.037s on a Core i9.
 
 
-Mode 7 - List trivial solutions for negative z
+Mode 4 - List trivial solutions for negative z
 ----------------------------------------------
 This mode calculates and lists trivial solutions for z < 0.
 
-`./mode 7` returns: [trivial_for_negative_z.txt](Solutions/trivial_for_negative_z.txt). It uses the function listTrivialSolutionsForNegativeZ() and took 1min on a Core i9.
+`./mode 4` returns: [trivial_for_negative_z.txt](Solutions/trivial_for_negative_z.txt). It uses the function listTrivialSolutionsForNegativeZ() and took 1min on a Core i9.
 
-Mode 4 - List trivial solutions for negative numbers
+
+Mode 5 - List trivial solutions for negative numbers
 ----------------------------------------------------
 This mode calculates and lists trivial solutions for x, y, z with at least one negative number.
 
-`./mode 4` returns: [trivial_for_negative_numbers.txt](Solutions/trivial_for_negative_numbers.txt). It uses the function listTrivialSolutionsForNegativeNumbers() and took 4h on a Core i9.
+`./mode 5` returns: [trivial_for_negative_numbers.txt](Solutions/trivial_for_negative_numbers.txt). It uses the function listTrivialSolutionsForNegativeNumbers() and took 4h on a Core i9.
 
 
-Mode 5 - List trivial solutions
+Mode 6 - List trivial solutions
 -------------------------------
-This mode combines mode 2, mode 3, and mode 4.
+This mode combines mode 2 + 3 + 4 + 5.
 
-`./mode 5` returns: [trivial_solutions.txt](Solutions/trivial_solutions.txt) and took 4h.
+`./mode 6` returns: [trivial_solutions.txt](Solutions/trivial_solutions.txt) and took 4h.
 
 
-Mode 6 - List nontrivial solutions
+Mode 7 - List nontrivial solutions
 ----------------------------------
 This mode calculates and lists nontrivial solutions for a value range of x. The additional argument is an exponent that defines the value range for x, e.g. 6 means: x=[10^6..10^7].
 
 It uses a 'shotgun' algorithm in the listNontrivialSolutions() function. For readability the following files have been numerically sorted with: `sort -g < infile > outfile`.
 
-* `./mode 6 3` returns: [solutions_for_x_greater_10^3.txt](Solutions/solutions_for_x_greater_10^3.txt) (took 0.042s on a Core i9).
-* `./mode 6 4` returns: [solutions_for_x_greater_10^4.txt](Solutions/solutions_for_x_greater_10^4.txt) (took 3.4s on a Core i9).
-* `./mode 6 5` returns: [solutions_for_x_greater_10^5.txt](Solutions/solutions_for_x_greater_10^5.txt) (took 5min 23s on a Core i9).
-* `./mode 6 6` returns: [solutions_for_x_greater_10^6.txt](Solutions/solutions_for_x_greater_10^6.txt) (took 2h on a Core i9).
-* `./mode 6 7` returns: [solutions_for_x_greater_10^7.txt](Solutions/solutions_for_x_greater_10^7.txt) (took 13h on a Core i9).
-* `./mode 6 8` returns: [solutions_for_x_greater_10^8.txt](Solutions/solutions_for_x_greater_10^8.txt) (not finished yet).
-* `./mode 6 9` returns: [solutions_for_x_greater_10^9.txt](Solutions/solutions_for_x_greater_10^9.txt) (not finished yet).
-* `./mode 6 10` returns: [solutions_for_x_greater_10^10.txt](Solutions/solutions_for_x_greater_10^10.txt) (not finished yet).
-* `./mode 6 11` returns: [solutions_for_x_greater_10^11.txt](Solutions/solutions_for_x_greater_10^11.txt) (not finished yet).
-* `./mode 6 12` returns: [solutions_for_x_greater_10^12.txt](Solutions/solutions_for_x_greater_10^12.txt) (not finished yet).
+* `./mode 7 3` returns: [solutions_for_x_greater_10^3.txt](Solutions/solutions_for_x_greater_10^3.txt) (took 0.042s on a Core i9).
+* `./mode 7 4` returns: [solutions_for_x_greater_10^4.txt](Solutions/solutions_for_x_greater_10^4.txt) (took 3.4s on a Core i9).
+* `./mode 7 5` returns: [solutions_for_x_greater_10^5.txt](Solutions/solutions_for_x_greater_10^5.txt) (took 5min 23s on a Core i9).
+* `./mode 7 6` returns: [solutions_for_x_greater_10^6.txt](Solutions/solutions_for_x_greater_10^6.txt) (took 2h on a Core i9).
+* `./mode 7 7` returns: [solutions_for_x_greater_10^7.txt](Solutions/solutions_for_x_greater_10^7.txt) (took 13h on a Core i9).
+* `./mode 7 8` returns: [solutions_for_x_greater_10^8.txt](Solutions/solutions_for_x_greater_10^8.txt) (not finished yet).
+* `./mode 7 9` returns: [solutions_for_x_greater_10^9.txt](Solutions/solutions_for_x_greater_10^9.txt) (not finished yet).
+* `./mode 7 10` returns: [solutions_for_x_greater_10^10.txt](Solutions/solutions_for_x_greater_10^10.txt) (not finished yet).
+* `./mode 7 11` returns: [solutions_for_x_greater_10^11.txt](Solutions/solutions_for_x_greater_10^11.txt) (not finished yet).
+* `./mode 7 12` returns: [solutions_for_x_greater_10^12.txt](Solutions/solutions_for_x_greater_10^12.txt) (not finished yet).
 
 
 🏆 Nontrivial Solutions
