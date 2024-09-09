@@ -3,21 +3,9 @@
 
 #define N_MIN               0 // we are interested in n >= 0
 #define N_MAX           10000 //                  and n <= 10,000 
-			      //
+
 #define TRIVIAL_X_MIN       0 // use x >= 0
 #define TRIVIAL_X_MAX  100000 // and x <= 100,000 for trivial searches
-
-// Loops through every x from <min> to <max> and calculates x^3. 
-#define foreach_x_and_x3(_min, _max) \
-	for (BigInt x = (_min), x3 = x*x*x; x <= (_max); ++x, x3 = x*x*x)
-
-// Loops through every y from <min> to <max> and calculates y^3. 
-#define foreach_y_and_y3(_min, _max) \
-	for (BigInt y = (_min), y3 = y*y*y; y <= (_max); ++y, y3 = y*y*y)
-
-// Loops through every z from <min> to <max> and calculates z^3. 
-#define foreach_z_and_z3(_min, _max) \
-	for (BigInt z = (_min), z3 = z*z*z; z <= (_max); ++z, z3 = z*z*z)
 
 void calculateSolution(BigInt x, BigInt y, BigInt z) // mode 1
 {
@@ -25,7 +13,7 @@ void calculateSolution(BigInt x, BigInt y, BigInt z) // mode 1
 	printfBigInts("%B³ + %B³ + %B³ = %B", x, y, z, n);
 }
 
-// A potential solution has been found, so check/print/remember it.
+// A potential solution has been found, so check + print + remember it.
 void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 {
 	static int knownSolutions[N_MAX + 1] = { 0 }; 
@@ -58,18 +46,21 @@ void listNoSolutions(void) // mode 2
 
 void listSolutionsForPositiveXYZ(void) // mode 3
 {
-	foreach_x_and_x3(0, N_MAX)
+	for (BigInt x = 0; x < N_MAX; ++x)
 	{
+		const BigInt x3 = x*x*x;
 		if (x3 > N_MAX)
 			break; // x³ is too big already
-		foreach_y_and_y3(0, x)
+
+		for (BigInt y = 0; y <= x; ++y)
 		{
-			BigInt x3_plus_y3 = x3 + y3;
+			const BigInt x3_plus_y3 = x3 + y*y*y;
 			if (x3_plus_y3 > N_MAX)
 				break; // x³ + y³ is too big already
-			foreach_z_and_z3(0, y)
+
+			for (BigInt z = 0; z <= y; ++z)
 			{
-				BigInt n = x3_plus_y3 + z3;
+				const BigInt n = x3_plus_y3 + z*z*z;
 				if (n > N_MAX)
 				       break; // x³ + y³ + z³ is too big already
 				onSolutionFound(n, x, y, z);
@@ -80,12 +71,15 @@ void listSolutionsForPositiveXYZ(void) // mode 3
 
 void listSolutionsForNegativeZ(void) // mode 4
 {
-	foreach_x_and_x3(TRIVIAL_X_MIN, TRIVIAL_X_MAX)
+	for (BigInt x = TRIVIAL_X_MIN; x <= TRIVIAL_X_MAX; ++x)
 	{
+		const BigInt x3 = x*x*x;
 		BigInt z = x;
-		foreach_y_and_y3(1, x - 1)
+
+#pragma omp parallel for
+		for (BigInt y = 1; y < x; ++y)
 		{
-			const BigInt x3_plus_y3 = x3 + y3;
+			const BigInt x3_plus_y3 = x3 + y*y*y;
 
 			while (x3_plus_y3 - z*z*z > N_MAX)
 				++z;
@@ -98,35 +92,35 @@ void listSolutionsForNegativeZ(void) // mode 4
 
 void listSolutionsForNegativeYZ(void) // mode 5
 {
-	foreach_x_and_x3(TRIVIAL_X_MIN, TRIVIAL_X_MAX)
+	for (BigInt x = TRIVIAL_X_MIN; x <= TRIVIAL_X_MAX; ++x)
 	{
-		foreach_y_and_y3(1, x - 1)
+		const BigInt x3 = x*x*x;
+
+#pragma omp parallel for
+		for (BigInt y = 1; y < x; ++y)
 		{
-			const BigInt x3_minus_y3 = x3 - y3; // result is never negative
-			foreach_z_and_z3(1, y)
+			const BigInt x3_minus_y3 = x3 - y*y*y; // result is never negative
+
+			for (BigInt z = 1; z < y; ++z)
 			{
-				const BigInt n = x3_minus_y3 - z3;
-				if (-N_MAX <= n && n <= N_MAX)
+				const BigInt n = x3_minus_y3 - z*z*z;
+				if (n < -N_MAX)
+					break; // z is too big already
+				if (n <= N_MAX)
 					onSolutionFound(n, x, -y, -z);
 			}
 		}
 	}
 }
 
-void listNontrivialSolutions(int exponent) // mode 7
+void listNontrivialSolutions(const BigInt x_min, const BigInt x_max) // mode 7
 {
-	printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x=[10^%d..10^%d]\n",
-	    N_MIN, N_MAX, exponent, exponent + 1);
-
-	const BigInt x_min = baseAndExponentToBigInt(10, exponent);
-	const BigInt x_max = baseAndExponentToBigInt(10, exponent + 1);
-
-	foreach_x_and_x3(x_min, x_max)
+	for (BigInt x = x_min; x <= x_max; ++x)
 	{
-		BigInt z = 1; // z goes up
+		BigInt x3 = x*x*x, z = 1; // z walks up
 
 #pragma omp parallel for
-		for (BigInt y = x - 1; y >= z; --y) // y goes down
+		for (BigInt y = x - 1; y > z; --y) // y walks down
 		{
 			const BigInt x3_minus_y3 = x3 - y*y*y;
 			
@@ -187,7 +181,15 @@ int main(int argc, char **argv)
 	else if (mode == 7) 
 	{
 		if (argc == 3)
-			listNontrivialSolutions(atoi(argv[2]));
+		{
+			int exponent = atoi(argv[2]);
+			printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x=[10^%d..10^%d]\n",
+			    N_MIN, N_MAX, exponent, exponent + 1);
+
+			BigInt x_min = baseAndExponentToBigInt(10, exponent);
+			BigInt x_max = baseAndExponentToBigInt(10, exponent + 1);
+			listNontrivialSolutions(x_min, x_max);
+		}
 		else
 			printf("Syntax for mode 7 is: ./mode 7 <exponent>\n");
 
