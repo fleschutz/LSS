@@ -41,7 +41,7 @@ Mode 4 - List trivial solutions for negative z
 ----------------------------------------------
 This mode calculates and lists trivial solutions for z < 0.
 
-`./mode 4` returns: [solutions_for_negative_z.txt](Solutions/solutions_for_negative_z.txt). It uses the function listSolutionsForNegativeZ() and took 1min on a Core i9.
+`./mode 4` returns: [solutions_for_negative_z.txt](Solutions/solutions_for_negative_z.txt). It uses the function listSolutionsForNegativeZ() and took 1min on a Core i9. For readability the output file have been numerically sorted by executing: `sort -g < infile > outfile`.
 
 
 Mode 5 - List trivial solutions for negative y and z
@@ -60,9 +60,9 @@ This mode combines mode 2 + 3 + 4 + 5.
 
 Mode 7 - List nontrivial solutions
 ----------------------------------
-This mode calculates and lists nontrivial solutions for a value range of x. The additional argument is an exponent that defines the value range for x, e.g. 6 means: x=[10^6..10^7].
+This mode calculates and lists nontrivial solutions for a given value range of x. The value range is defined by an <exponent>, e.g. exponent 6 means: x=[10^6..10^7].
 
-It uses a 'shotgun' algorithm in the listNontrivialSolutions() function. For readability the following files have been numerically sorted with: `sort -g < infile > outfile`.
+It uses a 'shotgun' algorithm in the listNontrivialSolutions() function. 
 
 * `./mode 7 3` returns: [solutions_for_x_greater_10^3.txt](Solutions/solutions_for_x_greater_10^3.txt) (took 0.042s on a Core i9).
 * `./mode 7 4` returns: [solutions_for_x_greater_10^4.txt](Solutions/solutions_for_x_greater_10^4.txt) (took 3.4s on a Core i9).
