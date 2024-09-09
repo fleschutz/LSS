@@ -15,8 +15,8 @@ Requires a **C/C++ compiler** only. Then execute in a terminal window:
 > ./mode <NUMBER>                             # replace <NUMBER> by the mode number (see below)
 ```
 
-Mode 1 - Calculate a solution
------------------------------
+Mode 1 - Calculate a solution for x,y,z
+---------------------------------------
 This mode calculates the result of: x³ + y³ + z³ for the given values of x, y, z. Note the following examples:
 
 * `./mode 1  1 2 3` returns: 1³ + 2³ + 3³ = 36
