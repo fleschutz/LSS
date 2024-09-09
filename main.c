@@ -78,7 +78,7 @@ void listSolutionsForPositiveXYZ(void) // mode 3
 	}
 }
 
-void listSolutionsForNegativeZ(void) // mode 7
+void listSolutionsForNegativeZ(void) // mode 4
 {
 	foreach_x_and_x3(TRIVIAL_X_MIN, TRIVIAL_X_MAX)
 	{
@@ -96,18 +96,15 @@ void listSolutionsForNegativeZ(void) // mode 7
 	}
 }
 
-void listTrivialSolutionsForNegativeNumbers(void) // mode 4
+void listSolutionsForNegativeYZ(void) // mode 5
 {
 	foreach_x_and_x3(TRIVIAL_X_MIN, TRIVIAL_X_MAX)
 	{
-		foreach_y_and_y3(0, x)
+		foreach_y_and_y3(1, x - 1)
 		{
 			const BigInt x3_minus_y3 = x3 - y3; // result is never negative
-			foreach_z_and_z3(0, y)
+			foreach_z_and_z3(1, y)
 			{
-				if (x3_minus_y3 + z3 <= N_MAX)
-					onSolutionFound(x3_minus_y3 + z3, x, -y, z);
-
 				const BigInt n = x3_minus_y3 - z3;
 				if (-N_MAX <= n && n <= N_MAX)
 					onSolutionFound(n, x, -y, -z);
@@ -116,30 +113,28 @@ void listTrivialSolutionsForNegativeNumbers(void) // mode 4
 	}
 }
 
-void listNontrivialSolutions(int exponent) // mode 6
+void listNontrivialSolutions(int exponent) // mode 7
 {
-	const BigInt x_min = baseAndExponentToBigInt(10, exponent);
-	const BigInt x_max = baseAndExponentToBigInt(10, exponent + 1);
-
 	printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x=[10^%d..10^%d]\n",
 	    N_MIN, N_MAX, exponent, exponent + 1);
 
+	const BigInt x_min = baseAndExponentToBigInt(10, exponent);
+	const BigInt x_max = baseAndExponentToBigInt(10, exponent + 1);
+
 	foreach_x_and_x3(x_min, x_max)
 	{
-		BigInt z = 1, z3 = z*z*z;
+		BigInt z = 1; // z goes up
 
 #pragma omp parallel for
-		for (BigInt y = x - 1; y >= z; --y)
+		for (BigInt y = x - 1; y >= z; --y) // y goes down
 		{
 			const BigInt x3_minus_y3 = x3 - y*y*y;
 			
-			while (x3_minus_y3 - z3 > N_MAX)
-			{
+			while (x3_minus_y3 - z*z*z > N_MAX)
 				++z;
-				z3 = z*z*z;
-			}
-			if (x3_minus_y3 - z3 >= -N_MAX)
-				onSolutionFound(x3_minus_y3 - z3, x, -y, -z);
+
+			if (x3_minus_y3 - z*z*z >= -N_MAX)
+				onSolutionFound(x3_minus_y3 - z*z*z, x, -y, -z);
 		}
 	}
 }
@@ -162,40 +157,42 @@ int main(int argc, char **argv)
 	}
 	else if (mode == 3)
 	{
-		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x,y,z > 0 (positive numbers only)\n", N_MIN, N_MAX);
-
+		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x,y,z > 0\n", N_MIN, N_MAX);
 		listSolutionsForPositiveXYZ();
 	}
 	else if (mode == 4)
 	{
-		printf("# List of trivial solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x=[%d..%d]\n",
+		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x=[%d..%d] and z < 0\n",
 		    N_MIN, N_MAX, TRIVIAL_X_MIN, TRIVIAL_X_MAX);
 
-		listTrivialSolutionsForNegativeNumbers();
+		listSolutionsForNegativeZ();
 	}
-	else if (mode == 5) 
+	else if (mode == 5)
+	{
+		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x=[%d..%d] and y,z < 0\n",
+		    N_MIN, N_MAX, TRIVIAL_X_MIN, TRIVIAL_X_MAX);
+
+		listSolutionsForNegativeYZ();
+	}
+	else if (mode == 6) 
 	{
 		printf("# List of trivial solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x=[%d..%d]\n",
 		    N_MIN, N_MAX, TRIVIAL_X_MIN, TRIVIAL_X_MAX);
 
 		listNoSolutions();
 		listSolutionsForPositiveXYZ();
-		listTrivialSolutionsForNegativeNumbers();
+		listSolutionsForNegativeZ();
+		listSolutionsForNegativeYZ();
 	}
-	else if (mode == 6) 
+	else if (mode == 7) 
 	{
 		if (argc == 3)
 			listNontrivialSolutions(atoi(argv[2]));
 		else
-			printf("Syntax for mode 6 is: ./mode 6 <exponent>\n");
+			printf("Syntax for mode 7 is: ./mode 7 <exponent>\n");
 
 	}
-	else if (mode == 7)
-	{
-		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and negative z\n", N_MIN, N_MAX);
-		listSolutionsForNegativeZ();
-	}
 	else
-		printf("Syntax is: ./mode <NUMBER> (with value range 1...6)\n");
+		printf("Syntax is: ./mode <NUMBER> (with value range 1...7)\n");
 	return 0;
 }

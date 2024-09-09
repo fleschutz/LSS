@@ -1,4 +1,4 @@
-# List of solutions for: n = x³ + y³ + z³  with n=[0..10000] and negative z
+# List of solutions for: n = x³ + y³ + z³  with n=[0..10000] and z < 0
 1 = 2³ + 1³ - 2³
 8 = 3³ + 2³ - 3³
 27 = 4³ + 3³ - 4³
