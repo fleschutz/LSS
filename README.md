@@ -55,7 +55,7 @@ Mode 6 - List trivial solutions
 -------------------------------
 This mode combines mode 2 + 3 + 4 + 5.
 
-`./mode 6` returns: [trivial_solutions.txt](Solutions/trivial_solutions.txt) and took 4h.
+`./mode 6` returns: [trivial_solutions.txt](Solutions/trivial_solutions.txt) and took 4h on a Core i9.
 
 
 Mode 7 - List nontrivial solutions
