@@ -4,8 +4,8 @@
 #define N_MIN               0 // we are interested in n >= 0
 #define N_MAX           10000 //                  and n <= 10,000 
 
-#define TRIVIAL_X_MIN       0 // use x >= 0
-#define TRIVIAL_X_MAX  100000 // and x <= 100,000 for trivial searches
+#define TRIVIAL_X_MIN       0 // for trivial searches use x >= 0
+#define TRIVIAL_X_MAX  100000 //                      and x <= 100,000 
 
 void calculateSolution(BigInt x, BigInt y, BigInt z) // mode 1
 {
