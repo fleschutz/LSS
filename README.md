@@ -34,7 +34,7 @@ Mode 3 - List all solutions for positive x,y,z
 ----------------------------------------------
 This mode calculates and lists all solutions for x >= 0, y >= 0, and z >= 0.
 
-`./mode 3` returns: [solutions_for_positive_xyz.txt](Solutions/solutions_for_positive_xyz.txt) (for readability the file have been numerically sorted by executing: `sort -g < infile > outfile`). It uses the function listSolutionsForPositiveXYZ() and took 0.037s on a Core i9. 
+`./mode 3` returns: [solutions_for_positive_xyz.txt](Solutions/solutions_for_positive_xyz.txt) (for readability the file has been numerically sorted by executing: `sort -g < infile > outfile`). It uses the function listSolutionsForPositiveXYZ() and took 0.037s on a Core i9. 
 
 
 Mode 4 - List trivial solutions for negative z
