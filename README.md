@@ -41,7 +41,7 @@ Mode 4 - List trivial solutions for negative z
 ----------------------------------------------
 This mode calculates and lists trivial solutions for z < 0.
 
-`./mode 4` returns: [solutions_for_negative_z.txt](Solutions/solutions_for_negative_z.txt). It uses the function listSolutionsForNegativeZ() and took 1min on a Core i9. 
+`./mode 4` returns: [solutions_for_negative_z.txt](Solutions/solutions_for_negative_z.txt). It uses the function listSolutionsForNegativeZ() and took 10s on a Core i9. 
 
 
 Mode 5 - List trivial solutions for negative y and z
