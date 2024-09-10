@@ -137,12 +137,9 @@ int main(int argc, char **argv)
 {
 	int mode = (argc >= 2) ? atoi(argv[1]) : 0/*invalid*/;
 	
-	if (mode == 1)
+	if (mode == 1 && argc == 5)
 	{
-		if (argc == 5)
-			calculateSolution(stringToBigInt(argv[2]), stringToBigInt(argv[3]), stringToBigInt(argv[4]));
-		else
-			printf("Syntax for mode 1 is: ./mode 1 <x> <y> <z>\n");
+		calculateSolution(stringToBigInt(argv[2]), stringToBigInt(argv[3]), stringToBigInt(argv[4]));
 	}
 	else if (mode == 2) 
 	{
@@ -178,23 +175,25 @@ int main(int argc, char **argv)
 		listSolutionsForNegativeZ();
 		listSolutionsForNegativeYZ();
 	}
-	else if (mode == 7) 
+	else if (mode == 7 && argc == 3) 
 	{
-		if (argc == 3)
-		{
-			int exponent = atoi(argv[2]);
-			printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x=[10^%d..10^%d]\n",
-			    N_MIN, N_MAX, exponent, exponent + 1);
+		int exponent = atoi(argv[2]);
+		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x=[10^%d..10^%d]\n",
+		    N_MIN, N_MAX, exponent, exponent + 1);
 
-			BigInt x_min = baseAndExponentToBigInt(10, exponent);
-			BigInt x_max = baseAndExponentToBigInt(10, exponent + 1);
-			listNontrivialSolutions(x_min, x_max);
-		}
-		else
-			printf("Syntax for mode 7 is: ./mode 7 <exponent>\n");
-
+		BigInt x_min = baseAndExponentToBigInt(10, exponent);
+		BigInt x_max = baseAndExponentToBigInt(10, exponent + 1);
+		listNontrivialSolutions(x_min, x_max);
 	}
 	else
-		printf("Syntax is: ./mode <NUMBER> (with value range 1...7)\n");
+	{
+		printf("Syntax: ./mode 1 <x> <y> <z> - Calculates a solution for x, y, z\n");
+		printf("        ./mode 2             - Lists no solutions\n");
+		printf("        ./mode 3             - Lists all solutions for positive x, y z\n");
+		printf("        ./mode 4             - Lists trivial solutions for negative z\n");
+		printf("        ./mode 5             - Lists trivial solutions for negative y and z\n");
+		printf("        ./mode 6             - Lists all trivial solutions\n");
+		printf("        ./mode 7 <exponent>  - Lists nontrivial solutions for value range\n");
+	}
 	return 0;
 }
