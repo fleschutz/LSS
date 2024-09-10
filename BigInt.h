@@ -90,7 +90,7 @@ static BigInt cubeNumber(BigInt n)
 // Returns the cube root of the given number, e.g. cubicRoot(27) returns 3.
 static BigInt cubicRoot(BigInt n)
 {
-    BigInt start = 0, end = n; // Set start and end for binary search
+    BigInt start = 0, end = n; // set start and end for binary search
 
     for (;;)
     {
