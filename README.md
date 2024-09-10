@@ -60,7 +60,7 @@ This mode combines mode 2 + 3 + 4 + 5.
 
 Mode 7 - List nontrivial solutions
 ----------------------------------
-This mode calculates and lists nontrivial solutions for a given value range of x. The value range is defined by an <exponent>, e.g. exponent 6 means: x=[10^6..10^7].
+This mode calculates and lists nontrivial solutions for a given value range of x. The value range is defined by an exponent, e.g. exponent 6 means: x=[10^6..10^7].
 
 It uses a 'shotgun' algorithm in the listNontrivialSolutions() function. 
 
