@@ -151,7 +151,7 @@ int main(int argc, char **argv)
 	}
 	else if (mode == 3)
 	{
-		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x,y,z > 0\n", N_MIN, N_MAX);
+		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x,y,z >= 0\n", N_MIN, N_MAX);
 		listSolutionsForPositiveXYZ();
 	}
 	else if (mode == 4)
