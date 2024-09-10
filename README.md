@@ -27,28 +27,28 @@ Mode 2 - List no solutions
 --------------------------
 This mode calculates and lists all non-existing solutions. No solution exists for: n equal 4 or 5 modulo 9.
 
-`./mode 2` returns: [no_solutions.txt](Solutions/no_solutions.txt). This mode uses function listNoSolutions() and took 0.116s on a Core i9.
+`./mode 2` returns: [no_solutions.txt](Solutions/no_solutions.txt). This mode uses the listNoSolutions() function and took 0.116s on a Core i9.
 
 
 Mode 3 - List all solutions for positive x,y,z
 ----------------------------------------------
 This mode calculates and lists all solutions for x >= 0, y >= 0, and z >= 0.
 
-`./mode 3` returns: [solutions_for_positive_xyz.txt](Solutions/solutions_for_positive_xyz.txt) (for readability the file has been numerically sorted by executing: `sort -g < infile > outfile`). It uses the function listSolutionsForPositiveXYZ() and took 0.037s on a Core i9. 
+`./mode 3` returns: [solutions_for_positive_xyz.txt](Solutions/solutions_for_positive_xyz.txt) (for readability the file has been numerically sorted by executing: `sort -g < infile > outfile`). It uses the listSolutionsForPositiveXYZ() function and took 0.037s on a Core i9. 
 
 
 Mode 4 - List trivial solutions for negative z
 ----------------------------------------------
 This mode calculates and lists trivial solutions for z < 0.
 
-`./mode 4` returns: [solutions_for_negative_z.txt](Solutions/solutions_for_negative_z.txt). It uses the function listSolutionsForNegativeZ() and took 10s on a Core i9. 
+`./mode 4` returns: [solutions_for_negative_z.txt](Solutions/solutions_for_negative_z.txt). It uses the listSolutionsForNegativeZ() function and took 10s on a Core i9. 
 
 
 Mode 5 - List trivial solutions for negative y and z
 ----------------------------------------------------
 This mode calculates and lists trivial solutions for y < 0 and z < 0.
 
-`./mode 5` returns: [solutions_for_negative_yz.txt](Solutions/solutions_for_negative_yz.txt). It uses the function listSolutionsForNegativeYZ() and took 4h on a Core i9.
+`./mode 5` returns: [solutions_for_negative_yz.txt](Solutions/solutions_for_negative_yz.txt). It uses the listSolutionsForNegativeYZ() function and took 4h on a Core i9.
 
 
 Mode 6 - List trivial solutions
