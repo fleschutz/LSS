@@ -1,11 +1,10 @@
-// Provides the BigInt datatype and support functions.
+// BigInt.h - Header file to provide the BigInt datatype and support functions.
 #include <stdarg.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-// Datatype to hold really big integer values.
-typedef __int128_t BigInt;
+typedef __int128_t BigInt; // datatype to hold really big integer values
 
 // Returns the given string as BigInt, e.g. stringToBigInt("123") returns 123.
 static BigInt stringToBigInt(const char *str)
