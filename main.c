@@ -32,9 +32,10 @@ void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 		printfBigInts("%B = %B³ + %B³ - %B³", n, z, y, -x);
 	else
 		printfBigInts("%B = %B³ + %B³ + %B³", n, x, y, z);
-	if (n == 30 || n == 33 || n == 42 || n == 52 || n == 74 || n == 165 || n == 795 || n == 906 // known nontrivial solutions
-	    || n == 114 || n == 390 || n == 627 || n == 633 || n == 732 || n == 921 || n == 975) // unknown nontrivial solutions
-		printf("JACKPOT - found a nontrivial solution !!!\n");
+	if (n == 30 || n == 33 || n == 42 || n == 52 || n == 74 || n == 165 || n == 795 || n == 906)
+		printf("YES - found a KNOWN nontrivial solution !!!\n");
+	else if (n == 114 || n == 390 || n == 627 || n == 633 || n == 732 || n == 921 || n == 975)
+		printf("JACKPOT - found an UNKNOWN nontrivial solution !!!\n");
 }
 
 void listNoSolutions(void) // mode 2
