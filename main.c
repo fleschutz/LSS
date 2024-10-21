@@ -188,13 +188,15 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		printf("Syntax: ./mode 1 <x> <y> <z> - Calculates a solution for x, y, z\n");
-		printf("        ./mode 2             - Lists no solutions\n");
-		printf("        ./mode 3             - Lists all solutions for positive x, y z\n");
-		printf("        ./mode 4             - Lists trivial solutions for negative z\n");
-		printf("        ./mode 5             - Lists trivial solutions for negative y and z\n");
-		printf("        ./mode 6             - Lists all trivial solutions\n");
-		printf("        ./mode 7 <exponent>  - Lists nontrivial solutions for value range\n");
+		printf("LSS v0.2 - list simple solutions for the equation: x³ + y³ + z³ = n\n");
+		printf("\n");
+		printf("Usage: ./mode 1 <x> <y> <z>  calculates the solution for given x, y, z\n");
+		printf("       ./mode 2              lists no solutions\n");
+		printf("       ./mode 3              lists all solutions for positive x, y z\n");
+		printf("       ./mode 4              lists trivial solutions for negative z\n");
+		printf("       ./mode 5              lists trivial solutions for negative y and z\n");
+		printf("       ./mode 6              lists all trivial solutions\n");
+		printf("       ./mode 7 <exponent>   lists nontrivial solutions for value range\n");
 	}
 	return 0;
 }
