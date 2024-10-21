@@ -16,13 +16,15 @@ void calculateSolution(BigInt x, BigInt y, BigInt z) // mode 1
 // A potential solution has been found, so check + print + remember it.
 void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 {
-	static int knownSolutions[N_MAX + 1] = { 0 }; 
+	static unsigned int solutionAlreadyKnown[N_MAX + 1] = { 0 }; 
 
 	if (n < 0)
 		onSolutionFound(-n, -x, -y, -z); // negate everything
+#ifdef DEBUG
 	else if (n < N_MIN || n > N_MAX)
 		return; // out of range (should not happen)
-	else if (knownSolutions[n]++ > 0)
+#endif
+	else if (solutionAlreadyKnown[n]++ > 0)
 		return; // already found a solution for <n> 
 	else if (x > 0 && y < 0 && z < 0)
 		printfBigInts("%B = %B³ - %B³ - %B³", n, x, -y, -z);
@@ -32,10 +34,11 @@ void onSolutionFound(BigInt n, BigInt x, BigInt y, BigInt z)
 		printfBigInts("%B = %B³ + %B³ - %B³", n, z, y, -x);
 	else
 		printfBigInts("%B = %B³ + %B³ + %B³", n, x, y, z);
+
 	if (n == 30 || n == 33 || n == 42 || n == 52 || n == 74 || n == 165 || n == 795 || n == 906)
-		printf("YES - found a KNOWN nontrivial solution !!!\n");
+		printf("YES - we found a KNOWN nontrivial solution !!!\n");
 	else if (n == 114 || n == 390 || n == 627 || n == 633 || n == 732 || n == 921 || n == 975)
-		printf("JACKPOT - found an UNKNOWN nontrivial solution !!!\n");
+		printf("JACKPOT - we found an UNKNOWN nontrivial solution !!!\n");
 }
 
 void listNoSolutions(void) // mode 2
@@ -144,31 +147,31 @@ int main(int argc, char **argv)
 	}
 	else if (mode == 2) 
 	{
-		printf("# List of no solutions for: n = x³ + y³ + z³  with n=[%d..%d]\n", N_MIN, N_MAX);
+		printf("# List of no solutions for: n = x³ + y³ + z³  with n=[%d...%d]\n", N_MIN, N_MAX);
 		listNoSolutions();
 	}
 	else if (mode == 3)
 	{
-		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x,y,z >= 0\n", N_MIN, N_MAX);
+		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d...%d] and x,y,z >= 0\n", N_MIN, N_MAX);
 		listSolutionsForPositiveXYZ();
 	}
 	else if (mode == 4)
 	{
-		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x=[%d..%d] and z < 0\n",
+		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d...%d] and x=[%d...%d] and z < 0\n",
 		    N_MIN, N_MAX, TRIVIAL_X_MIN, TRIVIAL_X_MAX);
 
 		listSolutionsForNegativeZ();
 	}
 	else if (mode == 5)
 	{
-		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x=[%d..%d] and y,z < 0\n",
+		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d...%d] and x=[%d...%d] and y,z < 0\n",
 		    N_MIN, N_MAX, TRIVIAL_X_MIN, TRIVIAL_X_MAX);
 
 		listSolutionsForNegativeYZ();
 	}
 	else if (mode == 6) 
 	{
-		printf("# List of trivial solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x=[%d..%d]\n",
+		printf("# List of trivial solutions for: n = x³ + y³ + z³  with n=[%d...%d] and x=[%d...%d]\n",
 		    N_MIN, N_MAX, TRIVIAL_X_MIN, TRIVIAL_X_MAX);
 
 		listNoSolutions();
@@ -179,7 +182,7 @@ int main(int argc, char **argv)
 	else if (mode == 7 && argc == 3) 
 	{
 		int exponent = atoi(argv[2]);
-		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d..%d] and x=[10^%d..10^%d]\n",
+		printf("# List of solutions for: n = x³ + y³ + z³  with n=[%d...%d] and x=[10^%d...10^%d]\n",
 		    N_MIN, N_MAX, exponent, exponent + 1);
 
 		BigInt x_min = baseAndExponentToBigInt(10, exponent);
@@ -196,7 +199,7 @@ int main(int argc, char **argv)
 		printf("       ./mode 4              lists trivial solutions for negative z\n");
 		printf("       ./mode 5              lists trivial solutions for negative y and z\n");
 		printf("       ./mode 6              lists all trivial solutions\n");
-		printf("       ./mode 7 <exponent>   lists nontrivial solutions for value range\n");
+		printf("       ./mode 7 <exponent>   lists nontrivial solutions for value range by given exponent\n");
 	}
 	return 0;
 }
