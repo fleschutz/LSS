@@ -121,18 +121,19 @@ void listNontrivialSolutions(const BigInt x_min, const BigInt x_max) // mode 7
 {
 	for (BigInt x = x_min; x <= x_max; ++x)
 	{
-		BigInt x3 = x*x*x, z = 1; // z walks up
+		const BigInt x3 = x*x*x;
+		BigInt z = 1; // z walks up
 
 #pragma omp parallel for
 		for (BigInt y = x - 1; y > z; --y) // y walks down
 		{
-			const BigInt x3_minus_y3 = x3 - y*y*y;
+			const BigInt x3_minus_y3_minus_N_MAX = x3 - y*y*y - N_MAX;
 			
-			while (x3_minus_y3 - z*z*z > N_MAX)
+			while (z*z*z < x3_minus_y3_minus_N_MAX)
 				++z;
 
-			if (x3_minus_y3 - z*z*z >= -N_MAX)
-				onSolutionFound(x3_minus_y3 - z*z*z, x, -y, -z);
+			if (x3_minus_y3_minus_N_MAX - z*z*z >= -N_MAX - N_MAX)
+				onSolutionFound(x3_minus_y3_minus_N_MAX + N_MAX - z*z*z, x, -y, -z);
 		}
 	}
 }
