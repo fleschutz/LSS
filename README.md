@@ -107,6 +107,6 @@ Want to get famous? Just solve one of these numbers. May the force be with you �
 Send your email feedback to: markus.fleschutz [at] gmail.com
 
 
-🤝 License & Copyright
+📜 License & Copyright
 -----------------------
 This open source project is licensed under the CC0 license. All trademarks are the property of their respective owners.
