@@ -101,11 +101,12 @@ Use [WolframAlpha](https://www.wolframalpha.com) to verify the solutions or exec
 
 Want to get famous? Just solve one of these numbers. May the force be with you 🖖
 
-
-📧 Feedback
-------------
-Send your email feedback to: markus.fleschutz [at] gmail.com
-
+🤝 Contributing
+----------------
+* Contributions, suggestions, and improvements are welcome!
+* Open an Issue if you encounter bugs or have feature ideas.
+* Create a Pull Request if you'd like to improve something.
+* Or just send your feedback to: markus.fleschutz [at] gmail.com
 
 📜 License & Copyright
 -----------------------
