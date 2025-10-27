@@ -7,7 +7,7 @@ The sums of three cubes is a hard math problem, see https://en.wikipedia.org/wik
 
 🔧 Installation
 ----------------
-Requires a **C/C++ compiler** only. Then execute in a terminal window: 
+Execute in a terminal window:   (requires a *C/C++ compiler* only) 
 ```
 > git clone https://github.com/fleschutz/LSS  # or download and unzip the ZIP file (click green button)
 > cd LSS
