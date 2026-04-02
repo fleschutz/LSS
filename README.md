@@ -14,54 +14,52 @@ Execute in a terminal window:   (requires a *C/C++ compiler* only)
 > ./mode <NUMBER>                             # replace <NUMBER> by the mode number (see below)
 ```
 
-Mode 1 - Calculate a solution for x,y,z
----------------------------------------
+Mode 1 - Solution for Given x,y,z
+---------------------------------
 This mode calculates the result of: x³ + y³ + z³ for the given values of x, y, z. Note the following examples:
 
-* `./mode 1  1 2 3` returns: 1³ + 2³ + 3³ = 36
+* `./mode 1  2 3 4` returns: 2³ + 3³ + 4³ = 99
 * `./mode 1 -80538738812075974 80435758145817515 12602123297335631` returns: -80538738812075974³ + 80435758145817515³ + 12602123297335631³ = 42
 
 
-Mode 2 - List no solutions
---------------------------
+Mode 2 - No Solutions
+---------------------
 This mode calculates and lists all non-existing solutions. No solution exists for: n equal 4 or 5 modulo 9.
 
 `./mode 2` returns: [no_solutions.txt](Solutions/no_solutions.txt). This mode uses the listNoSolutions() function and took 0.116s on a Core i9.
 
 
-Mode 3 - List all solutions for positive x,y,z
-----------------------------------------------
+Mode 3 - Trivial Solutions for Positive x,y,z
+---------------------------------------------
 This mode calculates and lists all solutions for x >= 0, y >= 0, and z >= 0.
 
 `./mode 3` returns: [solutions_for_positive_xyz.txt](Solutions/solutions_for_positive_xyz.txt) (for readability the file has been numerically sorted by executing: `sort -g < infile > outfile`). It uses the listSolutionsForPositiveXYZ() function and took 0.037s on a Core i9. 
 
 
-Mode 4 - List trivial solutions for negative z
-----------------------------------------------
+Mode 4 - Trivial Solutions for Negative z
+------------------------------------------
 This mode calculates and lists trivial solutions for z < 0.
 
 `./mode 4` returns: [solutions_for_negative_z.txt](Solutions/solutions_for_negative_z.txt). It uses the listSolutionsForNegativeZ() function and took 10s on a Core i9. 
 
 
-Mode 5 - List trivial solutions for negative y and z
-----------------------------------------------------
+Mode 5 - Trivial Solutions for Negative y and z
+-----------------------------------------------
 This mode calculates and lists trivial solutions for y < 0 and z < 0.
 
 `./mode 5` returns: [solutions_for_negative_yz.txt](Solutions/solutions_for_negative_yz.txt). It uses the listSolutionsForNegativeYZ() function and took 4h on a Core i9.
 
 
-Mode 6 - List trivial solutions
+Mode 6 - All Trivial Solutions
 -------------------------------
 This mode combines mode 2 + 3 + 4 + 5.
 
-`./mode 6` returns: [trivial_solutions.txt](Solutions/trivial_solutions.txt) and took 4h on a Core i9.
+`./mode 6` returns: [trivial_solutions.txt](Solutions/trivial_solutions.txt) and took 4h on a Core i9 CPU.
 
 
-Mode 7 - List nontrivial solutions
-----------------------------------
-This mode calculates and lists nontrivial solutions for a given value range of x. The value range is defined by an exponent, e.g. exponent 6 means: x=[10^6..10^7].
-
-It uses a 'shotgun' algorithm in the listNontrivialSolutions() function. 
+Mode 7 - Nontrivial Solutions
+------------------------------
+This mode calculates and lists nontrivial solutions for a given value range of x. The value range is defined by an exponent, e.g. exponent 6 means: x=[10^6..10^7]. It uses a 'shotgun' algorithm in the listNontrivialSolutions() function. 
 
 * `./mode 7 3` returns: [solutions_for_x_greater_10^3.txt](Solutions/solutions_for_x_greater_10^3.txt) (took 0.042s on a Core i9).
 * `./mode 7 4` returns: [solutions_for_x_greater_10^4.txt](Solutions/solutions_for_x_greater_10^4.txt) (took 3.4s on a Core i9).
