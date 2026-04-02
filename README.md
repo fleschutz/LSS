@@ -86,7 +86,7 @@ The following nontrivial solutions have already been solved in the past:
 * **795** = *(-14219049725358227)³ + 14197965759741573³ + 2337348783323923³* (solved by Andrew Booker)
 * **906** = *(-74924259395610397)³ + 72054089679353378³ + 35961979615356503³* (solved by Andrew Booker)
 
-To verify the solutions use [WolframAlpha](https://www.wolframalpha.com) or execute: `./mode 1 <x> <y> <z>` (copy&paste recommended). 
+Want to verify the solutions? Use [WolframAlpha](https://www.wolframalpha.com) or execute: `./mode 1 <x> <y> <z>` (copy & paste recommended)
 
 🏆 Nontrivial Solutions Currently Unsolved
 -------------------------------------------
