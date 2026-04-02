@@ -4,6 +4,8 @@ This repo contains a C program to list simple solutions (LSS) for the equation: 
 
 Please note the sums of three cubes is a hard math problem, explained at: https://en.wikipedia.org/wiki/Sums_of_three_cubes and https://en.wikipedia.org/wiki/Diophantine_equation 
 
+[!image](Solution/solution_for_33.jpg)
+
 🔧 Installation
 ----------------
 Execute in a terminal window:   (requires a *C/C++ compiler* only) 
