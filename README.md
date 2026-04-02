@@ -75,8 +75,8 @@ It uses a 'shotgun' algorithm in the listNontrivialSolutions() function.
 * `./mode 7 12` returns: [solutions_for_x_greater_10^12.txt](Solutions/solutions_for_x_greater_10^12.txt) (not finished yet).
 
 
-🏆 Nontrivial Solved Solutions
--------------------------------
+🏆 Nontrivial Solutions Already Solved
+---------------------------------------
 The following nontrivial solutions have already been solved in the past:
 
 * **30** = *3982933876681³ + (-636600549515)³ + (-3977505554546)³* (solved 1999 by Beck, Pine, Tarrant, and Yarbrough Jensen)
@@ -88,10 +88,10 @@ The following nontrivial solutions have already been solved in the past:
 * **795** = *(-14219049725358227)³ + 14197965759741573³ + 2337348783323923³* (solved by Andrew Booker)
 * **906** = *(-74924259395610397)³ + 72054089679353378³ + 35961979615356503³* (solved by Andrew Booker)
 
-Use [WolframAlpha](https://www.wolframalpha.com) to verify the solutions or execute: `./mode 1 x y z` (copy&paste recommended). 
+To verify the solutions use [WolframAlpha](https://www.wolframalpha.com) or execute: `./mode 1 <x> <y> <z>` (copy&paste recommended). 
 
-🏆 Nontrivial Unsolved Solutions
----------------------------------
+🏆 Nontrivial Solutions Currently Unsolved
+-------------------------------------------
 The only remaining unsolved cases up to 1,000 are the following seven numbers:
 
 * **114** = ?
